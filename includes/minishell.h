@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/11/20 10:35:35 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/20 11:11:31 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@
 # include <sys/stat.h> // stat
 # include <signal.h> // sigaction
 # include <fcntl.h> // open flags
+
+int	check_arg(int ac, char **av);
 
 #endif

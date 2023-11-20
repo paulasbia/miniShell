@@ -2,7 +2,9 @@
 
 NAME		= 		minishell
 
-SRCS		=		main.c
+MAIN		=		main.c checks.c
+
+SRCS		=		$(MAIN)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 

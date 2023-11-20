@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 10:12:30 by paula             #+#    #+#             */
-/*   Updated: 2023/11/20 11:13:18 by paula            ###   ########.fr       */
+/*   Created: 2023/11/20 11:01:01 by paula             #+#    #+#             */
+/*   Updated: 2023/11/20 11:12:10 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int ac, char **av, char **env)
+int	check_arg(int ac, char **av)
 {
-	(void)env;
-	check_arg(ac, av);
+	if (av && ac > 1)
+	{
+		ft_putstr_fd("Minishell invalid arguments\n", STDOUT_FILENO);
+		return (EXIT_FAILURE);
+	}
 	return (0);
 }
