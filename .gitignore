@@ -1,0 +1,5 @@
+minishell
+objs
+*/*.o
+*/*.a
+*/*.txt
