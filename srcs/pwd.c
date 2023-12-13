@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2023/12/13 14:33:21 by paula            ###   ########.fr       */
+/*   Created: 2023/12/13 14:32:18 by paula             #+#    #+#             */
+/*   Updated: 2023/12/13 14:34:44 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	minishell(t_env *my_env)
+int	pwd(void)
 {
-	(void)my_env;
-	pwd();
+	char	cwd[PATH_MAX];
+
+	getcwd(cwd, PATH_MAX);
+	ft_putstr_fd(cwd, 1);
+	ft_putstr_fd("\n", 1);
 	return (0);
 }
