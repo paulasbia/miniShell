@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/13 15:03:14 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/13 15:57:19 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <unistd.h>            // getpwd
 
 # define PATH_MAX 4096
+# define PROMPT "minishell_by_pde-souz: "
 
 typedef struct s_env
 {
