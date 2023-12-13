@@ -16,7 +16,7 @@ COLOUR_GREEN=\033[32m
 COLOUR_RED=\033[31m
 COLOUR_END=\033[0m
 
-objs/%.o: srcs/%.c
+objs/%.o: */%.c
 					@mkdir -p objs
 					@cc $(CFLAGS) -c $< -o $@
 
