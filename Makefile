@@ -2,7 +2,7 @@
 
 NAME		= 		minishell
 
-MAIN		=		main.c checks.c
+MAIN		=		main.c checks.c minishell.c
 
 SRCS		=		$(MAIN)
 

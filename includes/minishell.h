@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/11/20 11:11:31 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/13 10:10:28 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@
 # include <signal.h> // sigaction
 # include <fcntl.h> // open flags
 
+typedef struct s_env
+{
+	char			*key;
+	struct s_env	*next;
+}				t_env;
+
 int	check_arg(int ac, char **av);
+int minishell(t_env *my_env);
 
 #endif
