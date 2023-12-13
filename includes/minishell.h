@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/13 14:34:19 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/13 15:03:14 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,8 @@ int					minishell(t_env *my_env);
 
 // builtins
 int					pwd(void);
+
+// signals
+void				init_signal(void);
 
 #endif

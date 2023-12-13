@@ -1,10 +1,11 @@
 .SILENT:
 
 NAME		= 		minishell
-
+LDLIBS		=		-lreadline -lft
 MAIN		=		main.c checks.c minishell.c
 BUILTINS	=		pwd.c
-SRCS		=		$(MAIN) $(BUILTINS)
+UTILS		=		init_signal.c
+SRCS		=		$(MAIN) $(BUILTINS) $(UTILS)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 
@@ -23,7 +24,7 @@ objs/%.o: */%.c
 ${NAME}: ${OBJS}
 	@echo "$(COLOUR_GREEN)----Compiling lib----"
 	@make re -C ./libft
-	@cc $(FLAGS) $(OBJS) -Llibft -lft -o $(NAME)
+	@cc $(FLAGS) $(OBJS) -Llibft -lft -o $(NAME) $(LDLIBS)
 	@echo "$(COLOUR_GREEN)minishell Compiled! ᕦ$(COLOUR_RED)♥$(COLOUR_GREEN)_$(COLOUR_RED)♥$(COLOUR_GREEN)ᕤ\n$(COLOUR_END)"
 
 all: ${NAME}
