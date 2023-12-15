@@ -4,7 +4,7 @@ NAME		= 		minishell
 LDLIBS		=		-lreadline -lft
 MAIN		=		main.c checks.c minishell.c
 BUILTINS	=		pwd.c
-UTILS		=		init_signal.c
+UTILS		=		init_signal.c prompt.c
 SRCS		=		$(MAIN) $(BUILTINS) $(UTILS)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
@@ -16,6 +16,7 @@ RM			=		rm -f
 COLOUR_GREEN=\033[32m
 COLOUR_RED=\033[31m
 COLOUR_END=\033[0m
+COLOUR_MAG=\001\e[0;35m\002
 
 objs/%.o: */%.c
 					@mkdir -p objs
@@ -25,7 +26,8 @@ ${NAME}: ${OBJS}
 	@echo "$(COLOUR_GREEN)----Compiling lib----"
 	@make re -C ./libft
 	@cc $(FLAGS) $(OBJS) -Llibft -lft -o $(NAME) $(LDLIBS)
-	@echo "$(COLOUR_GREEN)minishell Compiled! ᕦ$(COLOUR_RED)♥$(COLOUR_GREEN)_$(COLOUR_RED)♥$(COLOUR_GREEN)ᕤ\n$(COLOUR_END)"
+	@echo "$(COLOUR_MAG)\nNice! Minishell Compiled! $(COLOUR_GREEN)ᕦ$(COLOUR_RED)♥$(COLOUR_GREEN)_$(COLOUR_RED)♥$(COLOUR_GREEN)ᕤ\n$(COLOUR_END)"
+	@echo "$(COLOUR_MAG)\nTo start the program type ./minishell\nENJOY!\n$(COLOUR_END)"
 
 all: ${NAME}
 

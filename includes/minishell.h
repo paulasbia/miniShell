@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/13 15:57:19 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/15 15:14:28 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <unistd.h>            // getpwd
 
 # define PATH_MAX 4096
+# define GRN "\001\e[0;32m\002"
+# define MAG "\001\e[0;35m\002"
+# define CRESET "\001\e[0m\002"
 # define PROMPT "minishell_by_pde-souz: "
 
 typedef struct s_env
@@ -38,6 +41,9 @@ int					minishell(t_env *my_env);
 
 // builtins
 int					pwd(void);
+
+//prompt
+char				*get_prompt(void);
 
 // signals
 void				init_signal(void);

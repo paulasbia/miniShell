@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2023/12/15 15:14:35 by paula            ###   ########.fr       */
+/*   Created: 2023/12/15 15:04:13 by paula             #+#    #+#             */
+/*   Updated: 2023/12/15 15:16:07 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	minishell(t_env *my_env)
+char	*get_prompt(void)
 {
-	char	*input;
+	char		*name;
+	static char	prompt[PATH_MAX];
 
-	(void)my_env;
-	while (1)
-	{
-		init_signal();
-		input = readline(get_prompt());
-		if (!input)
-			ft_putstr_fd("exit\n", 1);
-		if (ft_strncmp(input, "pwd", 4) == 0)
-			pwd();
-	}
-	return (0);
+	name = PROMPT;
+	ft_bzero(prompt, sizeof(prompt));
+	ft_strlcat(prompt, GRN, PATH_MAX);
+	ft_strlcat(prompt, name, PATH_MAX);
+	ft_strlcat(prompt, CRESET, PATH_MAX);
+	return (prompt);
 }
