@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2023/12/18 10:10:31 by paula            ###   ########.fr       */
+/*   Created: 2023/12/18 10:24:42 by paula             #+#    #+#             */
+/*   Updated: 2023/12/18 10:27:01 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	minishell(t_env *my_env)
+void	free_env(t_env **my_env)
 {
-	char	*input;
+	t_env	*aux;
+	t_env	*next;
 
-	(void)my_env;
-	while (1)
+	aux = *my_env;
+	while (aux)
 	{
-		init_signal();
-		input = readline(get_prompt());
-		if (!input)
-			(ft_exit(NULL, &my_env));
-		if (input[0])
-			add_history(input);
+		free(aux->key);
+		next = aux->next;
+		free(aux);
+		aux = next;
 	}
-	return (0);
+	my_env = NULL;
 }
