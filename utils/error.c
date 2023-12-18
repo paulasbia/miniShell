@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 09:23:00 by paula             #+#    #+#             */
-/*   Updated: 2023/12/18 11:18:28 by paula            ###   ########.fr       */
+/*   Created: 2023/12/18 11:12:48 by paula             #+#    #+#             */
+/*   Updated: 2023/12/18 11:13:43 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_exit(char **arg, t_env **my_env)
+void	print_error_msg(char *command, char *msg)
 {
-	int	exit_status;
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(command, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(msg, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+}
 
+void	exit_with_error(char *command, char *msg, int error)
+{
+	print_error_msg(command, msg);
+	//close_all_fds();
 	rl_clear_history();
-	free_env(my_env);
-	ft_putstr_fd("exit\n", 1);
-	if (arg && !arg[1])
-		exit(EXIT_SUCCESS);
-	if (arg[2] && ft_isdigit(ft_atoi(arg[1])))
-	{
-		exit_status = ft_atoi(arg[1]);
-		exit_with_error("exit", "too many arguments", EXIT_FAILURE);
-	}
-	exit_status = ft_atoi(arg[1]);
-	exit(exit_status);
+	exit(error);
 }
