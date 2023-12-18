@@ -5,7 +5,8 @@ LDLIBS		=		-lreadline -lft
 MAIN		=		main.c checks.c minishell.c
 BUILTINS	=		pwd.c exit.c
 UTILS		=		init_signal.c prompt.c frees.c error.c
-SRCS		=		$(MAIN) $(BUILTINS) $(UTILS)
+EXECUTES	=		one_cmd.c
+SRCS		=		$(MAIN) $(BUILTINS) $(UTILS) $(EXECUTES)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 

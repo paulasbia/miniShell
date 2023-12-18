@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/18 11:14:07 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/18 16:24:58 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,6 @@ void				free_env(t_env **my_env);
 // error
 void				exit_with_error(char *command, char *msg, int error);
 
+// EXECUTES
+int					one_cmd(char *input, t_env **my_env);
 #endif
