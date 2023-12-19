@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/18 16:24:58 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/19 10:51:06 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int					minishell(t_env *my_env);
 // builtins
 int					pwd(void);
 int					ft_exit(char **arg, t_env **my_env);
+int					echo(char **args);
 
 // prompt
 char				*get_prompt(void);
