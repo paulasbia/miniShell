@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/19 15:05:02 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/21 11:38:21 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int					check_arg(int ac, char **av);
 int					minishell(t_env *my_env);
 
 // builtins
+int					execute_builtin(char **args, t_env **minienv);
 int					pwd(void);
 int					ft_exit(char **arg, t_env **my_env);
 int					echo(char **args);
