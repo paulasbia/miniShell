@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:37:26 by paula             #+#    #+#             */
-/*   Updated: 2023/12/21 11:41:22 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/21 11:49:35 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,22 @@ int	execute_builtin(char **args, t_env **minienv)
 		return (env(*minienv));
 	else
 		return (EXIT_FAILURE);
+}
+
+int	cmd_builtin(char **args)
+{
+	char	*command;
+
+	command = args[0];
+	if (!command)
+		return (0);
+	if (str_equal(command, "pwd"))
+		return (1);
+	if (str_equal(command, "exit"))
+		return (1);
+	if (str_equal(command, "echo"))
+		return (1);
+	if (str_equal(command, "env"))
+		return (1);
+	return (0);
 }
