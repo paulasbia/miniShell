@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/21 11:48:29 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/26 16:42:49 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int					pwd(void);
 int					ft_exit(char **arg, t_env **my_env);
 int					echo(char **args);
 int					env(t_env *my_env);
+int					unset(char **args, t_env **minienv);
 
 // prompt
 char				*get_prompt(void);

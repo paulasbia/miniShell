@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:37:26 by paula             #+#    #+#             */
-/*   Updated: 2023/12/21 11:49:35 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/26 09:39:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	execute_builtin(char **args, t_env **minienv)
 		return (echo(args));
 	if (str_equal(command, "env"))
 		return (env(*minienv));
+	if (str_equal(command, "unset"))
+		return (unset(args, minienv));
 	else
 		return (EXIT_FAILURE);
 }
