@@ -6,14 +6,14 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:28:57 by paula             #+#    #+#             */
-/*   Updated: 2023/12/26 16:50:53 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/26 17:50:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
-/*Aqui preciso guardar o node anterior ao meu alvo, por isso o prev guardara o temp, ates de ir para o next*/
+/*Aqui preciso guardar o node anterior ao meu alvo,
+	por isso o prev guardara o temp, ates de ir para o next*/
 void	del_node(t_env *node_to_del, t_env **my_env)
 {
 	t_env	*temp;
@@ -58,12 +58,20 @@ void	remove_env(char *args, t_env **my_env)
 int	unset(char **args, t_env **my_env)
 {
 	int	i;
+	int	exit_status;
 
 	i = 1;
+	exit_status = EXIT_SUCCESS;
 	while (args[i])
 	{
+		printf("eh %s\n", args[i]);
+		if (!ft_strncmp(args[i], "-", 1) && args[i][1]) // unico erro encontrado no bash, verificar na 42
+		{
+			print_error_var("unset", args[i]);
+			exit_status = 2;
+		}
 		remove_env(args[i], my_env);
 		i++;
 	}
-	return (0);
+	return (exit_status);
 }

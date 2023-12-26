@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/26 16:42:49 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/26 17:46:46 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void				init_signal(void);
 void				free_env(t_env **my_env);
 
 // error
+void				print_error_var(char *command, char *var);
 void				exit_with_error(char *command, char *msg, int error);
 
 // EXECUTES
