@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:28:57 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 18:12:12 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 18:44:08 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	unset(char **args, t_env **my_env)
 	exit_status = EXIT_SUCCESS;
 	while (args[i])
 	{
-		printf("eh %s\n", args[i]);
 		if (!ft_strncmp(args[i], "-", 1) && args[i][1])
 		{
 			print_error_var("unset", args[i]);
