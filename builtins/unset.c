@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:28:57 by paula             #+#    #+#             */
-/*   Updated: 2023/12/26 17:50:50 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 18:12:12 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	remove_env(char *args, t_env **my_env)
 	{
 		if (!ft_strncmp(args, aux->key, ft_strlen(args)))
 		{
-			printf("a palavra eh %s\n", aux->key); // comentario a retirar
 			if (aux->key[ft_strlen(args)] == '=')
 				return (del_node(aux, my_env));
 		}
@@ -55,6 +54,7 @@ void	remove_env(char *args, t_env **my_env)
 	}
 }
 
+// unico erro encontrado no bash, verificar na 42
 int	unset(char **args, t_env **my_env)
 {
 	int	i;
@@ -65,7 +65,7 @@ int	unset(char **args, t_env **my_env)
 	while (args[i])
 	{
 		printf("eh %s\n", args[i]);
-		if (!ft_strncmp(args[i], "-", 1) && args[i][1]) // unico erro encontrado no bash, verificar na 42
+		if (!ft_strncmp(args[i], "-", 1) && args[i][1])
 		{
 			print_error_var("unset", args[i]);
 			exit_status = 2;
