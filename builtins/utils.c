@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:37:26 by paula             #+#    #+#             */
-/*   Updated: 2023/12/26 09:39:50 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 10:56:07 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	execute_builtin(char **args, t_env **minienv)
 		return (env(*minienv));
 	if (str_equal(command, "unset"))
 		return (unset(args, minienv));
+	if (str_equal(command, "export"))
+		return (ft_export(args, minienv));
 	else
 		return (EXIT_FAILURE);
 }
@@ -58,5 +60,29 @@ int	cmd_builtin(char **args)
 		return (1);
 	if (str_equal(command, "env"))
 		return (1);
+	if (str_equal(command, "export"))
+		return (1);
 	return (0);
+}
+
+char	*varname(char *name)
+{
+	int	i;
+
+	i = 0;
+	while (name[i] != '=' && name[i])
+		i++;
+	return (ft_substr(name, 0, i));
+}
+
+char	*varvalue(char *value)
+{
+	int	i;
+
+	i = 0;
+	while (value[i] != '=' && value[i])
+		i++;
+	if (!value[i])
+		return (NULL);
+	return (&value[i + 1]);
 }
