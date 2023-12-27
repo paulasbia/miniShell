@@ -6,11 +6,31 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 15:20:09 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 15:25:35 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int check_key(char *str)
+{
+    int	i;
+
+	i = 1;
+	if (!ft_isalpha(*str) && *str != '_')
+		return (0);
+	while (str[i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+		{
+			printf("eh diferente\n");
+			return (0);
+		}
+
+		i++;
+	}
+	return (1);
+}
 
 int	export_msg(t_env *mini)
 {
@@ -43,5 +63,15 @@ int	ft_export(char **args, t_env **my_env)
     i = 1;
 	if (!args[i])
 		return (export_msg(*my_env));
+    while (args[i])
+    {
+        if (check_key(args[i]) == 0)
+        {
+            print_error_var("export", args[i]);
+            exit_status = EXIT_FAILURE;
+        }
+        i++;
+    }
+    
 	return (exit_status);
 }
