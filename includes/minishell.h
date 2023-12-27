@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 11:49:53 by ricardo          ###   ########.fr       */
+/*   Updated: 2023/12/27 15:16:15 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ int					pwd(void);
 int					ft_exit(char **arg, t_env **my_env);
 int					echo(char **args);
 int					env(t_env *my_env);
+int					unset(char **args, t_env **minienv);
+int					ft_export(char **args, t_env **my_env);
+char				*varname(char *name);
+char				*varvalue(char *value);
 
 // prompt
 char				*get_prompt(void);
@@ -57,6 +61,7 @@ void				init_signal(void);
 void				free_env(t_env **my_env);
 
 // error
+void				print_error_var(char *command, char *var);
 void				exit_with_error(char *command, char *msg, int error);
 
 // EXECUTES
