@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/21 11:48:29 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 11:49:53 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,8 @@ void				exit_with_error(char *command, char *msg, int error);
 
 // EXECUTES
 int					one_cmd(char *input, t_env **my_env);
+
+//PARSING
+void parsing(char *input);
+
 #endif

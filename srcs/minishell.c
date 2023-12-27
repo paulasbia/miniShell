@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2023/12/18 16:18:16 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 10:31:28 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	minishell(t_env *my_env)
 			(ft_exit(NULL, &my_env));
 		if (input[0])
 			add_history(input);
+		parsing(input);
 		exit_status = start_execution(input, &my_env);
 	}
 	return (exit_status);

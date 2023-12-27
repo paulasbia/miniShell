@@ -6,7 +6,8 @@ MAIN		=		main.c checks.c minishell.c
 BUILTINS	=		pwd.c exit.c echo.c env.c utils.c
 UTILS		=		init_signal.c prompt.c frees.c error.c
 EXECUTES	=		one_cmd.c
-SRCS		=		$(MAIN) $(BUILTINS) $(UTILS) $(EXECUTES)
+PARSING		=		parsing.c
+SRCS		=		$(MAIN) $(BUILTINS) $(UTILS) $(EXECUTES) $(PARSING)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 
