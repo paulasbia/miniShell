@@ -6,13 +6,13 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 13:15:22 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 13:25:01 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	export_error_msg(t_env *mini)
+int	export_msg(t_env *mini)
 {
 	t_env	*aux;
 
@@ -40,6 +40,6 @@ int	ft_export(char **args, t_env **my_env)
 
 	exit_status = EXIT_SUCCESS;
 	if (!args[1])
-		return (export_error_msg(*my_env));
+		return (export_msg(*my_env));
 	return (exit_status);
 }
