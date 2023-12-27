@@ -52,6 +52,9 @@ check:
 	norminette
 	norminette ./includes/minishell.h
 
+test:
+	./tester.sh builtin
+
 clean:
 	@make clean -C ./libft
 	@rm -f ${OBJS}

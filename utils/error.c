@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 11:12:48 by paula             #+#    #+#             */
-/*   Updated: 2023/12/26 17:46:13 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 18:11:03 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	print_error_msg(char *command, char *msg)
 void	exit_with_error(char *command, char *msg, int error)
 {
 	print_error_msg(command, msg);
-	//close_all_fds();
 	rl_clear_history();
 	exit(error);
 }

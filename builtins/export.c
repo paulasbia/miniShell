@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 17:32:51 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 19:03:15 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	check_key(char *str)
 	return (1);
 }
 
+//falta ainda incluir OLDPWD
 int	export_msg(t_env *mini)
 {
 	t_env	*aux;
@@ -57,7 +58,7 @@ int	export_msg(t_env *mini)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		ft_putstr_fd(varname(aux->key), STDOUT_FILENO);
-		if (ft_strchr(aux->key, '=')) // falta ainda incluir OLDPWD
+		if (ft_strchr(aux->key, '='))
 		{
 			ft_putstr_fd("=", STDOUT_FILENO);
 			ft_putstr_fd("\"", STDOUT_FILENO);
@@ -89,7 +90,7 @@ int	ft_export(char **args, t_env **my_env)
 			exit_status = EXIT_FAILURE;
 		}
 		else if (env_entry_exist(name_var, *my_env))
-			ft_printf(" precisa criar update_envlist(name_var, varvalue(args[i]), *my_env..\n");
+			ft_printf("update_envlist(name_var,varvalue(arg[i]),*env\n");
 		else
 			add_list(args[i], my_env);
 		i++;
