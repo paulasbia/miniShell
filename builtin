@@ -1,4 +1,3 @@
 echo oi
 pwd
 unset PATH
-env
