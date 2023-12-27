@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 13:25:01 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 15:20:09 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ int	export_msg(t_env *mini)
 int	ft_export(char **args, t_env **my_env)
 {
 	int	exit_status;
+    int i;
 
 	exit_status = EXIT_SUCCESS;
-	if (!args[1])
+    i = 1;
+	if (!args[i])
 		return (export_msg(*my_env));
 	return (exit_status);
 }
