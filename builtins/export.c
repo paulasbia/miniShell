@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 17:17:31 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 17:31:14 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_export(char **args, t_env **my_env)
 			exit_status = EXIT_FAILURE;
 		}
 		else if (env_entry_exist(name_var, *my_env))
-			printf("vai mudar\n");
+			ft_printf(" precisa criar update_envlist(name_var, varvalue(args[i]), *my_env\n");
 		else
 			add_list(args[i], my_env);
 		i++;

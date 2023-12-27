@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:37:26 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 10:56:07 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 17:26:40 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,4 @@ int	cmd_builtin(char **args)
 	if (str_equal(command, "export"))
 		return (1);
 	return (0);
-}
-
-char	*varname(char *name)
-{
-	int	i;
-
-	i = 0;
-	while (name[i] != '=' && name[i])
-		i++;
-	return (ft_substr(name, 0, i));
-}
-
-char	*varvalue(char *value)
-{
-	int	i;
-
-	i = 0;
-	while (value[i] != '=' && value[i])
-		i++;
-	if (!value[i])
-		return (NULL);
-	return (&value[i + 1]);
 }
