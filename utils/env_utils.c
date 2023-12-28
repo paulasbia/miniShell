@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:26:21 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 16:33:39 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 16:34:34 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_varvalue(char *value)
 
 t_env	*ft_seach_node(char *name, t_env *my_env)
 {
-	t_env *aux;
+	t_env	*aux;
 
 	aux = my_env;
 	while (aux)
@@ -44,8 +44,8 @@ t_env	*ft_seach_node(char *name, t_env *my_env)
 		if (!ft_strncmp(name, aux->key, ft_strlen(name)))
 		{
 			if (aux->key[ft_strlen(name)] == '=')
-			printf("var retornar pq %s eh igual %s\n", name, aux->key);
-				return (aux);
+				printf("var retornar pq %s eh igual %s\n", name, aux->key);
+			return (aux);
 		}
 		aux = aux->next;
 	}
