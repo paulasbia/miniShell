@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 16:34:22 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 16:35:52 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	ft_export(char **args, t_env **my_env)
 	while (args[i])
 	{
 		name_var = ft_varname(args[i]);
-		printf("aqui args[i] eh %s\n", args[i]);
 		if (check_key(args[i]) == 0)
 		{
 			ft_print_error_var("export", args[i]);

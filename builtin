@@ -35,6 +35,8 @@ export hello world
 export HELLO-=123
 export =
 export 123
+export LC_NUMERIC=
+export LC_NUMERIC=2
 unset
 unset HELLO
 unset HELLO1 HELLO2
