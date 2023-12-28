@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 11:12:48 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 18:11:03 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 10:10:13 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	print_error_msg(char *command, char *msg)
 	ft_putstr_fd("\n", STDERR_FILENO);
 }
 
-void	exit_with_error(char *command, char *msg, int error)
+void	ft_exit_with_error(char *command, char *msg, int error)
 {
 	print_error_msg(command, msg);
 	rl_clear_history();
 	exit(error);
 }
 
-void	print_error_var(char *command, char *var)
+void	ft_print_error_var(char *command, char *var)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(command, STDERR_FILENO);

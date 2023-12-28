@@ -6,13 +6,13 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 14:32:18 by paula             #+#    #+#             */
-/*   Updated: 2023/12/13 14:34:44 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 10:05:13 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	pwd(void)
+int	ft_pwd(void)
 {
 	char	cwd[PATH_MAX];
 

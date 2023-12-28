@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2023/12/18 16:18:16 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 10:10:21 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	start_execution(char *input, t_env **my_env)
 {
 	int	exit_status;
 
-	exit_status = one_cmd(input, my_env);
+	exit_status = ft_one_cmd(input, my_env);
 	return (exit_status);
 }
 
@@ -28,8 +28,8 @@ int	minishell(t_env *my_env)
 	(void)my_env;
 	while (1)
 	{
-		init_signal();
-		input = readline(get_prompt());
+		ft_init_signal();
+		input = readline(ft_get_prompt());
 		if (!input)
 			(ft_exit(NULL, &my_env));
 		if (input[0])

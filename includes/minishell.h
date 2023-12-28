@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 16:10:20 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 10:10:21 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,35 +36,35 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-int					check_arg(int ac, char **av);
+int					ft_check_arg(int ac, char **av);
 int					minishell(t_env *my_env);
-void				add_list(char *key, t_env **my_list);
+void				ft_add_list(char *key, t_env **my_list);
 
 // builtins
-int					execute_builtin(char **args, t_env **minienv);
-int					cmd_builtin(char **args);
-int					pwd(void);
+int					ft_execute_builtin(char **args, t_env **minienv);
+int					ft_cmd_builtin(char **args);
+int					ft_pwd(void);
 int					ft_exit(char **arg, t_env **my_env);
-int					echo(char **args);
-int					env(t_env *my_env);
-int					unset(char **args, t_env **minienv);
+int					ft_echo(char **args);
+int					ft_env(t_env *my_env);
+int					ft_unset(char **args, t_env **minienv);
 int					ft_export(char **args, t_env **my_env);
-char				*varname(char *name);
-char				*varvalue(char *value);
+char				*ft_varname(char *name);
+char				*ft_varvalue(char *value);
 
 // prompt
-char				*get_prompt(void);
+char				*ft_get_prompt(void);
 
 // signals
-void				init_signal(void);
+void				ft_init_signal(void);
 
 // frees
-void				free_env(t_env **my_env);
+void				ft_free_env(t_env **my_env);
 
 // error
-void				print_error_var(char *command, char *var);
-void				exit_with_error(char *command, char *msg, int error);
+void				ft_print_error_var(char *command, char *var);
+void				ft_exit_with_error(char *command, char *msg, int error);
 
 // EXECUTES
-int					one_cmd(char *input, t_env **my_env);
+int					ft_one_cmd(char *input, t_env **my_env);
 #endif

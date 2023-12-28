@@ -6,13 +6,13 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:26:21 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 19:06:48 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 10:08:12 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*varname(char *name)
+char	*ft_varname(char *name)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ char	*varname(char *name)
 	return (ft_substr(name, 0, i));
 }
 
-char	*varvalue(char *value)
+char	*ft_varvalue(char *value)
 {
 	int	i;
 
