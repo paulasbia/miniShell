@@ -6,13 +6,13 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 10:10:05 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 16:03:44 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	env_entry_exist(char *var, t_env *my_env)
+int	ft_env_entry_exist(char *var, t_env *my_env)
 {
 	t_env	*aux;
 
@@ -81,13 +81,14 @@ int	ft_export(char **args, t_env **my_env)
 	while (args[i])
 	{
 		name_var = ft_varname(args[i]);
+		printf("aqui args[i] eh %s\n", args[i]);
 		if (check_key(args[i]) == 0)
 		{
 			ft_print_error_var("export", args[i]);
 			exit_status = EXIT_FAILURE;
 		}
-		else if (env_entry_exist(name_var, *my_env))
-			ft_printf("update_envlist(name_var,varvalue(arg[i]),*env\n");
+		else if (ft_env_entry_exist(name_var, *my_env))
+			ft_update_envlist(name_var, ft_varvalue(args[i]), *my_env);			
 		else
 			ft_add_list(args[i], my_env);
 		i++;

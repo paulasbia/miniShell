@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 10:10:21 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 14:44:57 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ typedef struct s_env
 int					ft_check_arg(int ac, char **av);
 int					minishell(t_env *my_env);
 void				ft_add_list(char *key, t_env **my_list);
+
+//env
+void				ft_update_envlist(char *name, char *value, t_env *my_env);
 
 // builtins
 int					ft_execute_builtin(char **args, t_env **minienv);
