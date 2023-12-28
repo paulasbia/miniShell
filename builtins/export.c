@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 19:03:15 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 09:08:46 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,13 @@ int	check_key(char *str)
 	while (str[i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
-		{
-			printf("eh diferente\n");
 			return (0);
-		}
 		i++;
 	}
 	return (1);
 }
 
-//falta ainda incluir OLDPWD
+//falta ainda incluir OLDPWD. DUVIDA: precisa ser na ordem alfabetica?
 int	export_msg(t_env *mini)
 {
 	t_env	*aux;

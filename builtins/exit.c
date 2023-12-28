@@ -6,11 +6,25 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:23:00 by paula             #+#    #+#             */
-/*   Updated: 2023/12/22 09:43:46 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 09:34:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	ft_isnumber(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_isdigit(s[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	ft_exit(char **arg, t_env **my_env)
 {
@@ -25,6 +39,11 @@ int	ft_exit(char **arg, t_env **my_env)
 	{
 		exit_status = ft_atoi(arg[1]);
 		exit_with_error("exit", "too many arguments", EXIT_FAILURE);
+	}
+	if (!ft_isnumber(arg[2]))
+	{
+		exit_status = ft_atoi(arg[1]);
+		exit_with_error("exit", "numeric argument required", 2);
 	}
 	exit_status = ft_atoi(arg[1]);
 	exit(exit_status);
