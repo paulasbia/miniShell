@@ -6,12 +6,46 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 18:11:42 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 09:08:46 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-//falta ainda incluir OLDPWD
+
+int	env_entry_exist(char *var, t_env *my_env)
+{
+	t_env	*aux;
+
+	aux = my_env;
+	while (aux)
+	{
+		if (!ft_strncmp(aux->key, var, ft_strlen(var)))
+		{
+			if (aux->key[ft_strlen(var)] == '=')
+				return (1);
+		}
+		aux = aux->next;
+	}
+	return (0);
+}
+
+int	check_key(char *str)
+{
+	int	i;
+
+	i = 1;
+	if (!ft_isalpha(*str) && *str != '_')
+		return (0);
+	while (str[i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+//falta ainda incluir OLDPWD. DUVIDA: precisa ser na ordem alfabetica?
 int	export_msg(t_env *mini)
 {
 	t_env	*aux;
@@ -36,10 +70,27 @@ int	export_msg(t_env *mini)
 
 int	ft_export(char **args, t_env **my_env)
 {
-	int	exit_status;
+	int		exit_status;
+	int		i;
+	char	*name_var;
 
 	exit_status = EXIT_SUCCESS;
-	if (!args[1])
+	i = 1;
+	if (!args[i])
 		return (export_msg(*my_env));
+	while (args[i])
+	{
+		name_var = varname(args[i]);
+		if (check_key(args[i]) == 0)
+		{
+			print_error_var("export", args[i]);
+			exit_status = EXIT_FAILURE;
+		}
+		else if (env_entry_exist(name_var, *my_env))
+			ft_printf("update_envlist(name_var,varvalue(arg[i]),*env\n");
+		else
+			add_list(args[i], my_env);
+		i++;
+	}
 	return (exit_status);
 }

@@ -4,11 +4,11 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    
 
 jobs:
   build:
-
+    name: build and test minishell
     runs-on: ubuntu-latest
 
     steps:

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 10:56:53 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/27 16:10:20 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_env
 
 int					check_arg(int ac, char **av);
 int					minishell(t_env *my_env);
+void				add_list(char *key, t_env **my_list);
 
 // builtins
 int					execute_builtin(char **args, t_env **minienv);
