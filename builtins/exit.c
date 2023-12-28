@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:23:00 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 09:34:50 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 09:51:02 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,4 @@ int	ft_exit(char **arg, t_env **my_env)
 	exit_status = ft_atoi(arg[1]);
 	exit(exit_status);
 }
+
