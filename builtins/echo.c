@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:36:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/21 11:26:19 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 10:05:25 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_check_n(char *args)
 	return (1);
 }
 
-int	echo(char **args)
+int	ft_echo(char **args)
 {
 	int	i;
 	int	new_line;

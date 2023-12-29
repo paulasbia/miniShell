@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 14:52:47 by paula             #+#    #+#             */
-/*   Updated: 2023/12/13 15:08:47 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 10:09:39 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	handle_sig(int sig)
 	rl_redisplay();
 }
 
-void	init_signal(void)
+void	ft_init_signal(void)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;

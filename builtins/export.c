@@ -6,13 +6,13 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 09:08:46 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 16:35:52 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	env_entry_exist(char *var, t_env *my_env)
+int	ft_env_entry_exist(char *var, t_env *my_env)
 {
 	t_env	*aux;
 
@@ -45,7 +45,7 @@ int	check_key(char *str)
 	return (1);
 }
 
-//falta ainda incluir OLDPWD. DUVIDA: precisa ser na ordem alfabetica?
+// falta ainda incluir OLDPWD. DUVIDA: precisa ser na ordem alfabetica?
 int	export_msg(t_env *mini)
 {
 	t_env	*aux;
@@ -54,12 +54,12 @@ int	export_msg(t_env *mini)
 	while (aux)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putstr_fd(varname(aux->key), STDOUT_FILENO);
+		ft_putstr_fd(ft_varname(aux->key), STDOUT_FILENO);
 		if (ft_strchr(aux->key, '='))
 		{
 			ft_putstr_fd("=", STDOUT_FILENO);
 			ft_putstr_fd("\"", STDOUT_FILENO);
-			ft_putstr_fd(varvalue(aux->key), STDOUT_FILENO);
+			ft_putstr_fd(ft_varvalue(aux->key), STDOUT_FILENO);
 			ft_putstr_fd("\"", STDOUT_FILENO);
 		}
 		ft_putstr_fd("\n", STDOUT_FILENO);
@@ -80,16 +80,16 @@ int	ft_export(char **args, t_env **my_env)
 		return (export_msg(*my_env));
 	while (args[i])
 	{
-		name_var = varname(args[i]);
+		name_var = ft_varname(args[i]);
 		if (check_key(args[i]) == 0)
 		{
-			print_error_var("export", args[i]);
+			ft_print_error_var("export", args[i]);
 			exit_status = EXIT_FAILURE;
 		}
-		else if (env_entry_exist(name_var, *my_env))
-			ft_printf("update_envlist(name_var,varvalue(arg[i]),*env\n");
+		else if (ft_env_entry_exist(name_var, *my_env))
+			ft_update_envlist(name_var, ft_varvalue(args[i]), *my_env);
 		else
-			add_list(args[i], my_env);
+			ft_add_list(args[i], my_env);
 		i++;
 	}
 	return (exit_status);
