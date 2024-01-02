@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:26:21 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 16:35:25 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/02 11:05:13 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,14 @@ void	ft_update_envlist(char *name_var, char *value, t_env *my_env)
 		new_key[i] = 0;
 		aux->key = new_key;
 	}
+}
+
+char	*mini_value(char *name, t_env *my_env)
+{
+	t_env	*aux;
+
+	aux = ft_seach_node(name, my_env);
+	if (!aux)
+		return (NULL);
+	return (ft_varvalue(aux->key));
 }

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 14:44:57 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/02 11:28:08 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ int					ft_check_arg(int ac, char **av);
 int					minishell(t_env *my_env);
 void				ft_add_list(char *key, t_env **my_list);
 
-//env
+// env
 void				ft_update_envlist(char *name, char *value, t_env *my_env);
+t_env				*ft_seach_node(char *name, t_env *my_env);
+char				*mini_value(char *name, t_env *my_env);
 
 // builtins
 int					ft_execute_builtin(char **args, t_env **minienv);
@@ -54,6 +56,7 @@ int					ft_unset(char **args, t_env **minienv);
 int					ft_export(char **args, t_env **my_env);
 char				*ft_varname(char *name);
 char				*ft_varvalue(char *value);
+int					ft_cd(char **args, t_env *my_env);
 
 // prompt
 char				*ft_get_prompt(void);
@@ -65,8 +68,10 @@ void				ft_init_signal(void);
 void				ft_free_env(t_env **my_env);
 
 // error
+void				print_error_msg(char *command, char *msg);
 void				ft_print_error_var(char *command, char *var);
 void				ft_exit_with_error(char *command, char *msg, int error);
+int					ft_cd_err_msg(char *err_msg);
 
 // EXECUTES
 int					ft_one_cmd(char *input, t_env **my_env);
