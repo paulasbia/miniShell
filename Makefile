@@ -10,7 +10,7 @@ SRCS		=		$(MAIN) $(BUILTINS) $(UTILS) $(EXECUTES)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 
-CFLAGS		=		-g -Wall -Wextra -Werror
+CFLAGS		=		-g3 -Wall -Wextra -Werror
 
 RM			=		rm -f
 
