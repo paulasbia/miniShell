@@ -6,11 +6,19 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 11:12:48 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 10:10:13 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/02 11:13:21 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_cd_err_msg(char *err_msg)
+{
+	ft_putstr_fd("minishell: cd: `", 2);
+	ft_putstr_fd(err_msg, 2);
+	ft_putstr_fd("': No such file or directory\n", 2);
+	return (1);
+}
 
 void	print_error_msg(char *command, char *msg)
 {

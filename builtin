@@ -44,9 +44,9 @@ unset HOME
 unset PATH
 unset SHELL
 #para quando tiver o cd implementado
-#cd $PWD
-#cd $PWD hi 
-#cd 123123
+cd $PWD
+cd $PWD hi 
+cd 123123
 exit 123
 exit 298
 exit +100
