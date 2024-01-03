@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 14:52:47 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 10:09:39 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/03 15:46:11 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,18 @@ void	ft_init_signal(void)
 	sa_quit.sa_flags = 0;
 	sigemptyset(&sa_quit.sa_mask);
 	sigaction(SIGQUIT, &sa_quit, NULL);
+}
+
+void	ft_def_signal(pid_t child_pid)
+{
+	struct sigaction	sa;
+
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	if (child_pid == 0)
+		sa.sa_handler = SIG_DFL;
+	else
+		sa.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 }

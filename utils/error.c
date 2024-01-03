@@ -6,11 +6,20 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 11:12:48 by paula             #+#    #+#             */
-/*   Updated: 2024/01/02 11:13:21 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/03 14:49:56 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_child_err(char *cmd, char *msg)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	perror(msg);
+	exit(EXIT_FAILURE);
+}
 
 int	ft_cd_err_msg(char *err_msg)
 {
