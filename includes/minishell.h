@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/03 15:46:19 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/03 15:55:17 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ void				ft_update_envlist(char *name, char *value, t_env *my_env);
 t_env				*ft_seach_node(char *name, t_env *my_env);
 char				*mini_value(char *name, t_env *my_env);
 
-//utils
+// utils
 int					ft_cmd_builtin(char **args);
 int					str_equal(const char *str1, const char *str2);
 
 // EXECUTES
 int					ft_one_cmd(char *input, t_env **my_env);
 int					ft_execute_builtin(char **args, t_env **minienv);
+int					ft_exec_child_process(char **args, t_env *my_env);
 
 // builtins
 int					ft_pwd(void);
@@ -69,7 +70,7 @@ char				*ft_get_prompt(void);
 
 // signals
 void				ft_init_signal(void);
-void					ft_def_signal(pid_t child_pid);
+void				ft_def_signal(pid_t child_pid);
 
 // frees
 void				ft_free_env(t_env **my_env);
