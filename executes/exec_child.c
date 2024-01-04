@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/01/04 10:34:46 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/04 10:50:58 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_get_path(char *cmd, t_env *my_env)
 		if (!access(cmd_path, F_OK))
 		{
 			free(paths);
-			return (ft_strdup(cmd_path));
+			return (cmd_path);
 		}
 		free(cmd_path);
 		i++;
