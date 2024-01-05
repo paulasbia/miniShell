@@ -1,11 +1,7 @@
 
 
 #include "../includes/minishell.h"
-
-// < 0
-// > 1
-// << 2
-// >> 3
+#include "../includes/parsing.h"
 
 
 typedef struct s_redireção 
@@ -16,6 +12,7 @@ typedef struct s_redireção
 
 typedef struct s_dados
 {
+	int				nbr_redirections;
 	char  			**comando;
 	t_redireção 	*redireção;
 	struct s_dados	*next;
@@ -35,7 +32,6 @@ typedef struct s_dados
 // dados.redireção[0].filename = "ficheiro.txt";
 // dados.next = NULL;
 
-ls -la < ficheiro.txt < file.txt | wc
 
 // t_dados dados1 = malloc(sizeof(t_dados));  
 
@@ -57,6 +53,10 @@ ls -la < ficheiro.txt < file.txt | wc
 // dados2.next = NULL;
 // dados2.comando[0] = "wc";
 
+// < 1
+// > 0
+// << 2
+// >> 3
 
 int redirection(char *red)
 {
@@ -72,7 +72,6 @@ int redirection(char *red)
     else
         return (-1);
 }
-
 
 static int	cont(char const *s, char c)
 {
@@ -142,44 +141,114 @@ char	**split_ms(char const *s, char c)
 	return (totals);
 }
 
-
-ls-la>teste.txt
-
-// // 0. ls
-//  -la 
-//  > 
-//  ficheiro.txt
-// < 
-// file.txt
-// // 1. wc
-
-void alocacao(t_dados *dados, int redirection, int cmd)
+void print_list(t_dados *lst)
 {
-    dados
+	int i = 0;
+	int j = 0;
+	t_dados *temp;
 
+	temp = lst;
+	while(temp != NULL)
+	{
+		printf("%d\n", temp->nbr_redirections);
+		i = 0;
+		while(i < temp->nbr_redirections)
+		{
+			printf("%s\n", temp->redireção[i].filenane);
+			printf("%d\n", temp->redireção[i].tipo_de_redireção);
+			i++;
 
+		}
+		j = 0;
+		while(temp->comando[j] != NULL)
+		{
+			printf("%s\n", temp->comando[j]);
+			j++;
+		}
+		temp = temp->next;
+	}
 
+}
+
+void	ms_lstadd_back(t_dados **lst, t_dados *node) //posso usar da lib pois n tem alteração
+{
+	t_dados	*temp;
+
+	temp = *lst;
+	if (*lst == NULL)
+		*lst = node;
+	else
+	{
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = node;
+	}
+}
+
+t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_space)
+{
+	t_dados	*node;
+	int i = 0;
+	int j = 0;
+	int x = 0;
+
+	node = (t_dados *)malloc(sizeof(t_dados)); //aloco memoria para meu node
+	if (!node)
+		return (NULL);
+    node->comando = malloc(sizeof(char *) * (n_cmd + 1)); //aloco memoria para o tanto de cmd que tenho
+    node->redireção = malloc(sizeof(t_redireção) * (n_reds + 1)); // e tbm para o n de redireções
+	
+	while(split_space[i] != NULL)
+	{
+		if(redirection(split_space[i]) != -1) //se minha redirection for diferente de -1 é pq  há alguma
+		{
+			node->redireção[j].tipo_de_redireção = redirection(split_space[i]); // eu guardo o tipo e o nome
+			node->redireção[j++].filenane = split_space[i + 1]; 
+			i += 2; // ando duas pq depois da redirecao sempre tem o arquivo
+		}
+		else
+		{  
+			node->comando[x++] = split_space[i++]; //se n for redirecao ou filename é comando. 
+		}
+
+	}
+	node->nbr_redirections = n_reds; //salvo o n de red para paula saber qnts há.
+	node->comando[x] = NULL;
+	node->next = NULL;
+	return (node);
+}
+
+void alocacao(t_dados **dados_head, int redirection, int cmd, char **split_space)
+{
+	t_dados *node;
+
+	node = ft_lstnew_p(redirection, cmd, split_space);
+
+	ms_lstadd_back(dados_head, node);
 }
 
 void parsing(char *input)
 {
-    char **split;
-    char **split_2;
+    char **split_pipe;
+    char **split_space;
     int i = 0;
     int j = 0;
     int nbr_redirections = 0;
     int nbr_comands = 0;
-    t_dados *dados;
+    t_dados *dados_head;
 
-   split = split_ms(input, '|');
+	dados_head = NULL;
+	split_pipe = split_ms(input, '|');
 
-    while(split[i] != NULL)
+    while(split_pipe[i] != NULL)
     {
-        split_2 = split_ms(split[i], ' ');
-        j = 0;  //errado pois o bash aceita comando sem espaço
-        while(split_2[j] != NULL) 
+        split_space = split_ms(split_pipe[i], ' ');
+        j = 0;
+		nbr_redirections = 0;
+		nbr_comands = 0;  //errado pois o bash aceita comando sem espaço
+        while(split_space[j] != NULL) 
         {
-            if(redirection(split_2[j]) != -1)
+            if(redirection(split_space[j]) != -1)
             {
                 nbr_redirections++;
                 j += 2;
@@ -190,7 +259,9 @@ void parsing(char *input)
                 j++;
             }
         }
-        alocacao(dados, nbr_redirections, nbr_comands);
+        alocacao(&dados_head, nbr_redirections, nbr_comands, split_space);
         i++;
     }
+	print_list(dados_head);
 }
+

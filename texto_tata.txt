@@ -1,16 +1,4 @@
 -> expansao e parsing 
-
-
-
-
-- 22-12 
-videochamada
-
-
-27/12 --- reuniao 
-
-  
-  
   
  - 12/2 viagem da Paula 
   
@@ -20,15 +8,6 @@ Lidar com ' (apóstrofo) que deve impedir o shell de interpretar os
 metacaracteres na sequência citada.
 Lidar com " (aspas duplas) que deve impedir o shell de interpretar os 
 metacaracteres na sequência citada, exceto por $ (cifrão).
-Implementar redirecionamentos:
-
-    < deve redirecionar a entrada.
-
-     >   deve redirecionar a saída.
-
-    << deve receber um delimitador e, em seguida, ler a entrada até que uma linha contendo o delimitador seja vista. No entanto, não precisa atualizar o histórico!
-
-          >>  deve redirecionar a saída no modo de anexação.
 
 Implementar tubulações (caractere |). A saída de cada comando na tubulação
  está conectada à entrada do próximo comando por meio de um tubo.

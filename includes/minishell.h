@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 15:16:15 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/01/05 10:57:04 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void				exit_with_error(char *command, char *msg, int error);
 // EXECUTES
 int					one_cmd(char *input, t_env **my_env);
 
-//PARSING
-void parsing(char *input);
+
 
 #endif

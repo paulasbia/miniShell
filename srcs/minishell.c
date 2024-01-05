@@ -6,19 +6,21 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2023/12/27 10:31:28 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/01/05 11:46:15 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../includes/parsing.h"
 
-static int	start_execution(char *input, t_env **my_env)
-{
-	int	exit_status;
 
-	exit_status = one_cmd(input, my_env);
-	return (exit_status);
-}
+// static int	start_execution(char *input, t_env **my_env)
+// {
+// 	int	exit_status;
+
+// 	exit_status = one_cmd(input, my_env);
+// 	return (exit_status);
+// }
 
 int	minishell(t_env *my_env)
 {
@@ -35,7 +37,7 @@ int	minishell(t_env *my_env)
 		if (input[0])
 			add_history(input);
 		parsing(input);
-		exit_status = start_execution(input, &my_env);
+		//exit_status = start_execution(input, &my_env);
 	}
 	return (exit_status);
 }
