@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:24:42 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 10:09:57 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/08 09:36:24 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,21 @@ void	ft_free_env(t_env **my_env)
 		aux = next;
 	}
 	my_env = NULL;
+}
+
+void	ft_free_args(char **args)
+{
+	int	i;
+
+	if (!args)
+		return ;
+	i = 0;
+	while (args[i])
+	{
+		free(args[i]);
+		args[i] = NULL;
+		i++;
+	}
+	free(args);
+	args = NULL;
 }

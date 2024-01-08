@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/03 15:55:17 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/08 09:37:33 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void				ft_def_signal(pid_t child_pid);
 
 // frees
 void				ft_free_env(t_env **my_env);
+void				ft_free_args(char **args);
 
 // error
 void				print_error_msg(char *command, char *msg);
