@@ -6,47 +6,11 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/01/04 10:50:58 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/09 09:18:34 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-size_t	minienv_size(t_env *my_env)
-{
-	int	i;
-
-	if (!my_env)
-	{
-		return (0);
-	}
-	i = 0;
-	while (my_env != 0)
-	{
-		i++;
-		my_env = my_env->next;
-	}
-	return (i);
-}
-
-char	**myenv_to_array(t_env *my_env)
-{
-	char	**envp;
-	t_env	*aux;
-	int		i;
-
-	envp = malloc(sizeof(char *) * (minienv_size(my_env) + 1));
-	aux = my_env;
-	i = 0;
-	while (aux)
-	{
-		envp[i] = ft_strdup(aux->key);
-		i++;
-		aux = aux->next;
-	}
-	envp[i] = NULL;
-	return (envp);
-}
 
 char	*ft_get_path(char *cmd, t_env *my_env)
 {
@@ -76,11 +40,50 @@ char	*ft_get_path(char *cmd, t_env *my_env)
 	return (0);
 }
 
+void	external_exit(char **args, t_env *minienv, int exit_status)
+{
+	if (exit_status == NOT_EXECUTABLE)
+		print_error_msg(args[0], NOT_EXECUTABLE_MSG);
+	if (exit_status == CMD_NOT_FOUND)
+		print_error_msg(args[0], CMD_NOT_FOUND_MSG);
+	rl_clear_history();
+	ft_free_env(&minienv);
+	ft_free_args(args);
+	exit(exit_status);
+}
+
+static int	is_folder(char *command)
+{
+	struct stat	statbuf;
+
+	if (stat(command, &statbuf) != 0)
+		return (0);
+	if (S_ISDIR(statbuf.st_mode))
+	{
+		if (*command == '.')
+			command++;
+		if (*command == '.')
+			command++;
+		if (*command == '/')
+			return (1);
+	}
+	return (0);
+}
+
+void	ft_check_exit(char **args, t_env *minienv)
+{
+	if (!args[0])
+		external_exit(args, minienv, EXIT_SUCCESS);
+	if (is_folder(args[0]))
+		external_exit(args, minienv, NOT_EXECUTABLE);
+}
+
 int	ft_exec_child_process(char **args, t_env *my_env)
 {
 	char	*path;
 	char	**env_array;
 
+	ft_check_exit(args, my_env);
 	path = ft_get_path(args[0], my_env);
 	env_array = myenv_to_array(my_env);
 	execve(path, args, env_array);
