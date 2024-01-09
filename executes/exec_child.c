@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/01/09 09:18:34 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/09 10:45:51 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ char	*ft_get_path(char *cmd, t_env *my_env)
 	char	*cmd_path;
 	char	*temp;
 	char	**paths;
-	int		i;
 
+	if (ft_strchr(cmd, '/'))
+		return (ft_strdup(cmd));
 	path_env = mini_value("PATH", my_env);
 	paths = ft_split(path_env, ':');
-	i = 0;
-	while (paths[i])
+	while (*paths)
 	{
-		temp = ft_strjoin(paths[i], "/");
+		temp = ft_strjoin(*paths, "/");
 		cmd_path = ft_strjoin(temp, cmd);
 		free(temp);
 		if (!access(cmd_path, F_OK))
@@ -34,7 +34,7 @@ char	*ft_get_path(char *cmd, t_env *my_env)
 			return (cmd_path);
 		}
 		free(cmd_path);
-		i++;
+		paths++;
 	}
 	free(paths);
 	return (0);
