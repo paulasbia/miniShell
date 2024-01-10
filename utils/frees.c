@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:24:42 by paula             #+#    #+#             */
-/*   Updated: 2024/01/08 09:36:24 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/10 10:07:58 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void	ft_free_args(char **args)
 	}
 	free(args);
 	args = NULL;
+}
+
+void	ft_clean(char **to_clean)
+{
+	int	i;
+
+	i = -1;
+	while (to_clean[++i])
+		free(to_clean[i]);
+	free(to_clean);
 }
