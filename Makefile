@@ -4,7 +4,7 @@ NAME		= 		minishell
 LDLIBS		=		-lreadline -lft
 MAIN		=		main.c checks.c minishell.c
 BUILTINS	=		pwd.c exit.c echo.c env.c utils.c unset.c export.c cd.c
-UTILS		=		init_signal.c prompt.c frees.c error.c env_utils.c env_utils_2.c
+UTILS		=		init_signal.c prompt.c frees.c error.c env_utils.c env_utils_2.c error2.c
 EXECUTES	=		one_cmd.c exec_builtin.c exec_child.c
 SRCS		=		$(MAIN) $(BUILTINS) $(UTILS) $(EXECUTES)
 

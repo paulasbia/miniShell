@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/01/09 10:45:51 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/10 09:50:09 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*ft_get_path(char *cmd, t_env *my_env)
 		paths++;
 	}
 	free(paths);
+	printf("vai voltal null\n");
 	return (0);
 }
 
@@ -85,7 +86,11 @@ int	ft_exec_child_process(char **args, t_env *my_env)
 
 	ft_check_exit(args, my_env);
 	path = ft_get_path(args[0], my_env);
+	if (path == NULL)
+		external_exit(args, my_env, CMD_NOT_FOUND);
+	rl_clear_history();
 	env_array = myenv_to_array(my_env);
-	execve(path, args, env_array);
+	if (execve(path, args, env_array))
+		ft_handle_errors(args, path, env_array);
 	return (EXIT_SUCCESS);
 }
