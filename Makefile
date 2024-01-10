@@ -54,6 +54,7 @@ check:
 
 test:
 	./tester.sh builtin
+	./tester.sh extras
 
 clean:
 	@make clean -C ./libft
