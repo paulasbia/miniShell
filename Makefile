@@ -55,6 +55,7 @@ check:
 test:
 	./tester.sh builtin
 	./tester.sh extras
+	./tester.sh redirects
 
 clean:
 	@make clean -C ./libft
