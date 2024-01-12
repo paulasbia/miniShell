@@ -1,56 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   frees.c                                            :+:      :+:    :+:   */
+/*   env_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 10:24:42 by paula             #+#    #+#             */
-/*   Updated: 2024/01/10 10:07:58 by paula            ###   ########.fr       */
+/*   Created: 2024/01/09 09:16:44 by paula             #+#    #+#             */
+/*   Updated: 2024/01/09 09:17:34 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_free_env(t_env **my_env)
+size_t	minienv_size(t_env *my_env)
 {
-	t_env	*aux;
-	t_env	*next;
+	int	i;
 
-	aux = *my_env;
+	if (!my_env)
+	{
+		return (0);
+	}
+	i = 0;
+	while (my_env != 0)
+	{
+		i++;
+		my_env = my_env->next;
+	}
+	return (i);
+}
+
+char	**myenv_to_array(t_env *my_env)
+{
+	char	**envp;
+	t_env	*aux;
+	int		i;
+
+	envp = malloc(sizeof(char *) * (minienv_size(my_env) + 1));
+	aux = my_env;
+	i = 0;
 	while (aux)
 	{
-		free(aux->key);
-		next = aux->next;
-		free(aux);
-		aux = next;
-	}
-	my_env = NULL;
-}
-
-void	ft_free_args(char **args)
-{
-	int	i;
-
-	if (!args)
-		return ;
-	i = 0;
-	while (args[i])
-	{
-		free(args[i]);
-		args[i] = NULL;
+		envp[i] = ft_strdup(aux->key);
 		i++;
+		aux = aux->next;
 	}
-	free(args);
-	args = NULL;
-}
-
-void	ft_clean(char **to_clean)
-{
-	int	i;
-
-	i = -1;
-	while (to_clean[++i])
-		free(to_clean[i]);
-	free(to_clean);
+	envp[i] = NULL;
+	return (envp);
 }
