@@ -73,73 +73,7 @@ int redirection(char *red)
         return (-1);
 }
 
-static int	cont(char const *s, char c)
-{
-	int	x;
-	int	result;
 
-	x = 0;
-	result = 0;
-	while (s[x] != '\0')
-	{
-		if (s[x] != c && ((s[x + 1]) == c || (s[x + 1]) == '\0'))
-		{
-			x++;
-			result++;
-		}
-		else
-			x++;
-	}
-	return (result);
-}
-
-static char	*word(const char *str, char c)
-{
-	int		i;
-	char	*src;
-
-	i = 0;
-	while (str[i] != c && str[i] != '\0')
-		i++;
-	src = malloc(sizeof(char) * (i + 1));
-	if (src == NULL)
-		return (NULL);
-	i = 0;
-	while (str[i] != c && str[i] != '\0')
-	{
-		src[i] = str[i];
-		i++;
-	}
-	src[i] = '\0';
-	return (src);
-}
-
-char	**split_ms(char const *s, char c)
-{
-	char	**totals;
-	int		x;
-	int		y;
-
-	totals = malloc(sizeof(char *) * (cont(s, c) + 1));
-	if (totals == NULL)
-		return (NULL);
-	x = 0;
-	y = 0;
-	while (s[x] != '\0')
-	{
-		if (s[x] != c)
-		{
-			totals[y] = word(&s[x], c);
-			y++;
-			while (s[x] != c && s[x] != '\0')
-				x++;
-		}
-		else
-			x++;
-	}
-	totals[y] = NULL;
-	return (totals);
-}
 
 void print_list(t_dados *lst)
 {
@@ -238,11 +172,11 @@ void parsing(char *input)
     t_dados *dados_head;
 
 	dados_head = NULL;
-	split_pipe = split_ms(input, '|');
+	split_pipe = split_ms(input, "|");
 
     while(split_pipe[i] != NULL)
     {
-        split_space = split_ms(split_pipe[i], ' ');
+        split_space = split_ms(split_pipe[i], ">< \t");
         j = 0;
 		nbr_redirections = 0;
 		nbr_comands = 0;  //errado pois o bash aceita comando sem espaço
