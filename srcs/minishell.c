@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/12 17:04:18 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/12 17:13:51 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	*ft_check_fds(char *input, int *fds)
 			{
 				open_flags = O_WRONLY | O_CREAT | O_TRUNC;
 				fds[STDOUT_FILENO] = open("teste", open_flags, 0644);
-				return(fds);		
+				return(fds);
 			}
 		}
 		input++;

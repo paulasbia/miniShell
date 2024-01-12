@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:08:28 by paula             #+#    #+#             */
-/*   Updated: 2024/01/12 15:56:41 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/12 17:17:46 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_execute_builtin(char **args, t_env **minienv, int *fds)
 	if (str_equal(command, "exit"))
 		return (ft_exit(args, minienv));
 	if (str_equal(command, "echo"))
-		return (ft_echo(args));
+		return (ft_echo(args, fds));
 	if (str_equal(command, "env"))
 		return (ft_env(*minienv));
 	if (str_equal(command, "unset"))
