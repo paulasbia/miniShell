@@ -1,7 +1,7 @@
 
 $PWD
 $EMPTY
-$EMPTY echo hi
+#$EMPTY echo hi
 ./test_files/invalid_permission
 ./missing.out
 missing.out
@@ -13,3 +13,5 @@ minishell.h
 $
 $?
 README.md
+ls
+cat test_files/infile
