@@ -15,3 +15,7 @@ $?
 README.md
 ls
 cat test_files/infile
+wc test_files/infile
+wc -l test_files/infile
+cat pa
+cat test_files/infile_big
