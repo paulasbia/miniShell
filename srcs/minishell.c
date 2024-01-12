@@ -6,17 +6,50 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 10:10:21 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/12 17:04:18 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int	*ft_check_fds(char *input, int *fds)
+{
+	int	open_flags;
+
+	while (*input)
+	{
+		if (*input == '>')
+		{
+			input++;
+			if (*input == '>')
+			{
+				open_flags = O_WRONLY | O_CREAT | O_APPEND;
+				fds[STDOUT_FILENO] = open("teste", open_flags, 0644);
+				return(fds);
+			}
+			else
+			{
+				open_flags = O_WRONLY | O_CREAT | O_TRUNC;
+				fds[STDOUT_FILENO] = open("teste", open_flags, 0644);
+				return(fds);		
+			}
+		}
+		input++;
+	}
+	fds[STDOUT_FILENO] = STDOUT_FILENO;
+	return(fds);
+}
+
 static int	start_execution(char *input, t_env **my_env)
 {
 	int	exit_status;
+	int	fd[2];
 
-	exit_status = ft_one_cmd(input, my_env);
+	ft_check_fds(input, fd);
+	//ler o imput, IF tiver '>' entao open, se for >> APPEND
+	//fd[STDOUT_FILENO] = open("teste", O_WRONLY);
+
+	exit_status = ft_one_cmd(input, my_env, fd);
 	return (exit_status);
 }
 
