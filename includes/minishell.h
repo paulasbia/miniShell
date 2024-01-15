@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/15 13:47:10 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/15 14:01:45 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"    // libft
+#include "parsing.h"			//parsing
 # include <fcntl.h>             // open flags
 # include <readline/history.h>  // history
 # include <readline/readline.h> // readline
@@ -61,12 +62,6 @@ int					ft_cmd_builtin(char **args);
 int					str_equal(const char *str1, const char *str2);
 
 // EXECUTES
-<<<<<<< HEAD
-int					one_cmd(char *input, t_env **my_env);
-
-//PARSING
-void parsing(char *input);
-=======
 int					ft_one_cmd(char *input, t_env **my_env);
 int					ft_execute_builtin(char **args, t_env **minienv);
 int					ft_exec_child_process(char **args, t_env *my_env);
@@ -101,6 +96,5 @@ void				ft_exit_with_error(char *command, char *msg, int error);
 int					ft_cd_err_msg(char *err_msg);
 void				ft_child_err(char *cmd, char *msg);
 void				ft_handle_errors(char **args, char *path, char **envp);
->>>>>>> origin/main
 
 #endif
