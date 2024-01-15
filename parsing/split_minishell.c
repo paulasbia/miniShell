@@ -1,6 +1,4 @@
 
-
- 
 #include "../includes/minishell.h"
 #include "../includes/parsing.h"
 
@@ -29,7 +27,11 @@ static int	cont(char const *s)
 		while (s[i] == ' ' || s[i] == '\t')
 			i++;
 		if(s[i] == '\0')
+		{
+			printf("result is %d\n", result);
 			return result;
+
+		}
 		while (s[i] != '\0'  && s[i] != ' ' && s[i] != '\t')
 		{
 			if(s[i] == '"')
@@ -40,10 +42,12 @@ static int	cont(char const *s)
 					i++;			
 				}
 				i++;
-				if(s[i] == ' ' || s[i] == '\t' || s[i] == '\0')
+				if(s[i] == ' ' || s[i] == '\t')
 				{
 					result++;
 				}
+				if (s[i] == '\0')
+					return result + 1;
 			}
 			if(s[i] == '\'')
 			{
@@ -53,10 +57,12 @@ static int	cont(char const *s)
 					i++;				
 				}
 				i++;
-				if(s[i] == ' ' || s[i] == '\t' || s[i] == '\0')
+				if(s[i] == ' ' || s[i] == '\t')
 				{
 					result++;
 				}
+				if (s[i] == '\0')
+					return result + 1;
 			}
 			if(s[i] == '<' || s[i] == '>')
 			{
@@ -76,6 +82,7 @@ static int	cont(char const *s)
 			if (s[i])
 				i++;
 		}
+		// if(s[i] && s[i - 1] != '\'' && s[i - 1] != '"' && s[i - 1] != ' ')
 		result++;
 	}
 	return (result);
@@ -182,7 +189,7 @@ char	**split_ms(char const *s)
 	int count;
 
 	count = cont(s);
-    printf("\n%d\n", count);
+	printf("result is %d\n", count);
 
 	len = ft_strlen_t(s);
 	totals = malloc(sizeof(char *) * (count + 1));
@@ -204,11 +211,11 @@ int main(int ac, char **av)
 {
 	int i = 0;
 	
-	char **teste = split_ms("l's wc' < ls                                                   ");
+	char **teste = split_ms("ls '-la a'");
 	
 	while(teste[i] != NULL)
 	{
-    	printf("%s\n", teste[i]);
+    	printf("->>> %s\n", teste[i]);
 		i++;
 	}
 }

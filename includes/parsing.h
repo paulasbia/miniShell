@@ -6,6 +6,8 @@
 
 //PARSING
 void parsing(char *input);
+char	**split_ms(char const *s);
+
 
 
 #endif
