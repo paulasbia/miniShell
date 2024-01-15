@@ -139,6 +139,26 @@ char	**split_ms(char const *s, char c)
 
 // }
 
+void	creat_list(t_dados **dados, char **cmd)
+{
+	struct s_dados	*new_node;
+	struct s_dados	*aux_node;
+
+	new_node = malloc(sizeof(struct s_dados));
+	new_node->comando = cmd;
+	new_node->red = NULL;
+	new_node->next = NULL;
+	if (!*dados)
+	{
+		*dados = new_node;
+		return ;
+	}
+	aux_node = *dados;
+	while (aux_node->next)
+		aux_node = aux_node->next;
+	aux_node->next = new_node;
+}
+
 t_dados	*parsing(char *input)
 {
 	char	**split;
@@ -162,10 +182,11 @@ t_dados	*parsing(char *input)
 		j = 0; // errado pois o bash aceita comando sem espaço
 		while (split_2[j] != NULL)
 		{
+			printf("split2[%d] eh %s\n", j, split_2[j]);
 			if (redirection(split_2[j]) != -1)
 			{
 				nbr_redirections++;
-				j += 2;
+				j += 1;
 			}
 			else
 			{
@@ -174,6 +195,7 @@ t_dados	*parsing(char *input)
 			}
 		}
 		//alocacao(dados, nbr_redirections, nbr_comands);
+		creat_list(&dados, split_2);
 		i++;
 	}
 	return(dados);

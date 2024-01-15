@@ -6,25 +6,33 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:51:07 by paula             #+#    #+#             */
-/*   Updated: 2024/01/15 15:58:34 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/15 16:36:09 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-#include "minishell.h"
+# include "minishell.h"
 
-typedef struct s_redireção
+typedef enum e_type
 {
-	int				tipo_de_redireção;
+	IO_IN,
+	IO_OUT,
+	IO_HEREDOC,
+	IO_APPEND
+}	t_type;
+
+typedef struct s_red
+{
+	int				type;
 	char			*filenane;
-}					t_redireção;
+}					t_red;
 
 typedef struct s_dados
 {
 	char			**comando;
-	t_redireção		*redireção;
+	t_red			*red;
 	struct s_dados	*next;
 }					t_dados;
 
