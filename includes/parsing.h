@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:51:07 by paula             #+#    #+#             */
-/*   Updated: 2024/01/15 14:02:33 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/15 15:58:34 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ typedef struct s_dados
 	struct s_dados	*next;
 }					t_dados;
 
-void				parsing(char *input);
+t_dados				*parsing(char *input);
 
 #endif

@@ -139,7 +139,7 @@ char	**split_ms(char const *s, char c)
 
 // }
 
-void	parsing(char *input)
+t_dados	*parsing(char *input)
 {
 	char	**split;
 	char	**split_2;
@@ -147,15 +147,17 @@ void	parsing(char *input)
 	int		j;
 	int		nbr_redirections;
 	int		nbr_comands;
-	//t_dados	*dados;
+	t_dados	*dados;
 
 	i = 0;
 	j = 0;
+	dados = NULL;
 	nbr_redirections = 0;
 	nbr_comands = 0;
 	split = split_ms(input, '|');
 	while (split[i] != NULL)
 	{
+		printf("split[%d] eh %s\n", i, split[i]);
 		split_2 = split_ms(split[i], ' ');
 		j = 0; // errado pois o bash aceita comando sem espaço
 		while (split_2[j] != NULL)
@@ -171,7 +173,8 @@ void	parsing(char *input)
 				j++;
 			}
 		}
-		// alocacao(dados, nbr_redirections, nbr_comands);
+		//alocacao(dados, nbr_redirections, nbr_comands);
 		i++;
 	}
+	return(dados);
 }
