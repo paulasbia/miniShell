@@ -177,12 +177,12 @@ t_dados	*parsing(char *input)
 	split = split_ms(input, '|');
 	while (split[i] != NULL)
 	{
-		printf("split[%d] eh %s\n", i, split[i]);
+	//	printf("split[%d] eh %s\n", i, split[i]);
 		split_2 = split_ms(split[i], ' ');
 		j = 0; // errado pois o bash aceita comando sem espaço
 		while (split_2[j] != NULL)
 		{
-			printf("split2[%d] eh %s\n", j, split_2[j]);
+	//		printf("split2[%d] eh %s\n", j, split_2[j]);
 			if (redirection(split_2[j]) != -1)
 			{
 				nbr_redirections++;
@@ -194,7 +194,7 @@ t_dados	*parsing(char *input)
 				j++;
 			}
 		}
-		//alocacao(dados, nbr_redirections, nbr_comands);
+		//(dados, nbr_redirections, nbr_comands);
 		creat_list(&dados, split_2);
 		i++;
 	}

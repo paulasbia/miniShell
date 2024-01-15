@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/01/15 16:51:58 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/15 17:13:11 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ int	ft_execute_child(char **args, t_env *my_env)
 }
 
 // precisa criar outro comando
-int	ft_one_cmd(char *input, t_env **my_env)
+int	ft_one_cmd(t_dados *parsed, t_env **my_env)
 {
-	char	**args;
+//	char	**args;
 	int		exit_status;
 
-	args = ft_split(input, ' ');
-	free(input);
-	if (ft_cmd_builtin(args))
-		exit_status = ft_execute_builtin(args, my_env);
+	// args = ft_split(input, ' ');
+	// free(input);
+	if (ft_cmd_builtin(parsed->comando))
+		exit_status = ft_execute_builtin(parsed->comando, my_env);
 	else
-		exit_status = ft_execute_child(args, *my_env);
-	ft_free_args(args);
+		exit_status = ft_execute_child(parsed->comando, *my_env);
+	//ft_free_args(args); //limpar a lista no final
 	return (exit_status);
 }

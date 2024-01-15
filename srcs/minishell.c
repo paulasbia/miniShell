@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/15 16:53:01 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/15 17:11:02 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static int	start_execution(t_dados *parsed, t_env **my_env)
 {
 	int	exit_status;
-	char	*input;
+	// char	*input;
 
-	input = parsed->comando[0];
-	exit_status = ft_one_cmd(input, my_env);
+	// input = parsed->comando[0];
+	exit_status = ft_one_cmd(parsed, my_env);
 	return (exit_status);
 }
 
