@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:51:07 by paula             #+#    #+#             */
-/*   Updated: 2024/01/15 16:36:09 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/15 17:27:45 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_type
 
 typedef struct s_red
 {
-	int				type;
+	t_type			type;
 	char			*filenane;
 }					t_red;
 
