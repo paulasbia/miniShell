@@ -3,15 +3,14 @@
 NAME		= 		minishell
 LDLIBS		=		-lreadline -lft
 MAIN		=		main.c checks.c minishell.c
-BUILTINS	=		pwd.c exit.c echo.c env.c utils.c
-UTILS		=		init_signal.c prompt.c frees.c error.c
-EXECUTES	=		one_cmd.c
-PARSING		=		parsing.c
-SRCS		=		$(MAIN) $(BUILTINS) $(UTILS) $(EXECUTES) $(PARSING)
+BUILTINS	=		pwd.c exit.c echo.c env.c utils.c unset.c export.c cd.c
+UTILS		=		init_signal.c prompt.c frees.c error.c env_utils.c env_utils_2.c error2.c
+EXECUTES	=		one_cmd.c exec_builtin.c exec_child.c
+SRCS		=		$(MAIN) $(BUILTINS) $(UTILS) $(EXECUTES)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 
-CFLAGS		=		-g -Wall -Wextra -Werror
+CFLAGS		=		-g3 -Wall -Wextra -Werror
 
 RM			=		rm -f
 
@@ -52,6 +51,10 @@ install-mac:
 check:
 	norminette
 	norminette ./includes/minishell.h
+
+test:
+	./tester.sh builtin
+	./tester.sh extras
 
 clean:
 	@make clean -C ./libft
