@@ -1,5 +1,8 @@
 #include "../libft/libft.h"
+#include "../includes/minishell.h"
 #include "unity.h"
+
+t_env	*init_env;
 
 static void	tests_ft_isalpha(void)
 {
@@ -10,6 +13,13 @@ static void	tests_ft_isalpha(void)
 	TEST_ASSERT_TRUE(ft_isalpha('A'));
 	// TODO teste foi comentado devido retorno divergente
 	// assert((ft_isalpha('a') == isalpha('a')));
+}
+
+static void	tests_ft_ls(void)
+{
+	char **cmd = ft_split("ls", ' ');
+
+	ft_execute_child(cmd, init_env);
 }
 
 void	setUp(void)
@@ -23,9 +33,13 @@ void	tearDown(void)
 }
 
 // not needed when using generate_test_runner.rb
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
+	(void)ac;
+	(void)av;
+	init_env = init_minienv(env);
 	UNITY_BEGIN();
 	RUN_TEST(tests_ft_isalpha);
+	RUN_TEST(tests_ft_ls);
 	return (UNITY_END());
 }
