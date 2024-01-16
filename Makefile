@@ -53,9 +53,10 @@ check:
 	norminette ./includes/minishell.h
 
 test:
-	./tester.sh builtin
-	./tester.sh extras
-	./tester.sh redirects
+	@make re 
+	./testes/e2e/tester.sh ./testes/e2e/builtin
+	./testes/e2e/tester.sh ./testes/e2e/extras
+	./testes/e2e/tester.sh ./testes/e2e/redirects
 
 clean:
 	@make clean -C ./libft
