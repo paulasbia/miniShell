@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/16 21:37:51 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/16 22:08:52 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define OUT_OF_RANGE 255
 # define BUILTIN_MISUSE 2
 # define FORK_ERROR -1
-# define CMD_NOT_FOUND_MSG	"command not found"
+# define CMD_NOT_FOUND_MSG "command not found"
 # define NOT_EXECUTABLE_MSG "Is a directory"
 # define GRN "\001\e[0;32m\002"
 # define MAG "\001\e[0;35m\002"
@@ -44,6 +44,20 @@ typedef struct s_env
 	char			*key;
 	struct s_env	*next;
 }					t_env;
+
+typedef struct s_redirect
+{
+	int				redirect_type;
+	char			*filename;
+}					t_redirect;
+
+typedef struct s_dados
+{
+	int				nbr_redirections;
+	char			**comando;
+	t_redirect		*redirect;
+	struct s_dados	*next;
+}					t_dados;
 
 int					ft_check_arg(int ac, char **av);
 int					minishell(t_env *my_env);

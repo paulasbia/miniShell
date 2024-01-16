@@ -17,9 +17,21 @@ static void	tests_ft_isalpha(void)
 
 static void	tests_ft_ls(void)
 {
-	char **cmd = ft_split("ls", ' ');
 
-	ft_execute_child(cmd, init_env);
+	t_dados test1 = {
+		.comando = (char *[]){"ls", "-lha", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = NULL
+	};
+
+	t_dados test2 = {
+		.comando = (char *[]){"ls", "-lha", NULL},
+		.redirect = (t_redirect[]){(t_redirect) {.filename="text.txt", .redirect_type = 0}},
+		.nbr_redirections = 1,
+		.next = NULL
+	};
+	
 }
 
 void	setUp(void)
