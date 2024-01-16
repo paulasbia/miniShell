@@ -84,7 +84,7 @@ void print_list(t_dados *lst)
 	temp = lst;
 	while(temp != NULL)
 	{
-		printf("%d\n", temp->nbr_redirections);
+		printf("redireçao:\n");
 		i = 0;
 		while(i < temp->nbr_redirections)
 		{
@@ -94,6 +94,7 @@ void print_list(t_dados *lst)
 
 		}
 		j = 0;
+		printf("comandos:\n");
 		while(temp->comando[j] != NULL)
 		{
 			printf("%s\n", temp->comando[j]);
@@ -163,7 +164,7 @@ void alocacao(t_dados **dados_head, int redirection, int cmd, char **split_space
 
 void parsing(char *input)
 {
-    char **split_pipe;
+    char **s_pipe;
     char **split_space;
     int i = 0;
     int j = 0;
@@ -172,11 +173,11 @@ void parsing(char *input)
     t_dados *dados_head;
 
 	dados_head = NULL;
-	split_pipe = split_ms(input, "|");
+	s_pipe = split_pipe(input);
 
-    while(split_pipe[i] != NULL)
+    while(s_pipe[i] != NULL)
     {
-        split_space = split_ms(split_pipe[i], ">< \t");
+        split_space = split_ms(s_pipe[i]);
         j = 0;
 		nbr_redirections = 0;
 		nbr_comands = 0;  //errado pois o bash aceita comando sem espaço

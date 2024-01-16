@@ -2,23 +2,11 @@
 #include "../includes/minishell.h"
 #include "../includes/parsing.h"
 
-size_t	ft_strlen_t(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != 0)
-	{
-		i++;
-	}
-	return (i);
-}
 
 static int	cont(char const *s)
 {
 	int	i;
 	int	result;
-    int j = 0;
 
 	i = 0;
 	result = 0;
@@ -28,7 +16,6 @@ static int	cont(char const *s)
 			i++;
 		if(s[i] == '\0')
 		{
-			printf("result is %d\n", result);
 			return result;
 
 		}
@@ -189,9 +176,8 @@ char	**split_ms(char const *s)
 	int count;
 
 	count = cont(s);
-	printf("result is %d\n", count);
 
-	len = ft_strlen_t(s);
+	len = ft_strlen(s);
 	totals = malloc(sizeof(char *) * (count + 1));
 
 	if (totals == NULL)
@@ -204,18 +190,4 @@ char	**split_ms(char const *s)
 	}
 	totals[j] = NULL;
 	return (totals);
-}
-
-
-int main(int ac, char **av)
-{
-	int i = 0;
-	
-	char **teste = split_ms("ls '-la a'");
-	
-	while(teste[i] != NULL)
-	{
-    	printf("->>> %s\n", teste[i]);
-		i++;
-	}
 }
