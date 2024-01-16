@@ -19,19 +19,23 @@ static void	tests_ft_ls(void)
 {
 
 	t_dados test1 = {
-		.comando = (char *[]){"ls", "-lha", NULL},
+		.comando = (char *[]){"pwd", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = NULL
 	};
 
+
+
 	t_dados test2 = {
-		.comando = (char *[]){"ls", "-lha", NULL},
+		.comando = (char *[]){"cat", NULL},
 		.redirect = (t_redirect[]){(t_redirect) {.filename="text.txt", .redirect_type = 0}},
 		.nbr_redirections = 1,
 		.next = NULL
 	};
-	
+
+
+	start_execution(&test1, init_env);
 }
 
 void	setUp(void)
