@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/12 17:18:24 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/16 21:06:34 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int					minishell(t_env *my_env);
 void				ft_add_list(char *key, t_env **my_list);
 
 // env
+t_env				*init_minienv(char **env);
+void				ft_add_list(char *key, t_env **my_list);
 void				ft_update_envlist(char *name, char *value, t_env *my_env);
 t_env				*ft_seach_node(char *name, t_env *my_env);
 char				*mini_value(char *name, t_env *my_env);
