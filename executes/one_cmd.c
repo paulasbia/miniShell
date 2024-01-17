@@ -6,13 +6,13 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 11:21:59 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 13:46:18 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_execute_child(char **args, t_env *my_env)
+int	ft_execute_child(t_dados *data, t_env *my_env)
 {
 	pid_t	child_pid;
 	int		status;
@@ -20,9 +20,9 @@ int	ft_execute_child(char **args, t_env *my_env)
 	child_pid = fork();
 	ft_def_signal(child_pid);
 	if (child_pid < 0)
-		ft_child_err("fork", args[0]);
+		ft_child_err("fork", data->comando[0]);
 	if (!child_pid)
-		ft_exec_child_process(args, my_env);
+		ft_exec_child_process(data->comando, my_env);
 	waitpid(child_pid, &status, 0);
 	return (EXIT_FAILURE);
 }
@@ -34,8 +34,8 @@ int	ft_one_cmd(t_dados *data, t_env **my_env)
 
 	if (ft_cmd_builtin(data))
 		exit_status = ft_execute_builtin(data, my_env);
-	// else
-	// 	exit_status = ft_execute_child(args, *my_env);
+	else
+		exit_status = ft_execute_child(data, *my_env);
 	// ft_free_args(args);
 	return (exit_status);
 }
