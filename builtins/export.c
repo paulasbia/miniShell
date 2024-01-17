@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 10:46:16 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 11:17:42 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_export(t_dados *data, t_env **my_env)
 	while (data->comando[i])
 	{
 		name_var = ft_varname(data->comando[i]);
-		if (check_key(data->comando[i]) == 0)
+		if (check_key(name_var) == 0)
 		{
 			ft_print_error_var("export", data->comando[i]);
 			exit_status = EXIT_FAILURE;
