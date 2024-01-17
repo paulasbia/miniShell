@@ -25,17 +25,15 @@ static void	tests_ft_ls(void)
 		.next = NULL
 	};
 
+	// t_dados test2 = {
+	// 	.comando = (char *[]){"cat", NULL},
+	// 	.redirect = (t_redirect[]){(t_redirect) {.filename="text.txt", .redirect_type = 0}},
+	// 	.nbr_redirections = 1,
+	// 	.next = NULL
+	// };
 
-
-	t_dados test2 = {
-		.comando = (char *[]){"cat", NULL},
-		.redirect = (t_redirect[]){(t_redirect) {.filename="text.txt", .redirect_type = 0}},
-		.nbr_redirections = 1,
-		.next = NULL
-	};
-
-
-	start_execution(&test1, init_env);
+	ft_one_cmd(&test1, &init_env);
+	//start_execution(&test1, &init_env);
 }
 
 void	setUp(void)

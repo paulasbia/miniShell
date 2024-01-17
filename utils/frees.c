@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:24:42 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 13:55:26 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 15:43:39 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,34 @@ void	ft_free_env(t_env **my_env)
 	my_env = NULL;
 }
 
-//temporario, usar o da tais no parsing
-void	ft_free_data(t_dados **data)
+// temporario, usar o da tais no parsing pq nao sei se esta correto
+void	ft_free_data(t_dados *data)
 {
-	t_dados	*aux;
-	t_dados	*next;
+	int	i;
 
-	aux = *data;
-	while (aux)
+	i = 0;
+	if (data)
 	{
-		free(aux->redirect);
-		free(aux->comando);
-		next = aux->next;
-		free(aux);
-		aux = next;
+		while (i < data->nbr_redirections)
+		{
+			free(data->redirect->filename);
+			i++;
+		}
+		free (data->redirect);
+		i = 0;
+		data->nbr_redirections = 0;
+		if (data->comando)
+		{
+			while (data->comando[i])
+			{
+				free(data->comando[i]);
+				i++;
+			}
+			free(data->comando);
+		}
+		ft_free_data(data->next);
 	}
-	data = NULL;
+	free(data);
 }
 
 void	ft_free_args(char **args)
