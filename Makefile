@@ -53,7 +53,10 @@ install-mac:
 	@python3 -m pip install norminette
 
 check:
-	norminette
+	norminette ./srcs
+	norminette ./builtins
+	norminette ./utils
+	norminette ./executes
 	norminette ./includes/minishell.h
 
 test_b:

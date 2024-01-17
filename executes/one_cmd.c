@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:12:46 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 11:21:59 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_execute_child(char **args, t_env *my_env)
 // precisa criar outro comando
 int	ft_one_cmd(t_dados *data, t_env **my_env)
 {
-	int		exit_status;
+	int	exit_status;
 
 	if (ft_cmd_builtin(data))
 		exit_status = ft_execute_builtin(data, my_env);

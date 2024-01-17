@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 10:48:12 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 11:19:08 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,35 +73,26 @@ size_t				minienv_size(t_env *my_env);
 char				**myenv_to_array(t_env *my_env);
 
 // utils
-//int					ft_cmd_builtin(char **args);
-int	ft_cmd_builtin(t_dados *data);
+int					ft_cmd_builtin(t_dados *data);
 int					str_equal(const char *str1, const char *str2);
 
 // EXECUTES
-//int					start_execution(char *input, t_env **my_env);
 int					start_execution(t_dados *data, t_env **my_env);
-//int					ft_one_cmd(char *input, t_env **my_env);
-int	ft_one_cmd(t_dados *data, t_env **my_env);
+int					ft_one_cmd(t_dados *data, t_env **my_env);
 int					ft_execute_child(char **args, t_env *my_env);
-//int					ft_execute_builtin(char **args, t_env **minienv);
-int	ft_execute_builtin(t_dados *data, t_env **minienv);
+int					ft_execute_builtin(t_dados *data, t_env **minienv);
 int					ft_exec_child_process(char **args, t_env *my_env);
 
 // builtins
-int					ft_pwd();
-//int					ft_exit(char **arg, t_env **my_env);
-int	ft_exit(t_dados *data, t_env **my_env);
-//int					ft_echo(char **args);
-int	ft_echo(t_dados *data);
+int					ft_pwd(void);
+int					ft_exit(t_dados *data, t_env **my_env);
+int					ft_echo(t_dados *data);
 int					ft_env(t_env *my_env);
-//int					ft_unset(char **args, t_env **minienv);
-int	ft_unset(t_dados *data, t_env **my_env);
-//int					ft_export(char **args, t_env **my_env);
-int	ft_export(t_dados *data, t_env **my_env);
+int					ft_unset(t_dados *data, t_env **my_env);
+int					ft_export(t_dados *data, t_env **my_env);
 char				*ft_varname(char *name);
 char				*ft_varvalue(char *value);
-//int					ft_cd(char **args, t_env **my_env);
-int	ft_cd(t_dados *data, t_env **my_env);
+int					ft_cd(t_dados *data, t_env **my_env);
 
 // prompt
 char				*ft_get_prompt(void);

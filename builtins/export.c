@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 11:17:42 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 11:21:33 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	export_msg(t_env *mini)
 	return (0);
 }
 
-//temos que lidar com as "" pois a entrada deve conter elas mas ignorar ao printar.
+// temos que lidar com as "" pois a entrada deve conter elas 
+// mas ignorar ao printar.
 int	ft_export(t_dados *data, t_env **my_env)
 {
 	int		exit_status;
