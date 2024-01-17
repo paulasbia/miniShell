@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:23:00 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:17:17 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:49:45 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_exit(t_dados *data, t_env **my_env)
 	rl_clear_history();
 	ft_free_env(my_env);
 	ft_putstr_fd("exit\n", 1);
-	if (!data->comando || (!data->comando[1] && data->comando))
+	if (!data || (!data->comando[1] && data))
 		exit(EXIT_SUCCESS);
 	if (data->comando[2])
 	{

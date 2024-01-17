@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:08:28 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:19:00 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:51:13 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 int	ft_execute_builtin(t_dados *data, t_env **minienv)
 {
 	char	*command;
-	(void)minienv;
 
 	command = data->comando[0];
 	if (str_equal(command, "pwd"))
 		return (ft_pwd());
 	if (str_equal(command, "exit"))
-	 	return (ft_exit(data, minienv));
+		return (ft_exit(data, minienv));
 	if (str_equal(command, "echo"))
 		return (ft_echo(data));
 	// if (str_equal(command, "env"))
