@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:13:35 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:17:35 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ int					ft_exec_child_process(char **args, t_env *my_env);
 
 // builtins
 int					ft_pwd();
-int					ft_exit(char **arg, t_env **my_env);
+//int					ft_exit(char **arg, t_env **my_env);
+int	ft_exit(t_dados *data, t_env **my_env);
 int					ft_echo(char **args);
 int					ft_env(t_env *my_env);
 int					ft_unset(char **args, t_env **minienv);
