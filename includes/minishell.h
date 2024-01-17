@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/10 10:08:16 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 15:15:10 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define OUT_OF_RANGE 255
 # define BUILTIN_MISUSE 2
 # define FORK_ERROR -1
-# define CMD_NOT_FOUND_MSG	"command not found"
+# define CMD_NOT_FOUND_MSG "command not found"
 # define NOT_EXECUTABLE_MSG "Is a directory"
 # define GRN "\001\e[0;32m\002"
 # define MAG "\001\e[0;35m\002"
@@ -45,11 +45,27 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+typedef struct s_redirect
+{
+	int				redirect_type;
+	char			*filename;
+}					t_redirect;
+
+typedef struct s_dados
+{
+	int				nbr_redirections;
+	char			**comando;
+	t_redirect		*redirect;
+	struct s_dados	*next;
+}					t_dados;
+
 int					ft_check_arg(int ac, char **av);
 int					minishell(t_env *my_env);
 void				ft_add_list(char *key, t_env **my_list);
 
 // env
+t_env				*init_minienv(char **env);
+void				ft_add_list(char *key, t_env **my_list);
 void				ft_update_envlist(char *name, char *value, t_env *my_env);
 t_env				*ft_seach_node(char *name, t_env *my_env);
 char				*mini_value(char *name, t_env *my_env);
@@ -57,24 +73,26 @@ size_t				minienv_size(t_env *my_env);
 char				**myenv_to_array(t_env *my_env);
 
 // utils
-int					ft_cmd_builtin(char **args);
+int					ft_cmd_builtin(t_dados *data);
 int					str_equal(const char *str1, const char *str2);
 
 // EXECUTES
-int					ft_one_cmd(char *input, t_env **my_env);
-int					ft_execute_builtin(char **args, t_env **minienv);
+int					start_execution(t_dados *data, t_env **my_env);
+int					ft_one_cmd(t_dados *data, t_env **my_env);
+int					ft_execute_child(t_dados *data, t_env *my_env);
+int					ft_execute_builtin(t_dados *data, t_env **minienv);
 int					ft_exec_child_process(char **args, t_env *my_env);
 
 // builtins
 int					ft_pwd(void);
-int					ft_exit(char **arg, t_env **my_env);
-int					ft_echo(char **args);
+int					ft_exit(t_dados *data, t_env **my_env);
+int					ft_echo(t_dados *data);
 int					ft_env(t_env *my_env);
-int					ft_unset(char **args, t_env **minienv);
-int					ft_export(char **args, t_env **my_env);
+int					ft_unset(t_dados *data, t_env **my_env);
+int					ft_export(t_dados *data, t_env **my_env);
 char				*ft_varname(char *name);
 char				*ft_varvalue(char *value);
-int					ft_cd(char **args, t_env **my_env);
+int					ft_cd(t_dados *data, t_env **my_env);
 
 // prompt
 char				*ft_get_prompt(void);
@@ -87,6 +105,7 @@ void				ft_def_signal(pid_t child_pid);
 void				ft_free_env(t_env **my_env);
 void				ft_free_args(char **args);
 void				ft_clean(char **to_clean);
+void				ft_free_data(t_dados *data);
 
 // error
 void				print_error_msg(char *command, char *msg);

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 16:35:52 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 11:21:33 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ int	export_msg(t_env *mini)
 	return (0);
 }
 
-int	ft_export(char **args, t_env **my_env)
+// temos que lidar com as "" pois a entrada deve conter elas 
+// mas ignorar ao printar.
+int	ft_export(t_dados *data, t_env **my_env)
 {
 	int		exit_status;
 	int		i;
@@ -76,20 +78,20 @@ int	ft_export(char **args, t_env **my_env)
 
 	exit_status = EXIT_SUCCESS;
 	i = 1;
-	if (!args[i])
+	if (!data->comando[i])
 		return (export_msg(*my_env));
-	while (args[i])
+	while (data->comando[i])
 	{
-		name_var = ft_varname(args[i]);
-		if (check_key(args[i]) == 0)
+		name_var = ft_varname(data->comando[i]);
+		if (check_key(name_var) == 0)
 		{
-			ft_print_error_var("export", args[i]);
+			ft_print_error_var("export", data->comando[i]);
 			exit_status = EXIT_FAILURE;
 		}
 		else if (ft_env_entry_exist(name_var, *my_env))
-			ft_update_envlist(name_var, ft_varvalue(args[i]), *my_env);
+			ft_update_envlist(name_var, ft_varvalue(data->comando[i]), *my_env);
 		else
-			ft_add_list(args[i], my_env);
+			ft_add_list(data->comando[i], my_env);
 		i++;
 	}
 	return (exit_status);

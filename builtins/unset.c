@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:28:57 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 10:10:05 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 10:20:34 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,21 @@ void	remove_env(char *args, t_env **my_env)
 }
 
 // unico erro encontrado no bash, verificar na 42
-int	ft_unset(char **args, t_env **my_env)
+int	ft_unset(t_dados *data, t_env **my_env)
 {
 	int	i;
 	int	exit_status;
 
 	i = 1;
 	exit_status = EXIT_SUCCESS;
-	while (args[i])
+	while (data->comando[i])
 	{
-		if (!ft_strncmp(args[i], "-", 1) && args[i][1])
+		if (!ft_strncmp(data->comando[i], "-", 1) && data->comando[i][1])
 		{
-			ft_print_error_var("unset", args[i]);
+			ft_print_error_var("unset", data->comando[i]);
 			exit_status = 2;
 		}
-		remove_env(args[i], my_env);
+		remove_env(data->comando[i], my_env);
 		i++;
 	}
 	return (exit_status);
