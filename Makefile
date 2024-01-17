@@ -60,7 +60,6 @@ check:
 	norminette ./includes/minishell.h
 
 test:
-	@make re 
 	./e2e/tester.sh ./e2e/builtin
 	./e2e/tester.sh ./e2e/extras
 
