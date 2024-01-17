@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:04:35 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:07:37 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 int	start_execution(t_dados *data, t_env **my_env)
 {
 	int	exit_status;
-	char	*input;
 
-	input = data->comando[0];
-
-	exit_status = ft_one_cmd(input, my_env);
+	exit_status = ft_one_cmd(data, my_env);
 	return (exit_status);
 }
+
 t_dados	*fake_parser(char	*input){
 	t_dados	*parsed = malloc(sizeof(t_dados));
 	
@@ -31,6 +29,7 @@ t_dados	*fake_parser(char	*input){
 	parsed->next = NULL;	
 	return parsed;
 }
+
 int	minishell(t_env *my_env)
 {
 	char	*input;

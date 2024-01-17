@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:05:55 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:10:31 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,15 @@ size_t				minienv_size(t_env *my_env);
 char				**myenv_to_array(t_env *my_env);
 
 // utils
-int					ft_cmd_builtin(char **args);
+//int					ft_cmd_builtin(char **args);
+int	ft_cmd_builtin(t_dados *data);
 int					str_equal(const char *str1, const char *str2);
 
 // EXECUTES
 //int					start_execution(char *input, t_env **my_env);
 int					start_execution(t_dados *data, t_env **my_env);
-int					ft_one_cmd(char *input, t_env **my_env);
+//int					ft_one_cmd(char *input, t_env **my_env);
+int	ft_one_cmd(t_dados *data, t_env **my_env);
 int					ft_execute_child(char **args, t_env *my_env);
 int					ft_execute_builtin(char **args, t_env **minienv);
 int					ft_exec_child_process(char **args, t_env *my_env);

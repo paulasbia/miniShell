@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:37:26 by paula             #+#    #+#             */
-/*   Updated: 2024/01/03 10:19:05 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:08:25 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	str_equal(const char *str1, const char *str2)
 	return (ft_strncmp(str1, str2, size) == 0);
 }
 
-int	ft_cmd_builtin(char **args)
+int	ft_cmd_builtin(t_dados *data)
 {
 	char	*command;
 
-	command = args[0];
+	command = data->comando[0];
 	if (!command)
 		return (0);
 	if (str_equal(command, "pwd"))
