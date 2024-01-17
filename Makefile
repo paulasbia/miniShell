@@ -59,12 +59,11 @@ check:
 	norminette ./executes
 	norminette ./includes/minishell.h
 
-test:
+pre_test:
 	./e2e/tester.sh ./e2e/builtin
 	./e2e/tester.sh ./e2e/extras
 
-red_test:
-	@make re 
+test:
 	./e2e/tester.sh ./e2e/builtin
 	./e2e/tester.sh ./e2e/extras
 	./e2e/tester.sh ./e2e/redirects
