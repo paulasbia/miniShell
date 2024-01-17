@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 10:26:50 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 10:48:12 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int	ft_unset(t_dados *data, t_env **my_env);
 int	ft_export(t_dados *data, t_env **my_env);
 char				*ft_varname(char *name);
 char				*ft_varvalue(char *value);
-int					ft_cd(char **args, t_env **my_env);
+//int					ft_cd(char **args, t_env **my_env);
+int	ft_cd(t_dados *data, t_env **my_env);
 
 // prompt
 char				*ft_get_prompt(void);

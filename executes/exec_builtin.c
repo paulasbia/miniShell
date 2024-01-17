@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:08:28 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 10:25:31 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 10:47:26 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	ft_execute_builtin(t_dados *data, t_env **minienv)
 		return (ft_unset(data, minienv));
 	if (str_equal(command, "export"))
 		return (ft_export(data, minienv));
-	// if (str_equal(command, "cd"))
-	// 	return (ft_cd(args, minienv));
+	if (str_equal(command, "cd"))
+		return (ft_cd(data, minienv));
 	else
 		return (EXIT_FAILURE);
 }
