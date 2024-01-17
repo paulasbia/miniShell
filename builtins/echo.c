@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:36:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:05:36 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:20:01 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@ static int	ft_check_n(char *args)
 	return (1);
 }
 
-int	ft_echo(char **args)
+int	ft_echo(t_dados *data)
 {
 	int	i;
 	int	new_line;
 
 	i = 1;
 	new_line = 0;
-	if (args[i] && ft_check_n(args[i]))
+	if (data->comando[i] && ft_check_n(data->comando[i]))
 	{
 		new_line = 1;
 		i++;
 	}
-	while (args[i])
+	while (data->comando[i])
 	{
-		ft_putstr_fd(args[i], STDOUT_FILENO);
-		if (args[i + 1])
+		ft_putstr_fd(data->comando[i], STDOUT_FILENO);
+		if (data->comando[i + 1])
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
