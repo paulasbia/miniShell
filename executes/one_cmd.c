@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/01/16 21:46:29 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:04:44 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_execute_child(char **args, t_env *my_env)
 }
 
 // precisa criar outro comando
-int	ft_one_cmd(char *input, t_env **my_env, int *fds)
+int	ft_one_cmd(char *input, t_env **my_env)
 {
 	char	**args;
 	int		exit_status;
@@ -36,7 +36,7 @@ int	ft_one_cmd(char *input, t_env **my_env, int *fds)
 	args = ft_split(input, ' ');
 	free(input);
 	if (ft_cmd_builtin(args))
-		exit_status = ft_execute_builtin(args, my_env, fds);
+		exit_status = ft_execute_builtin(args, my_env);
 	else
 		exit_status = ft_execute_child(args, *my_env);
 	ft_free_args(args);

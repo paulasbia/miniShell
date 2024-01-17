@@ -6,53 +6,20 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:00:39 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:04:35 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	*ft_check_fds(char *input, int *fds)
-{
-	int	open_flags;
-
-	while (*input)
-	{
-		if (*input == '>')
-		{
-			input++;
-			if (*input == '>')
-			{
-				open_flags = O_WRONLY | O_CREAT | O_APPEND;
-				fds[STDOUT_FILENO] = open("teste", open_flags, 0644);
-				return(fds);
-			}
-			else
-			{
-				open_flags = O_WRONLY | O_CREAT | O_TRUNC;
-				fds[STDOUT_FILENO] = open("teste", open_flags, 0644);
-				return(fds);
-			}
-		}
-		input++;
-	}
-	fds[STDOUT_FILENO] = STDOUT_FILENO;
-	return(fds);
-}
-
 int	start_execution(t_dados *data, t_env **my_env)
 {
 	int	exit_status;
-	int	fd[2];
 	char	*input;
 
 	input = data->comando[0];
 
-	ft_check_fds(input, fd);
-	//ler o imput, IF tiver '>' entao open, se for >> APPEND
-	//fd[STDOUT_FILENO] = open("teste", O_WRONLY);
-
-	exit_status = ft_one_cmd(input, my_env, fd);
+	exit_status = ft_one_cmd(input, my_env);
 	return (exit_status);
 }
 t_dados	*fake_parser(char	*input){

@@ -6,23 +6,23 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:08:28 by paula             #+#    #+#             */
-/*   Updated: 2024/01/12 17:17:46 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:04:53 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_execute_builtin(char **args, t_env **minienv, int *fds)
+int	ft_execute_builtin(char **args, t_env **minienv)
 {
 	char	*command;
 
 	command = args[0];
 	if (str_equal(command, "pwd"))
-		return (ft_pwd(fds));
+		return (ft_pwd());
 	if (str_equal(command, "exit"))
 		return (ft_exit(args, minienv));
 	if (str_equal(command, "echo"))
-		return (ft_echo(args, fds));
+		return (ft_echo(args));
 	if (str_equal(command, "env"))
 		return (ft_env(*minienv));
 	if (str_equal(command, "unset"))
