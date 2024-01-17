@@ -28,7 +28,7 @@ BLUE="\033[0;36m"
 RED="\e[0;31m"
 END="\033[0m"
 
-chmod 000 ./test_files/invalid_permission
+chmod 000 ./e2e/test_files/invalid_permission
 mkdir ./outfiles
 mkdir ./mini_outfiles
 mkdir ./bash_outfiles
@@ -109,7 +109,7 @@ for testfile in ${test_lists[*]}; do
 	done < $testfile
 done
 
-chmod 666 ./test_files/invalid_permission
+chmod 666 ./e2e/test_files/invalid_permission
 rm -rf ./outfiles
 rm -rf ./mini_outfiles
 rm -rf ./bash_outfiles

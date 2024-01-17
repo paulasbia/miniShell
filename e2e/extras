@@ -2,7 +2,7 @@
 $PWD
 $EMPTY
 #$EMPTY echo hi
-./test_files/invalid_permission
+./e2e/test_files/invalid_permission
 ./missing.out
 missing.out
 "aaa"
