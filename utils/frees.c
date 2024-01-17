@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:24:42 by paula             #+#    #+#             */
-/*   Updated: 2024/01/10 10:07:58 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 13:55:26 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,24 @@ void	ft_free_env(t_env **my_env)
 		aux = next;
 	}
 	my_env = NULL;
+}
+
+//temporario, usar o da tais no parsing
+void	ft_free_data(t_dados **data)
+{
+	t_dados	*aux;
+	t_dados	*next;
+
+	aux = *data;
+	while (aux)
+	{
+		free(aux->redirect);
+		free(aux->comando);
+		next = aux->next;
+		free(aux);
+		aux = next;
+	}
+	data = NULL;
 }
 
 void	ft_free_args(char **args)

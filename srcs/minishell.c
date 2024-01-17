@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 11:19:32 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 13:56:51 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	start_execution(t_dados *data, t_env **my_env)
 	return (exit_status);
 }
 
+//um fake apenas para poder executar testes com a entrada t_dados
 t_dados	*fake_parser(char *input)
 {
 	t_dados	*parsed;
@@ -32,6 +33,7 @@ t_dados	*fake_parser(char *input)
 	return (parsed);
 }
 
+//antes do exit_status receber qualquer coisa vamos chamar o parsing
 int	minishell(t_env *my_env)
 {
 	char	*input;

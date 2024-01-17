@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 13:46:18 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 13:55:56 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_execute_child(t_dados *data, t_env *my_env)
 	return (EXIT_FAILURE);
 }
 
-// precisa criar outro comando
+// mudar a funcao free para o da Tais aqui
 int	ft_one_cmd(t_dados *data, t_env **my_env)
 {
 	int	exit_status;
@@ -36,6 +36,6 @@ int	ft_one_cmd(t_dados *data, t_env **my_env)
 		exit_status = ft_execute_builtin(data, my_env);
 	else
 		exit_status = ft_execute_child(data, *my_env);
-	// ft_free_args(args);
+	ft_free_data(&data);
 	return (exit_status);
 }
