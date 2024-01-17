@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/16 22:35:29 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:00:39 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,13 @@ int	*ft_check_fds(char *input, int *fds)
 	return(fds);
 }
 
-int	start_execution(char *input, t_env **my_env)
+int	start_execution(t_dados *data, t_env **my_env)
 {
 	int	exit_status;
 	int	fd[2];
+	char	*input;
+
+	input = data->comando[0];
 
 	ft_check_fds(input, fd);
 	//ler o imput, IF tiver '>' entao open, se for >> APPEND

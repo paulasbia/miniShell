@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/16 22:30:21 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:01:08 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int					ft_cmd_builtin(char **args);
 int					str_equal(const char *str1, const char *str2);
 
 // EXECUTES
-int					start_execution(char *input, t_env **my_env);
+//int					start_execution(char *input, t_env **my_env);
+int					start_execution(t_dados *data, t_env **my_env);
 int					ft_one_cmd(char *input, t_env **my_env, int *fds);
 int					ft_execute_child(char **args, t_env *my_env);
 int					ft_execute_builtin(char **args, t_env **minienv, int *fds);
