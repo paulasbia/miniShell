@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/18 09:46:40 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/18 10:54:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	start_execution(t_dados *data, t_env **my_env)
 {
 	int	exit_status;
 
-	if(!data->next)
+	if (!data->next)
 		exit_status = ft_one_cmd(data, my_env);
 	ft_free_data(data);
 	return (exit_status);
 }
 
-//um fake apenas para poder executar testes com a entrada t_dados
+// um fake apenas para poder executar testes com a entrada t_dados
 t_dados	*fake_parser(char *input)
 {
 	t_dados	*parsed;
@@ -35,7 +35,7 @@ t_dados	*fake_parser(char *input)
 	return (parsed);
 }
 
-//antes do exit_status receber qualquer coisa vamos chamar o parsing
+// antes do exit_status receber qualquer coisa vamos chamar o parsing
 int	minishell(t_env *my_env)
 {
 	char	*input;
