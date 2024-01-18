@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 15:14:46 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/18 10:21:39 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,13 @@ int	ft_execute_child(t_dados *data, t_env *my_env)
 int	ft_one_cmd(t_dados *data, t_env **my_env)
 {
 	int	exit_status;
+	int	saved_fd[2];
 
+	if (!handle_redirects(data, &saved_fd[0]))
+	{
+		printf("oi\n");
+	}
+	
 	if (ft_cmd_builtin(data))
 		exit_status = ft_execute_builtin(data, my_env);
 	else
