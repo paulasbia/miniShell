@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/05 11:46:15 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/01/18 11:48:17 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ int	minishell(t_env *my_env)
 			(ft_exit(NULL, &my_env));
 		if (input[0])
 			add_history(input);
-		parsing(input);
+		// função check args
+		if (validate_input(input) == 1)
+		{
+			continue;
+		}
+		parsing(input); //se tudo tiver ok eu faço o parsing
 		//exit_status = start_execution(input, &my_env);
 	}
 	return (exit_status);

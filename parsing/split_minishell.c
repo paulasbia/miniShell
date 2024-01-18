@@ -191,3 +191,4 @@ char	**split_ms(char const *s)
 	totals[j] = NULL;
 	return (totals);
 }
+/*preciso lidar com as aspas abertas, preciso fazer uma função para limpar as aspas*/

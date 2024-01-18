@@ -69,7 +69,7 @@ static char	*cont_word(char const *s, int *i)
             while(s[*i] != '"')
             {
                 (*i)++;			
-            j++;
+            	j++;
             }
             (*i)++;
             j++;

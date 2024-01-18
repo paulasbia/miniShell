@@ -162,7 +162,7 @@ void alocacao(t_dados **dados_head, int redirection, int cmd, char **split_space
 	ms_lstadd_back(dados_head, node);
 }
 
-void parsing(char *input)
+void parsing(char *input) //mudar para t_dados
 {
     char **s_pipe;
     char **split_space;
