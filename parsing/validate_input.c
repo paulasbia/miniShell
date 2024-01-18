@@ -4,6 +4,12 @@
 
 /*verificar pipe dplo, pipe sem nada escrito, aspas abertas aspas estranhas*/
 
+/**
+ * @errado:
+ * "ls """
+ * "ls ""
+*/
+
 int validate_input(char *s)
 {
     int	i;
@@ -19,9 +25,14 @@ int validate_input(char *s)
             {
                 i++;			
             }
-            if(s[i] == '|' || s[i] == '\0')
+            if(s[i] == '\0')
             {
-                ft_putstr_fd("pipe error\n", 1);
+                ft_putstr_fd("syntax error, command not found after pipe\n", 1);
+                return (1);
+            } 
+            if (s[i] == '|')
+            {
+                ft_putstr_fd("syntax error near unexpected token `|'\n", 1);
                 return (1);
             }    
         }
@@ -30,18 +41,26 @@ int validate_input(char *s)
             i++;
             while(s[i] != '"')
             {
-                i++;			
-            }
-            i++;
+                if(s[i] == '\0')
+                {
+                    ft_putstr_fd("syntax error, open quotes\n", 1);
+                    return (1);
+                }
+                i++;
+            }    
         }
         if(s[i] == '\'')
         {
             i++;
             while(s[i] != '\'')
             {
-                i++;				
-            }
-            i++;
+                if(s[i] == '\0')
+                {
+                    ft_putstr_fd("syntax error, open quotes\n", 1);
+                    return (1);
+                }
+                i++;
+            }    
         }
 		i++;
 	}
