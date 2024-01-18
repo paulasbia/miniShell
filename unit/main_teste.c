@@ -19,7 +19,7 @@ static void	tests_ft_ls(void)
 {
 
 	t_dados test1 = {
-		.comando = (char *[]){"pwd", NULL},
+		.comando = (char *[]){"ls", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = NULL
@@ -39,8 +39,8 @@ static void	tests_ft_ls(void)
 		.next = NULL
 	};
 
-	ft_one_cmd(&test2, &init_env);
 	ft_one_cmd(&test1, &init_env);
+	ft_one_cmd(&test2, &init_env);
 	ft_one_cmd(&test3, &init_env);
 	ft_one_cmd(&test2, &init_env);
 	//start_execution(&test1, &init_env);
@@ -65,5 +65,6 @@ int	main(int ac, char **av, char **env)
 	UNITY_BEGIN();
 	RUN_TEST(tests_ft_isalpha);
 	RUN_TEST(tests_ft_ls);
+	RUN_TEST(tests_ft_isalpha);
 	return (UNITY_END());
 }

@@ -6,21 +6,27 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/01/18 11:00:15 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/18 15:56:36 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	back_saved_fd(int saved_fd[2])
+{
+	dup2(saved_fd[1], STDOUT_FILENO);
+	close(saved_fd[1]);
+}
 
 int	redirect_output(t_dados *data)
 {
 	int	fd;
 	int	open_flags;
 
-	if (data->redirect->redirect_type == 0)
-		open_flags = O_WRONLY | O_CREAT | O_TRUNC;
-	else if (data->redirect->redirect_type == 3)
+	if (data->redirect->redirect_type == 3)
 		open_flags = O_WRONLY | O_CREAT | O_APPEND;
+	else if (data->redirect->redirect_type == 0)
+		open_flags = O_WRONLY | O_CREAT | O_TRUNC;
 	fd = open(data->redirect->filename, open_flags, 0644);
 	if (fd < 0)
 	{

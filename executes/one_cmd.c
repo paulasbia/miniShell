@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/01/18 10:51:21 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/18 15:52:41 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ int	ft_one_cmd(t_dados *data, t_env **my_env)
 		exit_status = ft_execute_builtin(data, my_env);
 	else
 		exit_status = ft_execute_child(data, *my_env);
+	back_saved_fd(saved_fd);
 	return (exit_status);
 }
