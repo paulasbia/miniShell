@@ -1,0 +1,22 @@
+/home/paula/42lisboa/miniShell
+/home/paula/42lisboa/miniShell
+builtins
+e2e
+executes
+includes
+libft
+Makefile
+minishell
+minishell_unit
+objs
+README.md
+srcs
+text.txt
+unit
+utils
+/home/paula/42lisboa/miniShell
+unit/main_teste.c:67:tests_ft_ls:PASS
+
+-----------------------
+2 Tests 0 Failures 0 Ignored 
+OK

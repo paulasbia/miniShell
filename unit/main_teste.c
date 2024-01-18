@@ -18,12 +18,12 @@ static void	tests_ft_isalpha(void)
 static void	tests_ft_ls(void)
 {
 
-	// t_dados test1 = {
-	// 	.comando = (char *[]){"pwd", NULL},
-	// 	.redirect = NULL,
-	// 	.nbr_redirections = 0,
-	// 	.next = NULL
-	// };
+	t_dados test1 = {
+		.comando = (char *[]){"pwd", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = NULL
+	};
 
 	t_dados test2 = {
 		.comando = (char *[]){"pwd", NULL},
@@ -32,6 +32,16 @@ static void	tests_ft_ls(void)
 		.next = NULL
 	};
 
+		t_dados test3 = {
+		.comando = (char *[]){"ls", NULL},
+		.redirect = (t_redirect[]){(t_redirect) {.filename="text.txt", .redirect_type = 3}},
+		.nbr_redirections = 1,
+		.next = NULL
+	};
+
+	ft_one_cmd(&test2, &init_env);
+	ft_one_cmd(&test1, &init_env);
+	ft_one_cmd(&test3, &init_env);
 	ft_one_cmd(&test2, &init_env);
 	//start_execution(&test1, &init_env);
 }

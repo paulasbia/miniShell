@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/01/18 10:49:51 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/18 11:00:15 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	redirect_output(t_dados *data)
 	int	fd;
 	int	open_flags;
 
-	open_flags = O_WRONLY | O_CREAT | O_TRUNC;
+	if (data->redirect->redirect_type == 0)
+		open_flags = O_WRONLY | O_CREAT | O_TRUNC;
+	else if (data->redirect->redirect_type == 3)
+		open_flags = O_WRONLY | O_CREAT | O_APPEND;
 	fd = open(data->redirect->filename, open_flags, 0644);
 	if (fd < 0)
 	{
@@ -51,7 +54,8 @@ int	handle_redirects(t_dados *data, int saved_fd[2])
 	saved_fd[1] = -1;
 	while (data->nbr_redirections)
 	{
-		if (data->redirect->redirect_type == 0)
+		if (data->redirect->redirect_type == 0
+			|| data->redirect->redirect_type == 3)
 		{
 			if (!handle_red_output(data, saved_fd))
 				return (0);
