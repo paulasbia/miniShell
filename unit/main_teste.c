@@ -39,10 +39,18 @@ static void	tests_ft_ls(void)
 		.next = NULL
 	};
 
+		t_dados test4 = {
+		.comando = (char *[]){"wc", NULL},
+		.redirect = (t_redirect[]){(t_redirect) {.filename="text.txt", .redirect_type = 1}},
+		.nbr_redirections = 1,
+		.next = NULL
+	};
+
 	ft_one_cmd(&test1, &init_env);
 	ft_one_cmd(&test2, &init_env);
 	ft_one_cmd(&test3, &init_env);
 	ft_one_cmd(&test2, &init_env);
+	ft_one_cmd(&test4, &init_env);
 	//start_execution(&test1, &init_env);
 }
 
