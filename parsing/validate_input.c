@@ -2,18 +2,9 @@
 #include "../includes/minishell.h"
 #include "../includes/parsing.h"
 
-/*verificar pipe dplo, pipe sem nada escrito, aspas abertas aspas estranhas*/
-
-/**
- * @errado:
- * "ls """
- * "ls ""
-*/
-
 int validate_input(char *s)
 {
     int	i;
-    //int check = 0;
 
 	i = 0;
 	while (s[i] != '\0')
@@ -65,11 +56,4 @@ int validate_input(char *s)
 		i++;
 	}
     return (0);
-
-
-
-
-
-
-
 }

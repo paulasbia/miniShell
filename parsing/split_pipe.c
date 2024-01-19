@@ -2,6 +2,7 @@
 #include "../includes/minishell.h"
 #include "../includes/parsing.h"
 
+
 static int	cont_pipe(char const *s)
 {
 	int	i;
