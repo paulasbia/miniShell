@@ -15,23 +15,47 @@ static void	tests_ft_isalpha(void)
 	// assert((ft_isalpha('a') == isalpha('a')));
 }
 
-static void	tests_ft_ls(void)
-{
-
+static int run_cmd(char **cmd){
 	t_dados test1 = {
-		.comando = (char *[]){"ls", NULL},
+		.comando = cmd,
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = NULL
 	};
+	return ft_one_cmd(&test1, &init_env);
+}
 
-	t_dados test2 = {
+
+ static void assert_files_and_clean(void){
+	int return_code;
+
+	return_code = run_cmd((char *[]){"bash", "-c", "diff actual.txt expected.txt", NULL});
+	TEST_ASSERT_EQUAL(0, return_code);
+	return_code = run_cmd((char *[]){"bash", "-c", "rm actual.txt expected.txt", NULL});
+	TEST_ASSERT_EQUAL(0, return_code);
+}
+
+
+static void	tests_ft_out_redirect_pwd(void)
+{
+	t_dados actual = {
 		.comando = (char *[]){"pwd", NULL},
-		.redirect = (t_redirect[]){(t_redirect) {.filename="text.txt", .redirect_type = 0}},
+		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 0}},
 		.nbr_redirections = 1,
 		.next = NULL
 	};
 
+	char** expected = (char *[]){"bash", "-c", "pwd > expected.txt", NULL};
+
+	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+
+	TEST_ASSERT_EQUAL(0, run_cmd(expected));
+
+	assert_files_and_clean();
+}
+
+static void	tests_ft_append_redirect_ls(void)
+{
 		t_dados test3 = {
 		.comando = (char *[]){"ls", NULL},
 		.redirect = (t_redirect[]){(t_redirect) {.filename="text.txt", .redirect_type = 3}},
@@ -39,20 +63,21 @@ static void	tests_ft_ls(void)
 		.next = NULL
 	};
 
+	ft_one_cmd(&test3, &init_env);
+}
+
+static void	tests_ft_input_redirect(void)
+{
 		t_dados test4 = {
 		.comando = (char *[]){"wc", NULL},
 		.redirect = (t_redirect[]){(t_redirect) {.filename="text.txt", .redirect_type = 1}},
 		.nbr_redirections = 1,
 		.next = NULL
 	};
-
-	ft_one_cmd(&test1, &init_env);
-	ft_one_cmd(&test2, &init_env);
-	ft_one_cmd(&test3, &init_env);
-	ft_one_cmd(&test2, &init_env);
+	
 	ft_one_cmd(&test4, &init_env);
-	//start_execution(&test1, &init_env);
 }
+	//start_execution(&test1, &init_env);
 
 void	setUp(void)
 {
@@ -72,7 +97,9 @@ int	main(int ac, char **av, char **env)
 	init_env = init_minienv(env);
 	UNITY_BEGIN();
 	RUN_TEST(tests_ft_isalpha);
-	RUN_TEST(tests_ft_ls);
+	RUN_TEST(tests_ft_out_redirect_pwd);
+	RUN_TEST(tests_ft_append_redirect_ls);
+	RUN_TEST(tests_ft_input_redirect);
 	RUN_TEST(tests_ft_isalpha);
 	return (UNITY_END());
 }

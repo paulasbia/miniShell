@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/01/18 16:41:19 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/21 09:58:23 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	handle_red_output(t_dados *data, int saved_fd[2])
 	return (1);
 }
 
+//TODO refatorar, criar variavel para nbr e so passar os dados necessarios para out e in 
 int	handle_redirects(t_dados *data, int saved_fd[2])
 {
 	saved_fd[0] = -1;

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/01/18 16:40:57 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/21 10:51:45 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	back_saved_fd(int saved_fd[2])
 	dup2(saved_fd[1], STDOUT_FILENO);
 	close(saved_fd[1]);
 }
-
+//verificar o retorno 0 ou 1;
 int	ft_execute_child(t_dados *data, t_env *my_env)
 {
 	pid_t	child_pid;
@@ -30,7 +30,7 @@ int	ft_execute_child(t_dados *data, t_env *my_env)
 	if (!child_pid)
 		ft_exec_child_process(data->comando, my_env);
 	waitpid(child_pid, &status, 0);
-	return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 // mudar a funcao free para o da Tais aqui
@@ -48,5 +48,6 @@ int	ft_one_cmd(t_dados *data, t_env **my_env)
 	else
 		exit_status = ft_execute_child(data, *my_env);
 	back_saved_fd(saved_fd);
+	printf("o retorno %d\n", exit_status);
 	return (exit_status);
 }
