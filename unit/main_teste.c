@@ -77,6 +77,13 @@ static void	tests_ft_input_redirect(void)
 	
 	ft_one_cmd(&test4, &init_env);
 }
+
+static void tests_return_code_error(void){
+
+	TEST_ASSERT_EQUAL(1, run_cmd((char *[]){"cd", "a", NULL}));
+	TEST_ASSERT_EQUAL(1, run_cmd((char *[]){"bash", "-c", "wc a", NULL}));
+
+}
 	//start_execution(&test1, &init_env);
 
 void	setUp(void)
@@ -100,6 +107,7 @@ int	main(int ac, char **av, char **env)
 	RUN_TEST(tests_ft_out_redirect_pwd);
 	RUN_TEST(tests_ft_append_redirect_ls);
 	RUN_TEST(tests_ft_input_redirect);
+	RUN_TEST(tests_return_code_error);
 	RUN_TEST(tests_ft_isalpha);
 	return (UNITY_END());
 }
