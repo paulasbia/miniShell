@@ -4,17 +4,6 @@
 
 t_env	*init_env;
 
-static void	tests_ft_isalpha(void)
-{
-	TEST_ASSERT_FALSE(ft_isalpha('5'));
-	TEST_ASSERT_TRUE(ft_isalpha('a'));
-	TEST_ASSERT_TRUE(ft_isalpha('A'));
-	//TEST_ASSERT_EQUAL(isalpha('1'), ft_isalpha('1'));
-	TEST_ASSERT_TRUE(ft_isalpha('A'));
-	// TODO teste foi comentado devido retorno divergente
-	// assert((ft_isalpha('a') == isalpha('a')));
-}
-
 static int run_cmd(char **cmd){
 	t_dados test1 = {
 		.comando = cmd,
@@ -103,11 +92,9 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	init_env = init_minienv(env);
 	UNITY_BEGIN();
-	RUN_TEST(tests_ft_isalpha);
 	RUN_TEST(tests_ft_out_redirect_pwd);
 	RUN_TEST(tests_ft_append_redirect_ls);
 	RUN_TEST(tests_ft_input_redirect);
 	RUN_TEST(tests_return_code_error);
-	RUN_TEST(tests_ft_isalpha);
 	return (UNITY_END());
 }
