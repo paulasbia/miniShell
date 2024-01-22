@@ -1,7 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_minishell.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/19 16:43:42 by ricardo           #+#    #+#             */
+/*   Updated: 2024/01/19 16:45:42 by ricardo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/parsing.h"
-
 
 static int	cont(char const *s)
 {
@@ -14,54 +24,53 @@ static int	cont(char const *s)
 	{
 		while (s[i] == ' ' || s[i] == '\t')
 			i++;
-		if(s[i] == '\0')
+		if (s[i] == '\0')
 		{
-			return result;
-
+			return (result);
 		}
-		while (s[i] != '\0'  && s[i] != ' ' && s[i] != '\t')
+		while (s[i] != '\0' && s[i] != ' ' && s[i] != '\t')
 		{
-			if(s[i] == '"')
+			if (s[i] == '"')
 			{
 				i++;
-				while(s[i] != '"')
-				{
-					i++;			
-				}
-				i++;
-				if(s[i] == ' ' || s[i] == '\t')
-				{
-					result++;
-				}
-				if (s[i] == '\0')
-					return result + 1;
-			}
-			if(s[i] == '\'')
-			{
-				i++;
-				while(s[i] != '\'')
-				{
-					i++;				
-				}
-				i++;
-				if(s[i] == ' ' || s[i] == '\t')
-				{
-					result++;
-				}
-				if (s[i] == '\0')
-					return result + 1;
-			}
-			if(s[i] == '<' || s[i] == '>')
-			{
-				if(i > 0 && s[i - 1] != ' ' && s[i] != '\t')
-				{
-					result++;
-				}
-				while(s[i + 1] == '>' || s[i + 1] == '<')
+				while (s[i] != '"')
 				{
 					i++;
 				}
-				if(s[i + 1] != ' ' && s[i + 1] != '\t' && s[i + 1] != '\0')
+				i++;
+				if (s[i] == ' ' || s[i] == '\t')
+				{
+					result++;
+				}
+				if (s[i] == '\0')
+					return (result + 1);
+			}
+			if (s[i] == '\'')
+			{
+				i++;
+				while (s[i] != '\'')
+				{
+					i++;
+				}
+				i++;
+				if (s[i] == ' ' || s[i] == '\t')
+				{
+					result++;
+				}
+				if (s[i] == '\0')
+					return (result + 1);
+			}
+			if (s[i] == '<' || s[i] == '>')
+			{
+				if (i > 0 && s[i - 1] != ' ' && s[i] != '\t')
+				{
+					result++;
+				}
+				while (s[i + 1] == '>' || s[i + 1] == '<')
+				{
+					i++;
+				}
+				if (s[i + 1] != ' ' && s[i + 1] != '\t' && s[i + 1] != '\0')
 				{
 					result++;
 				}
@@ -69,88 +78,88 @@ static int	cont(char const *s)
 			if (s[i])
 				i++;
 		}
-		// if(s[i] && s[i - 1] != '\'' && s[i - 1] != '"' && s[i - 1] != ' ')
 		result++;
 	}
 	return (result);
 }
 
-static char *alloc_word(const char *s, int j, int index)
+static char	*alloc_word(const char *s, int j, int index)
 {
-	char *src;
-	int i = 0;
+	char	*src;
+	int		i;
 
+	i = 0;
 	src = malloc(sizeof(char) * (j + 1));
 	if (src == NULL)
 		return (NULL);
-	while(j > 0)
+	while (j > 0)
 	{
 		src[i++] = s[index++];
 		j--;
 	}
-	src[i] = '\0';	
+	src[i] = '\0';
 	return (src);
 }
 
 static char	*cont_word(char const *s, int *i)
 {
-    int j = 0;
-	int index;
-	static int help = 0;
+	int			j;
+	int			index;
+	static int	help;
 
+	j = 0;
+	help = 0;
 	while (s[*i] != '\0')
 	{
 		while (s[*i] == ' ' || s[*i] == '\t')
 			(*i)++;
-		
-		index = *i; 
-		while (s[*i] != '\0'  && s[*i] != ' ' && s[*i] != '\t')
+		index = *i;
+		while (s[*i] != '\0' && s[*i] != ' ' && s[*i] != '\t')
 		{
-			if(s[*i] == '"')
+			if (s[*i] == '"')
 			{
 				(*i)++;
 				j++;
-				while(s[*i] != '"')
+				while (s[*i] != '"')
 				{
 					(*i)++;
-					j++;		
+					j++;
 				}
 				(*i)++;
 				j++;
-				if(s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\0')
+				if (s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\0')
 				{
 					return (alloc_word(s, j, index));
 				}
 			}
-			if(s[*i] == '\'')
+			if (s[*i] == '\'')
 			{
 				(*i)++;
 				j++;
-				while(s[*i] != '\'')
+				while (s[*i] != '\'')
 				{
 					(*i)++;
-					j++;			
+					j++;
 				}
 				(*i)++;
 				j++;
-				if(s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\0')
+				if (s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\0')
 				{
 					return (alloc_word(s, j, index));
-
 				}
 			}
-			if(s[*i] == '<' || s[*i] == '>')
+			if (s[*i] == '<' || s[*i] == '>')
 			{
 				if (*i > 0 && s[(*i - 1)] != ' ' && help == 0)
 				{
 					help = 1;
 					return (alloc_word(s, j, index));
 				}
-				else 
+				else
 					help = 0;
 				j++;
 				(*i)++;
-				while(s[*i] == '>' || s[*i] == '<')
+				while (s[*i] == '>' || s[*i] == '<')
 				{
 					(*i)++;
 					j++;
@@ -165,24 +174,21 @@ static char	*cont_word(char const *s, int *i)
 	return (NULL);
 }
 
-
-
 char	**split_ms(char const *s)
 {
 	char	**totals;
-	int		i = 0;
-	int		j = 0;
-	int 	len;
-	int count;
+	int		i;
+	int		j;
+	int		len;
+	int		count;
 
+	i = 0;
+	j = 0;
 	count = cont(s);
-
 	len = ft_strlen(s);
 	totals = malloc(sizeof(char *) * (count + 1));
-
 	if (totals == NULL)
 		return (NULL);
-
 	while (i < len)
 	{
 		totals[j] = cont_word(s, &i);
