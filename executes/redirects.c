@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/01/22 09:45:39 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/22 09:47:54 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,16 @@ int	handle_red_output(t_dados *data, int saved_fd[2])
 	return (1);
 }
 
-//TODO refatorar, criar variavel para nbr e so passar 
-//os dados necessarios para out e in 
+// TODO refatorar, criar variavel para nbr e so passar
+// os dados necessarios para out e in
 int	handle_redirects(t_dados *data, int saved_fd[2])
 {
+	int	number_red;
+
+	number_red = data->nbr_redirections;
 	saved_fd[0] = -1;
 	saved_fd[1] = -1;
-	while (data->nbr_redirections)
+	while (number_red)
 	{
 		if (data->redirect->redirect_type == 0
 			|| data->redirect->redirect_type == 3)
@@ -98,7 +101,7 @@ int	handle_redirects(t_dados *data, int saved_fd[2])
 			if (!handle_red_intput(data, saved_fd))
 				return (0);
 		}
-		data->nbr_redirections--;
+		number_red--;
 	}
 	return (1);
 }
