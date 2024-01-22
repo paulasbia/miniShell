@@ -24,7 +24,6 @@ static int run_cmd(char **cmd){
 	TEST_ASSERT_EQUAL(0, return_code);
 }
 
-
 static void	tests_ft_out_redirect_pwd(void)
 {
 	t_dados actual = {
@@ -43,28 +42,60 @@ static void	tests_ft_out_redirect_pwd(void)
 	assert_files_and_clean();
 }
 
-static void	tests_ft_append_redirect_ls(void)
+static void test_creat(void)
 {
-		t_dados test3 = {
-		.comando = (char *[]){"ls", NULL},
-		.redirect = (t_redirect[]){(t_redirect) {.filename="text.txt", .redirect_type = 3}},
+		t_dados actual = {
+		.comando = (char *[]){"pwd", NULL},
+		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 0}},
 		.nbr_redirections = 1,
 		.next = NULL
 	};
 
-	ft_one_cmd(&test3, &init_env);
+	char** expected = (char *[]){"bash", "-c", "pwd > expected.txt", NULL};
+
+	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+
+	TEST_ASSERT_EQUAL(0, run_cmd(expected));
+}
+
+static void	tests_ft_append_redirect_ls(void)
+{
+	test_creat();
+
+		t_dados actual = {
+		.comando = (char *[]){"ls", NULL},
+		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 3}},
+		.nbr_redirections = 1,
+		.next = NULL
+	};
+
+	char** expected = (char *[]){"bash", "-c", "ls >> expected.txt", NULL};
+
+	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+
+	TEST_ASSERT_EQUAL(0, run_cmd(expected));
+
+	assert_files_and_clean();
 }
 
 static void	tests_ft_input_redirect(void)
 {
-		t_dados test4 = {
+	test_creat();
+
+		t_dados actual = {
 		.comando = (char *[]){"wc", NULL},
-		.redirect = (t_redirect[]){(t_redirect) {.filename="text.txt", .redirect_type = 1}},
+		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 1}},
 		.nbr_redirections = 1,
 		.next = NULL
 	};
 	
-	ft_one_cmd(&test4, &init_env);
+	char** expected = (char *[]){"bash", "-c", "wc < expected.txt", NULL};
+
+	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+
+	TEST_ASSERT_EQUAL(0, run_cmd(expected));
+
+	assert_files_and_clean();
 }
 
 static void tests_return_code_error(void){
