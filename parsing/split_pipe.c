@@ -2,7 +2,6 @@
 #include "../includes/minishell.h"
 #include "../includes/parsing.h"
 
-//teste ara commit
 static int	cont_pipe(char const *s)
 {
 	int	i;
@@ -21,7 +20,6 @@ static int	cont_pipe(char const *s)
             {
                 i++;			
             }
-            i++;
         }
         if(s[i] == '\'')
         {
@@ -30,7 +28,6 @@ static int	cont_pipe(char const *s)
             {
                 i++;				
             }
-            i++;
         }
 		i++;
 	}
@@ -72,8 +69,6 @@ static char	*cont_word(char const *s, int *i)
                 (*i)++;			
             	j++;
             }
-            (*i)++;
-            j++;
         }
         if(s[*i] == '\'')
         {
@@ -84,8 +79,6 @@ static char	*cont_word(char const *s, int *i)
                 (*i)++;				
                 j++;
             }
-            (*i)++;
-            j++;
         }
 		if (s[*i] == '|')
         {

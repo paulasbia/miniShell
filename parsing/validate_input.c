@@ -9,6 +9,32 @@ int validate_input(char *s)
 	i = 0;
 	while (s[i] != '\0')
 	{
+        if(s[i] == '>')
+        {
+            i++;
+            if(s[i] ==  '>')
+                i++;
+            while(s[i] != '\0' && (s[i] == ' ' || s[i] == '\t')) 
+                i++;
+            if(s[i] == '>' || s[i] == '<' || s[i] == '|'  || s[i] == '\0')
+            {
+                ft_putstr_fd("syntax error, command not found after token\n", 1);
+                return (1);
+            }
+        }
+        if(s[i] == '<')
+        {
+            i++;
+            if(s[i] ==  '<')
+                i++;
+            while(s[i] != '\0' && (s[i] == ' ' || s[i] == '\t')) 
+                i++;
+            if(s[i] == '>' || s[i] == '<' || s[i] == '|' || s[i] == '\0')
+            {
+                ft_putstr_fd("syntax error, command not found after token\n", 1);
+                return (1);
+            }
+        }
         if(s[i] == '|')
         {
             i++;

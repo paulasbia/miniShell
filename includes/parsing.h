@@ -18,11 +18,15 @@ typedef struct s_dados
 } t_dados;
 
 //PARSING
-void parsing(char *input);
+t_dados *parsing(char *input);	
 char	**split_ms(char const *s);
 char	**split_pipe(char const *s);
 int validate_input(char *s);
 char *clean_quotes(char *s);
+void free_cmd(char **split);
+void free_list(t_dados *lst);
+
+
 
 
 #endif

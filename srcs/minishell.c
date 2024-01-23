@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/18 11:48:17 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/01/23 11:54:25 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 int	minishell(t_env *my_env)
 {
+	
 	char	*input;
 	int		exit_status;
 

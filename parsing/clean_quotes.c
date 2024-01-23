@@ -6,14 +6,35 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:31:41 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/23 10:31:47 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/01/23 13:39:36 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/parsing.h"
 
-char *clean_quotes(char *s) //aonde enfiar essa função de bosta?? 
+void free_list(t_dados *lst) 
+{
+    t_dados *temp;
+    while (lst != NULL) {
+        temp = lst;
+        lst = lst->next;
+        free(temp->comando);
+        free(temp);
+    }
+}
+
+void free_cmd(char **split)
+{
+    int i = 0;
+    while (split[i] != NULL) {
+        free(split[i]);
+        i++;
+    }
+    free(split);
+}
+
+char *clean_quotes(char *s)
 {   
     int i = 0;
     int size = 0;
@@ -30,7 +51,6 @@ char *clean_quotes(char *s) //aonde enfiar essa função de bosta??
 				size++;
                 i++;			
 			}
-            i++;
         }
         if(s[i] == '"')
         {
@@ -40,7 +60,6 @@ char *clean_quotes(char *s) //aonde enfiar essa função de bosta??
                 size++;
 				i++;			
 			}
-            i++;
         }
         else
         {
@@ -49,7 +68,7 @@ char *clean_quotes(char *s) //aonde enfiar essa função de bosta??
         }
     }
     i = 0;
-    new_string =  malloc (sizeof(char) * size);
+    new_string =  malloc ((sizeof(char) * size) + 1);
     while(s[i] != '\0')
     {
          if(s[i] == '\'')
@@ -63,7 +82,7 @@ char *clean_quotes(char *s) //aonde enfiar essa função de bosta??
 			}
             i++;
         }
-        if(s[i] == '"')
+        else if(s[i] == '"')
         {
             i++;
             while(s[i] != '"')
@@ -81,5 +100,6 @@ char *clean_quotes(char *s) //aonde enfiar essa função de bosta??
             i++;
         }
     }
+    new_string[j] = '\0';
     return (new_string);
 }

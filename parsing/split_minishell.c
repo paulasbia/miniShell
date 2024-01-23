@@ -28,7 +28,6 @@ static int	cont(char const *s)
 				{
 					i++;			
 				}
-				i++;
 				if(s[i] == ' ' || s[i] == '\t')
 				{
 					result++;
@@ -43,7 +42,6 @@ static int	cont(char const *s)
 				{
 					i++;				
 				}
-				i++;
 				if(s[i] == ' ' || s[i] == '\t')
 				{
 					result++;
@@ -69,11 +67,11 @@ static int	cont(char const *s)
 			if (s[i])
 				i++;
 		}
-		// if(s[i] && s[i - 1] != '\'' && s[i - 1] != '"' && s[i - 1] != ' ')
 		result++;
 	}
 	return (result);
 }
+
 
 static char *alloc_word(const char *s, int j, int index)
 {
@@ -115,8 +113,6 @@ static char	*cont_word(char const *s, int *i)
 					(*i)++;
 					j++;		
 				}
-				(*i)++;
-				j++;
 				if(s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\0')
 				{
 					return (alloc_word(s, j, index));
@@ -131,12 +127,9 @@ static char	*cont_word(char const *s, int *i)
 					(*i)++;
 					j++;			
 				}
-				(*i)++;
-				j++;
 				if(s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\0')
 				{
 					return (alloc_word(s, j, index));
-
 				}
 			}
 			if(s[*i] == '<' || s[*i] == '>')
@@ -172,22 +165,21 @@ char	**split_ms(char const *s)
 	char	**totals;
 	int		i = 0;
 	int		j = 0;
-	int 	len;
 	int count;
 
 	count = cont(s);
-
-	len = ft_strlen(s);
 	totals = malloc(sizeof(char *) * (count + 1));
 
 	if (totals == NULL)
 		return (NULL);
 
-	while (i < len)
+	while (j < count)
 	{
 		totals[j] = cont_word(s, &i);
+		printf("jtotal is |%s|\n", totals[j]);
 		j++;
 	}
+	printf("count is %d\n", count);
 	totals[j] = NULL;
 	return (totals);
 }

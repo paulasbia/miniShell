@@ -17,7 +17,7 @@ int	redirection(char *red)
 		return (-1);
 }
 
-void	ms_lstadd_back(t_dados **lst, t_dados *node)
+void	ms_lstadd_back(t_dados **lst, t_dados *node) //aqui
 		// posso usar da lib pois n tem alteração
 {
 	t_dados *temp;
@@ -33,7 +33,7 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 	}
 }
 
-void	print_list(t_dados *lst)
+void	print_list(t_dados *lst) //aqui
 {
 	int		i;
 	int		j;
@@ -63,7 +63,7 @@ void	print_list(t_dados *lst)
 	}
 }
 
-t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd)
+t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd) //com certeza aqui
 {
 	t_dados	*node;
 	int		i;
@@ -99,21 +99,24 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd)
 	return (node);
 }
 
-void	alocacao(t_dados **dados_head, int redirection, int cmd, char **split_cmd)
+void	alocacao(t_dados **dados_head, int redirection, int cmd, char **split_cmd) //aqui tbm
 {
 	t_dados	*node;
 	int i = 0;
+	char *new;
 
 	while(split_cmd[i] != NULL)
 	{
-		split_cmd[i] = clean_quotes(split_cmd[i]);
+		new = clean_quotes(split_cmd[i]);
+		free(split_cmd[i]);
+		split_cmd[i] =  new;
 		i++;
 	}
 	node = ft_lstnew_p(redirection, cmd, split_cmd);
 	ms_lstadd_back(dados_head, node);
 }
 
-void	parsing(char *input) // mudar para t_dados
+t_dados	*parsing(char *input)
 {
 	char **s_pipe;
 	char **split_cmd;
@@ -124,6 +127,7 @@ void	parsing(char *input) // mudar para t_dados
 	t_dados *dados_head;
 
 	dados_head = NULL;
+	printf("%s\n", input);
 	s_pipe = split_pipe(input);
 	
 	while (s_pipe[i] != NULL)
@@ -137,6 +141,8 @@ void	parsing(char *input) // mudar para t_dados
 			if (redirection(split_cmd[j]) != -1)
 			{
 				nbr_redirections++;
+				if (split_cmd[j +1] == NULL)
+					break;
 				j += 2;
 			}
 			else
@@ -149,4 +155,5 @@ void	parsing(char *input) // mudar para t_dados
 		i++;
 	}
 	print_list(dados_head);
+	return (dados_head);
 }
