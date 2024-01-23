@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/18 10:54:50 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/23 11:45:54 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	minishell(t_env *my_env)
 		if (input[0])
 			add_history(input);
 		exit_status = start_execution(fake_parser(input), &my_env);
+		free(input);
 	}
 	return (exit_status);
 }
