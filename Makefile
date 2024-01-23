@@ -11,7 +11,7 @@ SRCS		=		$(MAIN) $(BUILTINS) $(UTILS) $(EXECUTES) $(PARSING)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 
-CFLAGS		=		-g -Wall -Wextra -Werror
+CFLAGS		=	    -g -Wall -Wextra -Werror
 
 RM			=		rm -f
 

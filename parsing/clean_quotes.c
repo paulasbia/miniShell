@@ -1,8 +1,17 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_quotes.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/23 10:31:41 by ricardo           #+#    #+#             */
+/*   Updated: 2024/01/23 10:31:47 by ricardo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/parsing.h"
-
 
 char *clean_quotes(char *s) //aonde enfiar essa função de bosta?? 
 {   
