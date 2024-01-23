@@ -21,3 +21,5 @@ jobs:
       run: make check
     - name: test
       run: make test
+    - name: unit
+      run: make unit
