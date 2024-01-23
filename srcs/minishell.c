@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/23 11:54:25 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:14:09 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	minishell(t_env *my_env)
 	
 	char	*input;
 	int		exit_status;
+	t_dados *dados;
 
 	(void)my_env;
 	while (1)
@@ -42,8 +43,11 @@ int	minishell(t_env *my_env)
 		{
 			continue;
 		}
-		parsing(input); //se tudo tiver ok eu faço o parsing
+		dados = parsing(input); //se tudo tiver ok eu faço o parsing
 		//exit_status = start_execution(input, &my_env);
+		free_list(&dados);
+		free(input);
+		input = NULL;
 	}
 	return (exit_status);
 }

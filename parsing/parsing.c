@@ -85,17 +85,18 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd) //com certeza aqui
 		{
 			node->redireção[j].tipo_de_redireção = redirection(split_cmd[i]);
 				// eu guardo o tipo e o nome
-			node->redireção[j++].filenane = split_cmd[i + 1];
+			node->redireção[j++].filenane = ft_strdup(split_cmd[i + 1]);
 			i += 2; // ando duas pq depois da redirecao sempre tem o arquivo
 		}
 		else
 		{
-			node->comando[x++] = split_cmd[i++]; // se n for redirecao ou filename é comando.
+			node->comando[x++] = ft_strdup(split_cmd[i++]); // se n for redirecao ou filename é comando.
 		}
 	}
 	node->nbr_redirections = n_reds; // salvo o n de red para paula saber qnts há.
 	node->comando[x] = NULL;
 	node->next = NULL;
+	free_dp(split_cmd);
 	return (node);
 }
 
@@ -127,7 +128,7 @@ t_dados	*parsing(char *input)
 	t_dados *dados_head;
 
 	dados_head = NULL;
-	printf("%s\n", input);
+	//printf("%s\n", input);
 	s_pipe = split_pipe(input);
 	
 	while (s_pipe[i] != NULL)
@@ -154,6 +155,7 @@ t_dados	*parsing(char *input)
 		alocacao(&dados_head, nbr_redirections, nbr_comands, split_cmd);
 		i++;
 	}
+	free_dp(s_pipe);
 	print_list(dados_head);
 	return (dados_head);
 }
