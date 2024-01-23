@@ -14,22 +14,25 @@ static int run_cmd(char **cmd){
 	return ft_one_cmd(&test1, &init_env);
 }
 
-
-
-
 static void assert_n_files_and_clean(char **actuals, char **expecteds)
 {
 	int return_code;
+	char *join1 = ft_strjoin(*actuals, " ");
+	char *join2 = ft_strjoin(join1, *expecteds);
+	char *join3 = ft_strjoin("diff ", join2);
 	
 	while (*actuals)
 	{
-		return_code = run_cmd((char *[]){"bash", "-c", ft_strjoin("diff ", ft_strjoin(ft_strjoin(*actuals, " "), *expecteds)), NULL});
+		return_code = run_cmd((char *[]){"bash", "-c", join3, NULL});
 		TEST_ASSERT_EQUAL(0, return_code);
-		return_code = run_cmd((char *[]){"bash", "-c", ft_strjoin("rm ", ft_strjoin(ft_strjoin(*actuals, " "), *expecteds)), NULL});
+		return_code = run_cmd((char *[]){"bash", "-c", join3, NULL});
 		TEST_ASSERT_EQUAL(0, return_code);
 		actuals++;
 		expecteds++;
 	}
+	free(join1);
+	free(join2);
+	free(join3);
 }
 
 static void assert_files_and_clean(void){
