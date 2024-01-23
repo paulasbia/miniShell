@@ -59,14 +59,12 @@ check:
 	norminette ./executes
 	norminette ./includes/minishell.h
 
-pre_test:
-	./e2e/tester.sh ./e2e/builtin
-	./e2e/tester.sh ./e2e/extras
-
 test:
 	./e2e/tester.sh ./e2e/builtin
 	./e2e/tester.sh ./e2e/extras
-	./e2e/tester.sh ./e2e/redirects
+
+valgrind:
+	valgrind --leak-check=full ./minishell
 
 ${NAME_T}: ${OBJS_T}
 	@echo "$(COLOUR_GREEN)----Compiling lib----"
