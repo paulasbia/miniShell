@@ -176,10 +176,8 @@ char	**split_ms(char const *s)
 	while (j < count)
 	{
 		totals[j] = cont_word(s, &i);
-		printf("jtotal is |%s|\n", totals[j]);
 		j++;
 	}
-	printf("count is %d\n", count);
 	totals[j] = NULL;
 	return (totals);
 }

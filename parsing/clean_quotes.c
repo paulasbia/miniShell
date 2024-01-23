@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:31:41 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/23 13:39:36 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/01/23 14:03:00 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,11 @@ char *clean_quotes(char *s)
 				i++;			
 			}
         }
-        else
-        {
-            i++;
-            size++;
-        }
+        i++;
+        size++;
     }
+    printf("%d\n", size);
+    printf("%s\n", s);
     i = 0;
     new_string =  malloc ((sizeof(char) * size) + 1);
     while(s[i] != '\0')
