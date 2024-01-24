@@ -7,7 +7,7 @@ MAIN		=		main.c
 ENV			=		checks.c minishell.c mini_env.c
 BUILTINS	=		pwd.c exit.c echo.c env.c utils.c unset.c export.c cd.c
 UTILS		=		init_signal.c prompt.c frees.c error.c env_utils.c env_utils_2.c error2.c
-EXECUTES	=		one_cmd.c exec_builtin.c exec_child.c
+EXECUTES	=		one_cmd.c exec_builtin.c exec_child.c redirects.c
 UNIT		=		main_teste.c unity.c
 SRCS		=		$(MAIN) $(ENV) $(BUILTINS) $(UTILS) $(EXECUTES)
 SRCS_T		=		$(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(UNIT)
@@ -63,11 +63,8 @@ test:
 	./e2e/tester.sh ./e2e/builtin
 	./e2e/tester.sh ./e2e/extras
 
-red_test:
-	@make re 
-	./e2e/tester.sh ./e2e/builtin
-	./e2e/tester.sh ./e2e/extras
-	./e2e/tester.sh ./e2e/redirects
+valgrind:
+	valgrind --leak-check=full ./minishell
 
 ${NAME_T}: ${OBJS_T}
 	@echo "$(COLOUR_GREEN)----Compiling lib----"
@@ -77,7 +74,7 @@ ${NAME_T}: ${OBJS_T}
 	@echo "$(COLOUR_MAG)\nTo start the program type ./minishell\nENJOY!\n$(COLOUR_END)"
 
 unit: ${NAME_T}
-	./${NAME_T}
+	valgrind --leak-check=full ./${NAME_T}
 
 clean:
 	@make clean -C ./libft

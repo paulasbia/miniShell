@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 15:15:10 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/18 15:53:28 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ int					ft_one_cmd(t_dados *data, t_env **my_env);
 int					ft_execute_child(t_dados *data, t_env *my_env);
 int					ft_execute_builtin(t_dados *data, t_env **minienv);
 int					ft_exec_child_process(char **args, t_env *my_env);
+
+// redirects
+int					handle_redirects(t_dados *data, int saved_fd[2]);
+void				back_saved_fd(int saved_fd[2]);
 
 // builtins
 int					ft_pwd(void);

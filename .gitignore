@@ -3,3 +3,5 @@ objs
 **/*.o
 */*.a
 */*.txt
+minishell_unit
+*.txt
