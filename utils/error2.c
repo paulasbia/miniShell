@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:48:59 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 13:44:59 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/24 14:44:05 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,13 @@ void	ft_handle_errors(char **args, char *path, char **envp)
 	ft_free_args(envp);
 	free(path);
 	exit(error);
+}
+
+void	print_error_msg2(char *msg, char command)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(msg, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putchar_fd(command, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
 }
