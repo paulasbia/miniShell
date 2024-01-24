@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:57:34 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/24 11:50:49 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/24 12:27:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,84 +14,81 @@
 
 int	validate_input(char *s)
 {
-	int i;
-
-	i = 0;
-	while (s[i] != '\0')
+	while (*s != '\0')
 	{
-		if (s[i] == '>')
+		if (*s == '>')
 		{
-			i++;
-			if (s[i] == '>')
-				i++;
-			while (s[i] != '\0' && (s[i] == ' ' || s[i] == '\t'))
-				i++;
-			if (s[i] == '>' || s[i] == '<' || s[i] == '|' || s[i] == '\0')
+			s++;
+			if (*s == '>')
+				s++;
+			while (*s != '\0' && (*s == ' ' || *s == '\t'))
+				s++;
+			if (*s == '>' || *s == '<' || *s == '|' || *s == '\0')
 			{
 				ft_putstr_fd("syntax error, command not found after token\n",
 					1);
 				return (1);
 			}
 		}
-		if (s[i] == '<')
+		if (*s == '<')
 		{
-			i++;
-			if (s[i] == '<')
-				i++;
-			while (s[i] != '\0' && (s[i] == ' ' || s[i] == '\t'))
-				i++;
-			if (s[i] == '>' || s[i] == '<' || s[i] == '|' || s[i] == '\0')
+			s++;
+			if (*s == '<')
+				s++;
+			while (*s != '\0' && (*s == ' ' || *s == '\t'))
+				s++;
+			if (*s == '>' || *s == '<' || *s == '|' || *s == '\0')
 			{
 				ft_putstr_fd("syntax error, command not found after token\n",
 					1);
 				return (1);
 			}
 		}
-		if (s[i] == '|')
+		if (*s == '|')
 		{
-			i++;
-			while (s[i] == ' ' || s[i] == '\t')
+			s++;
+			while (*s == ' ' || *s == '\t')
 			{
-				i++;
+				s++;
 			}
-			if (s[i] == '\0')
+			if (*s == '\0')
 			{
 				ft_putstr_fd("syntax error, command not found after pipe\n", 1);
 				return (1);
 			}
-			if (s[i] == '|')
+			if (*s == '|')
 			{
 				ft_putstr_fd("syntax error near unexpected token `|'\n", 1);
 				return (1);
 			}
 		}
-		if (s[i] == '"')
+		if (*s == '"')
 		{
-			i++;
-			while (s[i] != '"')
+			s++;
+			while (*s != '"')
 			{
-				if (s[i] == '\0')
+				if (*s == '\0')
 				{
 					ft_putstr_fd("syntax error, open quotes\n", 1);
 					return (1);
 				}
-				i++;
+				s++;
 			}
 		}
-		if (s[i] == '\'')
+		if (*s == '\'')
 		{
-			i++;
-			while (s[i] != '\'')
+			s++;
+			while (*s != '\'')
 			{
-				if (s[i] == '\0')
+				if (*s == '\0')
 				{
 					ft_putstr_fd("syntax error, open quotes\n", 1);
 					return (1);
 				}
-				i++;
+				s++;
 			}
 		}
-		i++;
+		s++;
 	}
 	return (0);
 }
