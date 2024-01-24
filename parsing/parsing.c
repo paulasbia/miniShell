@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/24 11:52:43 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/24 12:15:15 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	redirection(char *red)
 
 void	ms_lstadd_back(t_dados **lst, t_dados *node)
 {
-	t_dados *temp;
+	t_dados	*temp;
 
 	temp = *lst;
 	if (*lst == NULL)
@@ -84,41 +84,46 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd)
 	node = (t_dados *)malloc(sizeof(t_dados)); // aloco memoria para meu node
 	if (!node)
 		return (NULL);
-	node->comando = malloc(sizeof(char *) * (n_cmd + 1)); // aloco memoria para o tanto de cmd que tenho
-	node->redirect = malloc(sizeof(t_redirect) * (n_reds + 1)); // e tbm para o n de redireções
+	node->comando = malloc(sizeof(char *) * (n_cmd + 1));      
+		// aloco memoria para o tanto de cmd que tenho
+	node->redirect = malloc(sizeof(t_redirect) * (n_reds + 1));
+		// e tbm para o n de redireções
 	while (split_cmd[i] != NULL)
 	{
 		if (redirection(split_cmd[i]) != -1)
-			// se minha redirection for diferente de -1 é pq  há alguma redireção
+		// se minha redirection for diferente de -1 é pq  há alguma redireção
 		{
 			node->redirect[j].redirect_type = redirection(split_cmd[i]);
-				// eu guardo o tipo e o nome
+			// eu guardo o tipo e o nome
 			node->redirect[j++].filename = ft_strdup(split_cmd[i + 1]);
 			i += 2; // ando duas pq depois da redirecao sempre tem o arquivo
 		}
 		else
 		{
-			node->comando[x++] = ft_strdup(split_cmd[i++]); // se n for redirecao ou filename é comando.
+			node->comando[x++] = ft_strdup(split_cmd[i++]);
+				// se n for redirecao ou filename é comando.
 		}
 	}
-	node->nbr_redirections = n_reds; // salvo o n de red para paula saber qnts há.
+	node->nbr_redirections = n_reds;
+		// salvo o n de red para paula saber qnts há.
 	node->comando[x] = NULL;
 	node->next = NULL;
 	free_dp(split_cmd);
 	return (node);
 }
 
-void	alocacao(t_dados **dados_head, int redirection, int cmd, char **split_cmd) //aqui tbm
+void	alocacao(t_dados **dados_head, int redirection, int cmd,
+		char **split_cmd) // aqui tbm
 {
-	t_dados	*node;
+	t_dados *node;
 	int i = 0;
 	char *new;
 
-	while(split_cmd[i] != NULL)
+	while (split_cmd[i] != NULL)
 	{
 		new = clean_quotes(split_cmd[i]);
 		free(split_cmd[i]);
-		split_cmd[i] =  new;
+		split_cmd[i] = new;
 		i++;
 	}
 	node = ft_lstnew_p(redirection, cmd, split_cmd);
@@ -127,17 +132,20 @@ void	alocacao(t_dados **dados_head, int redirection, int cmd, char **split_cmd) 
 
 t_dados	*parsing(char *input)
 {
-	char **s_pipe;
-	char **split_cmd;
-	int i = 0;
-	int j = 0;
-	int nbr_redirections = 0;
-	int nbr_comands = 0;
-	t_dados *dados_head;
+	char	**s_pipe;
+	char	**split_cmd;
+	int		i;
+	int		j;
+	int		nbr_redirections;
+	int		nbr_comands;
+	t_dados	*dados_head;
 
+	i = 0;
+	j = 0;
+	nbr_redirections = 0;
+	nbr_comands = 0;
 	dados_head = NULL;
 	s_pipe = split_pipe(input);
-	
 	while (s_pipe[i] != NULL)
 	{
 		split_cmd = split_ms(s_pipe[i]);
@@ -149,8 +157,8 @@ t_dados	*parsing(char *input)
 			if (redirection(split_cmd[j]) != -1)
 			{
 				nbr_redirections++;
-				if (split_cmd[j +1] == NULL)
-					break;
+				if (split_cmd[j + 1] == NULL)
+					break ;
 				j += 2;
 			}
 			else
@@ -163,6 +171,6 @@ t_dados	*parsing(char *input)
 		i++;
 	}
 	free_dp(s_pipe);
-//	print_list(dados_head);
+	//	print_list(dados_head);
 	return (dados_head);
 }
