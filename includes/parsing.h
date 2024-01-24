@@ -26,6 +26,7 @@ char *clean_quotes(char *s);
 void free_dp(char **split);
 void free_list(t_dados **lst);
 void	print_list(t_dados *lst);
+int	cont(char const *s);
 
 
 
