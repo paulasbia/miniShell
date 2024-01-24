@@ -11,7 +11,7 @@ UTILS		=		init_signal.c prompt.c frees.c error.c env_utils.c env_utils_2.c error
 EXECUTES	=		one_cmd.c exec_builtin.c exec_child.c redirects.c
 UNIT		=		main_teste.c unity.c
 SRCS		=		$(MAIN) $(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(PARSING)
-SRCS_T		=		$(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(UNIT)
+SRCS_T		=		$(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(UNIT) $(PARSING)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 OBJS_T		=		$(addprefix objs/, $(SRCS_T:.c=.o))
