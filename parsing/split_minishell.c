@@ -6,13 +6,13 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:56:43 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/24 16:25:32 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:59:07 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handle_word_quotes(int *i, int *j, char const *s, char c)
+int	handle_word_quotes(int *i, int *j, char const *s, char c)
 {
 	(*i)++;
 	(*j)++;
