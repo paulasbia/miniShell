@@ -6,24 +6,24 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/24 14:44:24 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/24 17:09:24 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/libft.h"    // libft
-#include "../includes/parsing.h" // parsing
-# include <fcntl.h>             // open flags
-# include <readline/history.h>  // history
-# include <readline/readline.h> // readline
-# include <signal.h>            // sigaction
-# include <stdio.h>             // perror
-# include <stdlib.h>            // getenv
-# include <sys/stat.h>          // stat
-# include <sys/wait.h>          // waitpid
-# include <unistd.h>            // getpwd
+# include "../includes/parsing.h" // parsing
+# include "../libft/libft.h"      // libft
+# include <fcntl.h>               // open flags
+# include <readline/history.h>    // history
+# include <readline/readline.h>   // readline
+# include <signal.h>              // sigaction
+# include <stdio.h>               // perror
+# include <stdlib.h>              // getenv
+# include <sys/stat.h>            // stat
+# include <sys/wait.h>            // waitpid
+# include <unistd.h>              // getpwd
 
 # define PATH_MAX 4096
 # define INTERRUPT 128

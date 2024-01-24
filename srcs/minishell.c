@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/24 11:21:39 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/24 17:07:26 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ t_dados	*fake_parser(char *input)
 // antes do exit_status receber qualquer coisa vamos chamar o parsing
 int	minishell(t_env *my_env)
 {
-	
 	char	*input;
 	int		exit_status;
-	t_dados *dados;
+	t_dados	*dados;
 
 	while (1)
 	{
@@ -53,7 +52,7 @@ int	minishell(t_env *my_env)
 			add_history(input);
 		if (validate_input(input) == 0)
 		{
-			dados = parsing(input); //se tudo tiver ok eu faço o parsing;
+			dados = parsing(input);
 			exit_status = start_execution(dados, &my_env);
 			free_list(&dados);
 		}
