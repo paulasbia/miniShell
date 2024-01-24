@@ -48,9 +48,9 @@ exit 298
 exit +100
 exit -100
 #quando tratar aspas, adicionar esses testes
-#exit "-100"
-#exit -"100"
-#exit "+100"
-#exit +"100"
+exit "-100"
+exit -"100"
+exit "+100"
+exit +"100"
 exit hello
 exit 42 world
