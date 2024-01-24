@@ -6,23 +6,24 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/18 15:53:28 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/24 17:09:24 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/libft.h"    // libft
-# include <fcntl.h>             // open flags
-# include <readline/history.h>  // history
-# include <readline/readline.h> // readline
-# include <signal.h>            // sigaction
-# include <stdio.h>             // perror
-# include <stdlib.h>            // getenv
-# include <sys/stat.h>          // stat
-# include <sys/wait.h>          // waitpid
-# include <unistd.h>            // getpwd
+# include "../includes/parsing.h" // parsing
+# include "../libft/libft.h"      // libft
+# include <fcntl.h>               // open flags
+# include <readline/history.h>    // history
+# include <readline/readline.h>   // readline
+# include <signal.h>              // sigaction
+# include <stdio.h>               // perror
+# include <stdlib.h>              // getenv
+# include <sys/stat.h>            // stat
+# include <sys/wait.h>            // waitpid
+# include <unistd.h>              // getpwd
 
 # define PATH_MAX 4096
 # define INTERRUPT 128
@@ -44,20 +45,6 @@ typedef struct s_env
 	char			*key;
 	struct s_env	*next;
 }					t_env;
-
-typedef struct s_redirect
-{
-	int				redirect_type;
-	char			*filename;
-}					t_redirect;
-
-typedef struct s_dados
-{
-	int				nbr_redirections;
-	char			**comando;
-	t_redirect		*redirect;
-	struct s_dados	*next;
-}					t_dados;
 
 int					ft_check_arg(int ac, char **av);
 int					minishell(t_env *my_env);
@@ -109,7 +96,6 @@ void				ft_def_signal(pid_t child_pid);
 void				ft_free_env(t_env **my_env);
 void				ft_free_args(char **args);
 void				ft_clean(char **to_clean);
-void				ft_free_data(t_dados *data);
 
 // error
 void				print_error_msg(char *command, char *msg);
@@ -118,5 +104,6 @@ void				ft_exit_with_error(char *command, char *msg, int error);
 int					ft_cd_err_msg(char *err_msg);
 void				ft_child_err(char *cmd, char *msg);
 void				ft_handle_errors(char **args, char *path, char **envp);
+void				print_error_msg2(char *msg, char command);
 
 #endif

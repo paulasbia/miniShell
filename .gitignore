@@ -5,3 +5,4 @@ objs
 */*.txt
 minishell_unit
 *.txt
+*.out

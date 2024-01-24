@@ -3,24 +3,21 @@ echo
 echo hello world
 echo $
 #quando tratar as aspas, testar
-#echo "hello world"
-#echo 'hello world'
-#echo hello'world'
-#echo hello""world
-#echo ''
+echo "hello world"
+echo 'hello world'
+echo hello'world'
+echo hello""world
+echo ''
 #precisa tratar o $ e pipes com redirecao aqui antes de testar
 #echo "$PWD"
-#echo '$PWD'
-#echo "aspas ->'"
-#echo "aspas -> ' "
-#echo 'aspas ->"'
-#echo 'aspas -> " '
-#echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
-#echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'
-#cho "exit_code ->$? user ->$USER home -> $HOME"
-#echo 'exit_code ->$? user ->$USER home -> $HOME'
-#echo "$"
-#echo '$'
+echo '$PWD'
+echo "aspas ->'"
+echo "aspas -> ' "
+echo 'aspas ->"'
+echo 'aspas -> " '
+echo 'exit_code ->$? user ->$USER home -> $HOME'
+echo "$"
+echo '$'
 #echo $?
 #echo $?HELLO
 pwd
@@ -51,9 +48,9 @@ exit 298
 exit +100
 exit -100
 #quando tratar aspas, adicionar esses testes
-#exit "-100"
-#exit -"100"
-#exit "+100"
-#exit +"100"
+exit "-100"
+exit -"100"
+exit "+100"
+exit +"100"
 exit hello
 exit 42 world
