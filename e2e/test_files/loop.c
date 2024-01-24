@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checks.c                                           :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 11:01:01 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 10:03:26 by paula            ###   ########.fr       */
+/*   Created: 2022/06/22 17:32:45 by lalex-ku          #+#    #+#             */
+/*   Updated: 2022/06/22 17:32:50 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 
-int	ft_check_arg(int ac, char **av)
+int	main(int argc, char const *argv[])
 {
-	if (av && ac > 1)
+	int	pid;
+
+	pid = fork();
+	open("infile", O_RDONLY);
+	while (1)
 	{
-		ft_putstr_fd("Minishell invalid arguments\n", STDOUT_FILENO);
-		return (EXIT_FAILURE);
+		printf("Helloo miniHELL %i\n", pid);
+		sleep(1);
 	}
 	return (0);
 }

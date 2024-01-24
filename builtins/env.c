@@ -6,13 +6,13 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 15:04:02 by paula             #+#    #+#             */
-/*   Updated: 2023/12/19 15:10:52 by paula            ###   ########.fr       */
+/*   Updated: 2023/12/28 10:05:57 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	env(t_env *my_env)
+int	ft_env(t_env *my_env)
 {
 	t_env	*temp;
 

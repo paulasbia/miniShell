@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   error2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 15:04:13 by paula             #+#    #+#             */
-/*   Updated: 2023/12/28 10:09:19 by paula            ###   ########.fr       */
+/*   Created: 2024/01/10 09:48:59 by paula             #+#    #+#             */
+/*   Updated: 2024/01/17 13:44:59 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_get_prompt(void)
+void	ft_handle_errors(char **args, char *path, char **envp)
 {
-	char		*name;
-	static char	prompt[PATH_MAX];
+	int	error;
 
-	name = PROMPT;
-	ft_bzero(prompt, sizeof(prompt));
-	ft_strlcat(prompt, GRN, PATH_MAX);
-	ft_strlcat(prompt, name, PATH_MAX);
-	ft_strlcat(prompt, CRESET, PATH_MAX);
-	return (prompt);
+	error = EXIT_FAILURE;
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	perror(args[0]);
+	if (access(path, F_OK) != 0)
+		error = CMD_NOT_FOUND;
+	else if (access(path, X_OK) != 0)
+		error = NOT_EXECUTABLE;
+	ft_free_args(args);
+	ft_free_args(envp);
+	free(path);
+	exit(error);
 }

@@ -1,17 +1,21 @@
 .SILENT:
 
 NAME		= 		minishell
+NAME_T		=		minishell_unit
 LDLIBS		=		-lreadline -lft
-MAIN		=		main.c checks.c minishell.c
-BUILTINS	=		pwd.c exit.c echo.c env.c utils.c unset.c export.c
-UTILS		=		init_signal.c prompt.c frees.c error.c
-EXECUTES	=		one_cmd.c
 PARSING		=		parsing.c split_pipe.c split_minishell.c validate_input.c clean_quotes.c expansion.c
-SRCS		=		$(MAIN) $(BUILTINS) $(UTILS) $(EXECUTES) $(PARSING)
+MAIN		=		main.c
+ENV			=		checks.c minishell.c mini_env.c
+BUILTINS	=		pwd.c exit.c echo.c env.c utils.c unset.c export.c cd.c
+UTILS		=		init_signal.c prompt.c frees.c error.c env_utils.c env_utils_2.c error2.c
+EXECUTES	=		one_cmd.c exec_builtin.c exec_child.c redirects.c
+UNIT		=		main_teste.c unity.c
+SRCS		=		$(MAIN) $(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(PARSING)
+SRCS_T		=		$(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(UNIT)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
-
-CFLAGS		=	    -g -Wall -Wextra -Werror
+OBJS_T		=		$(addprefix objs/, $(SRCS_T:.c=.o))
+CFLAGS		=		-g3 -Wall -Wextra -Werror
 
 RM			=		rm -f
 
@@ -50,12 +54,32 @@ install-mac:
 	@python3 -m pip install norminette
 
 check:
-	norminette
+	norminette ./srcs
+	norminette ./builtins
+	norminette ./utils
+	norminette ./executes
 	norminette ./includes/minishell.h
+
+test:
+	./e2e/tester.sh ./e2e/builtin
+	./e2e/tester.sh ./e2e/extras
+
+valgrind:
+	valgrind --leak-check=full ./minishell
+
+${NAME_T}: ${OBJS_T}
+	@echo "$(COLOUR_GREEN)----Compiling lib----"
+	@make re -C ./libft
+	@cc $(FLAGS) $(OBJS_T) -Llibft -lft -o $(NAME_T) $(LDLIBS)
+	@echo "$(COLOUR_MAG)\nNice! Minishell Compiled! $(COLOUR_GREEN)ᕦ$(COLOUR_RED)♥$(COLOUR_GREEN)_$(COLOUR_RED)♥$(COLOUR_GREEN)ᕤ\n$(COLOUR_END)"
+	@echo "$(COLOUR_MAG)\nTo start the program type ./minishell\nENJOY!\n$(COLOUR_END)"
+
+unit: ${NAME_T}
+	valgrind --leak-check=full ./${NAME_T}
 
 clean:
 	@make clean -C ./libft
-	@rm -f ${OBJS}
+	@rm -f ${OBJS} ${OBJS_T}
 	@echo "$(COLOUR_RED)Deleting all objs! ⌐(ಠ۾ಠ)¬\n$(COLOUR_END)"
 
 fclean: clean

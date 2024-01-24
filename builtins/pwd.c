@@ -6,18 +6,18 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 14:32:18 by paula             #+#    #+#             */
-/*   Updated: 2023/12/13 14:34:44 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/17 11:20:33 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	pwd(void)
+int	ft_pwd(void)
 {
 	char	cwd[PATH_MAX];
 
 	getcwd(cwd, PATH_MAX);
-	ft_putstr_fd(cwd, 1);
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd(cwd, STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
 	return (0);
 }

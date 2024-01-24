@@ -1,49 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 11:37:26 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:08:25 by paula            ###   ########.fr       */
+/*   Created: 2024/01/03 10:08:28 by paula             #+#    #+#             */
+/*   Updated: 2024/01/17 10:47:26 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	str_equal(const char *str1, const char *str2)
-{
-	size_t	size;
-
-	if (!str1 || !str2)
-		return (0);
-	size = ft_strlen(str1);
-	if (size != ft_strlen(str2))
-		return (0);
-	return (ft_strncmp(str1, str2, size) == 0);
-}
-
-int	ft_cmd_builtin(t_dados *data)
+int	ft_execute_builtin(t_dados *data, t_env **minienv)
 {
 	char	*command;
 
 	command = data->comando[0];
-	if (!command)
-		return (0);
 	if (str_equal(command, "pwd"))
-		return (1);
+		return (ft_pwd());
 	if (str_equal(command, "exit"))
-		return (1);
+		return (ft_exit(data, minienv));
 	if (str_equal(command, "echo"))
-		return (1);
+		return (ft_echo(data));
 	if (str_equal(command, "env"))
-		return (1);
+		return (ft_env(*minienv));
 	if (str_equal(command, "unset"))
-		return (1);
+		return (ft_unset(data, minienv));
 	if (str_equal(command, "export"))
-		return (1);
+		return (ft_export(data, minienv));
 	if (str_equal(command, "cd"))
-		return (1);
-	return (0);
+		return (ft_cd(data, minienv));
+	else
+		return (EXIT_FAILURE);
 }

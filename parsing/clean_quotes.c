@@ -6,12 +6,11 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:31:41 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/23 15:19:25 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/01/24 10:51:53 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/parsing.h"
 
 void free_dp(char **split)
 {
@@ -33,13 +32,12 @@ void free_list(t_dados **lst)
         temp = *lst;
         *lst = (*lst)->next;
         free_dp(temp->comando);
-//        printf("temp comando is %s\n", temp->comando[0]);
         while(temp->nbr_redirections > 0)
         {
-            free(temp->redireção[temp->nbr_redirections - 1].filenane);
+            free(temp->redirect[temp->nbr_redirections - 1].filename);
             temp->nbr_redirections--;            
         }
-        free(temp->redireção);
+        free(temp->redirect);
         free(temp);
         temp = NULL;
     }

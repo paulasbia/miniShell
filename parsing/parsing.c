@@ -1,7 +1,16 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
+/*   Updated: 2024/01/24 10:55:38 by ricardo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/parsing.h"
 
 int	redirection(char *red)
 {
@@ -17,8 +26,7 @@ int	redirection(char *red)
 		return (-1);
 }
 
-void	ms_lstadd_back(t_dados **lst, t_dados *node) //aqui
-		// posso usar da lib pois n tem alteração
+void	ms_lstadd_back(t_dados **lst, t_dados *node)
 {
 	t_dados *temp;
 
@@ -33,7 +41,7 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node) //aqui
 	}
 }
 
-void	print_list(t_dados *lst) //aqui
+void	print_list(t_dados *lst)
 {
 	int		i;
 	int		j;
@@ -48,8 +56,8 @@ void	print_list(t_dados *lst) //aqui
 		i = 0;
 		while (i < temp->nbr_redirections)
 		{
-			printf("%s\n", temp->redireção[i].filenane);
-			printf("%d\n", temp->redireção[i].tipo_de_redireção);
+			printf("%s\n", temp->redirect[i].filename);
+			printf("%d\n", temp->redirect[i].redirect_type);
 			i++;
 		}
 		j = 0;
@@ -63,7 +71,7 @@ void	print_list(t_dados *lst) //aqui
 	}
 }
 
-t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd) //com certeza aqui
+t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd)
 {
 	t_dados	*node;
 	int		i;
@@ -77,15 +85,15 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd) //com certeza aqui
 	if (!node)
 		return (NULL);
 	node->comando = malloc(sizeof(char *) * (n_cmd + 1)); // aloco memoria para o tanto de cmd que tenho
-	node->redireção = malloc(sizeof(t_redireção) * (n_reds + 1)); // e tbm para o n de redireções
+	node->redirect = malloc(sizeof(t_redirect) * (n_reds + 1)); // e tbm para o n de redireções
 	while (split_cmd[i] != NULL)
 	{
 		if (redirection(split_cmd[i]) != -1)
-			// se minha redirection for diferente de -1 é pq  há alguma
+			// se minha redirection for diferente de -1 é pq  há alguma redireção
 		{
-			node->redireção[j].tipo_de_redireção = redirection(split_cmd[i]);
+			node->redirect[j].redirect_type = redirection(split_cmd[i]);
 				// eu guardo o tipo e o nome
-			node->redireção[j++].filenane = ft_strdup(split_cmd[i + 1]);
+			node->redirect[j++].filename = ft_strdup(split_cmd[i + 1]);
 			i += 2; // ando duas pq depois da redirecao sempre tem o arquivo
 		}
 		else
@@ -128,7 +136,6 @@ t_dados	*parsing(char *input)
 	t_dados *dados_head;
 
 	dados_head = NULL;
-	//printf("%s\n", input);
 	s_pipe = split_pipe(input);
 	
 	while (s_pipe[i] != NULL)

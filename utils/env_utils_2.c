@@ -1,44 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   env_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 10:36:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:20:01 by paula            ###   ########.fr       */
+/*   Created: 2024/01/09 09:16:44 by paula             #+#    #+#             */
+/*   Updated: 2024/01/09 09:17:34 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	ft_check_n(char *args)
-{
-	if (strncmp(args, "-n", 3))
-		return (0);
-	return (1);
-}
-
-int	ft_echo(t_dados *data)
+size_t	minienv_size(t_env *my_env)
 {
 	int	i;
-	int	new_line;
 
-	i = 1;
-	new_line = 0;
-	if (data->comando[i] && ft_check_n(data->comando[i]))
+	if (!my_env)
 	{
-		new_line = 1;
-		i++;
+		return (0);
 	}
-	while (data->comando[i])
+	i = 0;
+	while (my_env != 0)
 	{
-		ft_putstr_fd(data->comando[i], STDOUT_FILENO);
-		if (data->comando[i + 1])
-			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
+		my_env = my_env->next;
 	}
-	if (new_line == 0)
-		ft_putstr_fd("\n", STDOUT_FILENO);
-	return (0);
+	return (i);
+}
+
+char	**myenv_to_array(t_env *my_env)
+{
+	char	**envp;
+	t_env	*aux;
+	int		i;
+
+	envp = malloc(sizeof(char *) * (minienv_size(my_env) + 1));
+	aux = my_env;
+	i = 0;
+	while (aux)
+	{
+		envp[i] = ft_strdup(aux->key);
+		i++;
+		aux = aux->next;
+	}
+	envp[i] = NULL;
+	return (envp);
 }

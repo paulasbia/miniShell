@@ -1,5 +1,7 @@
 minishell
 objs
-*/*.o
+**/*.o
 */*.a
 */*.txt
+minishell_unit
+*.txt

@@ -3,17 +3,17 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-typedef struct s_redireção 
+typedef struct s_redirect 
 {
-	int  tipo_de_redireção;
-	char *filenane;
-}	t_redireção;
+	int  redirect_type;
+	char *filename;
+}	t_redirect;
 
 typedef struct s_dados
 {
 	int				nbr_redirections;
 	char  			**comando;
-	t_redireção 	*redireção;
+	t_redirect 	*redirect;
 	struct s_dados	*next;
 } t_dados;
 
