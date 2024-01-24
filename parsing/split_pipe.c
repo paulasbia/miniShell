@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:57:17 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/24 15:14:30 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/24 15:33:15 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,17 @@ static char	*alloc_word(const char *s, int j, int index)
 	return (src);
 }
 
+void	handle_quotes_on_pipe(int *i, int *j, char const *s, char c)
+{
+	(*i)++;
+	(*j)++;
+	while (s[*i] != c)
+	{
+		(*i)++;
+		(*j)++;
+	}
+}
+
 static char	*cont_word_pipe(char const *s, int *i)
 {
 	int	j;
@@ -66,25 +77,9 @@ static char	*cont_word_pipe(char const *s, int *i)
 	while (s[*i] != '\0')
 	{
 		if (s[*i] == '"')
-		{
-			(*i)++;
-			j++;
-			while (s[*i] != '"')
-			{
-				(*i)++;
-				j++;
-			}
-		}
+			handle_quotes_on_pipe(i, &j, s, '"');
 		if (s[*i] == '\'')
-		{
-			(*i)++;
-			j++;
-			while (s[*i] != '\'')
-			{
-				(*i)++;
-				j++;
-			}
-		}
+			handle_quotes_on_pipe(i, &j, s, '\'');
 		if (s[*i] == '|')
 		{
 			(*i)++;
