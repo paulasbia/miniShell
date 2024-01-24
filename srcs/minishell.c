@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/24 11:03:13 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/01/24 11:21:39 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	start_execution(t_dados *data, t_env **my_env)
 
 	if (!data->next)
 		exit_status = ft_one_cmd(data, my_env);
-	ft_free_data(data);
 	return (exit_status);
 }
 
@@ -44,7 +43,6 @@ int	minishell(t_env *my_env)
 	int		exit_status;
 	t_dados *dados;
 
-	(void)my_env;
 	while (1)
 	{
 		ft_init_signal();
@@ -53,13 +51,12 @@ int	minishell(t_env *my_env)
 			(ft_exit(NULL, &my_env));
 		if (input[0])
 			add_history(input);
-		// função check args
 		if (validate_input(input) == 0)
 		{
 			dados = parsing(input); //se tudo tiver ok eu faço o parsing;
+			exit_status = start_execution(dados, &my_env);
 			free_list(&dados);
 		}
-		exit_status = start_execution(fake_parser(input), &my_env);
 		free(input);
 	}
 	return (exit_status);
