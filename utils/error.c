@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 11:12:48 by paula             #+#    #+#             */
-/*   Updated: 2024/01/03 14:49:56 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/25 09:37:55 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_child_err(char *cmd, char *msg)
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	perror(msg);
-	exit(EXIT_FAILURE);
 }
 
 int	ft_cd_err_msg(char *err_msg)
