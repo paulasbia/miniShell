@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/01/22 11:05:31 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/25 10:37:44 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	redirect_output(t_redirect *red)
 	return (1);
 }
 
-int	redirect_intput(t_redirect *red)
+int	redirect_input(t_redirect *red)
 {
 	int	fd;
 
@@ -57,7 +57,7 @@ int	handle_red_intput(t_redirect *red, int saved_fd[2])
 {
 	if (saved_fd[0] == -1)
 		saved_fd[0] = dup(STDIN_FILENO);
-	if (!redirect_intput(red))
+	if (!redirect_input(red))
 	{
 		dup2(saved_fd[0], STDIN_FILENO);
 		close(saved_fd[0]);
