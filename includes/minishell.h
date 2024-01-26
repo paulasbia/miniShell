@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/25 10:37:58 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 09:09:03 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ char				**myenv_to_array(t_env *my_env);
 // utils
 int					ft_cmd_builtin(t_dados *data);
 int					str_equal(const char *str1, const char *str2);
+void				exit_child(t_dados *data, t_env *my_env);
+pid_t				*ft_alloc(t_dados *data);
 
 // EXECUTES
 int					start_execution(t_dados *data, t_env **my_env);

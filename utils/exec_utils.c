@@ -1,56 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   frees.c                                            :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 10:24:42 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 09:06:13 by paula            ###   ########.fr       */
+/*   Created: 2024/01/26 09:06:44 by paula             #+#    #+#             */
+/*   Updated: 2024/01/26 09:09:11 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_free_env(t_env **my_env)
+void	exit_child(t_dados *data, t_env *my_env)
 {
-	t_env	*aux;
-	t_env	*next;
-
-	aux = *my_env;
-	while (aux)
-	{
-		free(aux->key);
-		next = aux->next;
-		free(aux);
-		aux = next;
-	}
-	my_env = NULL;
+	rl_clear_history();
+	ft_free_env(&my_env);
+	free_list(&data);
+	close_all_fds();
+	exit(EXIT_FAILURE);
 }
 
-void	ft_free_args(char **args)
+pid_t	*ft_alloc(t_dados *data)
 {
 	int	i;
 
-	if (!args)
-		return ;
 	i = 0;
-	while (args[i])
+	while (data)
 	{
-		free(args[i]);
-		args[i] = NULL;
 		i++;
+		data = data->next;
 	}
-	free(args);
-	args = NULL;
-}
-
-void	ft_clean(char **to_clean)
-{
-	int	i;
-
-	i = -1;
-	while (to_clean[++i])
-		free(to_clean[i]);
-	free(to_clean);
+	return (malloc(sizeof(pid_t) * i + 1));
 }

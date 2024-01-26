@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/25 10:41:26 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 09:08:44 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@ void	ft_save_fds(int saved_fd[2])
 {
 	saved_fd[0] = dup(STDIN_FILENO);
 	saved_fd[1] = dup(STDOUT_FILENO);
-}
-
-void	exit_child(t_dados *data, t_env *my_env)
-{
-	rl_clear_history();
-	ft_free_env(&my_env);
-	free_list(&data);
-	close_all_fds();
-	exit(EXIT_FAILURE);
 }
 
 void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
@@ -52,31 +43,28 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 	}
 }
 
-void    ft_handle_pipes(int saved_fds_out, t_dados *data)
-{
-    
-}
-
 int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 {
 	int		saved_fds[2];
-	int		status;
 	pid_t	*children_pid;
 	int		i;
 
 	ft_save_fds(saved_fds);
 	i = 0;
-	while (data->next)
+	children_pid = ft_alloc(data);
+	while (data)
 	{
-        ft_handle_pipes(saved_fds[1], data);
-		children_pid[i] = fork;
+		ft_handle_pipes(saved_fds[1], data);
+		children_pid[i] = fork();
 		ft_def_signal(children_pid[i]);
 		if (children_pid[i] < 0)
-			ft_child_err("fork", data->comando[0]);
+			ft_child_err("fork", data->comando[i]);
 		if (!children_pid[i])
 		{
 			ft_handle_red_pipes(data, my_env);
 		}
+		data = data->next;
 	}
-	return ();
+    free(children_pid);
+	return (0); // QUAL SINAL RETORNAR???
 }
