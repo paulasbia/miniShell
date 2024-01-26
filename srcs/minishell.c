@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/25 09:43:33 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 09:39:25 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	start_execution(t_dados *data, t_env **my_env)
 	if (!data->next)
 		exit_status = ft_one_cmd(data, my_env);
 	else
-		exit_status = ft_execute_multiple_cmd(data, my_env);
+		exit_status = ft_execute_multiple_cmd(data, *my_env);
 	return (exit_status);
 }
 

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 09:08:44 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 09:43:26 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ void	ft_save_fds(int saved_fd[2])
 {
 	saved_fd[0] = dup(STDIN_FILENO);
 	saved_fd[1] = dup(STDOUT_FILENO);
+}
+
+void	redirect_fd(int fd_for_red, int fd_local)
+{
+	dup2(fd_for_red, fd_local);
+	close(fd_for_red);
 }
 
 void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
@@ -48,13 +54,26 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 	int		saved_fds[2];
 	pid_t	*children_pid;
 	int		i;
+	t_dados	*aux;
+	int		back_out;
 
 	ft_save_fds(saved_fds);
-	i = 0;
+	back_out = saved_fds[1];
 	children_pid = ft_alloc(data);
-	while (data)
+	aux = data;
+	i = 0;
+	while (aux)
 	{
-		ft_handle_pipes(saved_fds[1], data);
+		if (aux != data)
+			redirect_fd(saved_fds[IN], STDIN_FILENO);
+		if (aux->next)
+		{
+			if (pipe(saved_fds) < 0)
+				ft_child_err("pipe", aux->comando[i]);
+			redirect_fd(saved_fds[OUT], STDOUT_FILENO);
+		}
+		else
+			redirect_fd(back_out, STDOUT_FILENO);
 		children_pid[i] = fork();
 		ft_def_signal(children_pid[i]);
 		if (children_pid[i] < 0)
@@ -62,9 +81,11 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 		if (!children_pid[i])
 		{
 			ft_handle_red_pipes(data, my_env);
+            ft_exec_child_process(aux->comando, my_env);
 		}
-		data = data->next;
+		aux = aux->next;
 	}
-    free(children_pid);
+	free(children_pid);
+	back_saved_fd(saved_fds);
 	return (0); // QUAL SINAL RETORNAR???
 }

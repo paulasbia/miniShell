@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 09:06:44 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 09:09:11 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 09:42:31 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	exit_child(t_dados *data, t_env *my_env)
 	rl_clear_history();
 	ft_free_env(&my_env);
 	free_list(&data);
-	close_all_fds();
 	exit(EXIT_FAILURE);
 }
 
