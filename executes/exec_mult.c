@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 13:29:02 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 13:45:14 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	wait_for_children(int *children_pid)
 
 	i = 0;
 	exit_status = 0;
-	while (children_pid[i] != 0)
+	while (children_pid[i])
 	{
 		waitpid(children_pid[i], &exit_status, 0);
 		exit_status = ft_get_exit_status(children_pid[i]);
@@ -99,12 +99,18 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 		if (!children_pid[i])
 		{
 			ft_handle_red_pipes(aux, my_env);
-			ft_exec_child_process(aux->comando, my_env);
+			if (!ft_cmd_builtin(aux))
+				ft_exec_child_process(aux->comando, my_env);
+			else
+            {    
+                exit(ft_execute_builtin(aux, &my_env));           
+            }
+
 		}
 		aux = aux->next;
 		i++;
 	}
-    children_pid[i] = 0;
+	children_pid[i] = 0;
 	back_saved_fd(saved_fds);
-	return (wait_for_children(children_pid)); // QUAL SINAL RETORNAR???
+	return (wait_for_children(children_pid));
 }
