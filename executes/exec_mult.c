@@ -6,11 +6,28 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 11:20:25 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 11:43:36 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	wait_for_children(int *children_pid)
+{
+	int	i;
+	int	exit_status;
+
+	i = 0;
+	exit_status = 0;
+	while (children_pid[i] != 0)
+	{
+		waitpid(children_pid[i], &exit_status, 0);
+		exit_status = ft_get_exit_status(children_pid[i]);
+		i++;
+	}
+    free(children_pid);
+	return (exit_status);
+}
 
 void	ft_save_fds(int saved_fd[2])
 {
@@ -49,6 +66,22 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 	}
 }
 
+void	handle_fd_pipe(t_dados *data, t_dados *aux, int back_out)
+{
+	static int	fd_pipe[2];
+
+	if (aux != data)
+		redirect_fd(fd_pipe[IN], STDIN_FILENO);
+	if (aux->next)
+	{
+		if (pipe(fd_pipe) < 0)
+			ft_child_err("pipe", aux->comando[0]);
+		redirect_fd(fd_pipe[OUT], STDOUT_FILENO);
+	}
+	else
+		redirect_fd(back_out, STDOUT_FILENO);
+}
+
 int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 {
 	int		saved_fds[2];
@@ -64,16 +97,7 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 	i = 0;
 	while (aux)
 	{
-		if (aux != data)
-			redirect_fd(saved_fds[IN], STDIN_FILENO);
-		if (aux->next)
-		{
-			if (pipe(saved_fds) < 0)
-				ft_child_err("pipe", aux->comando[0]);
-			redirect_fd(saved_fds[OUT], STDOUT_FILENO);
-		}
-		else
-			redirect_fd(back_out, STDOUT_FILENO);
+		handle_fd_pipe(data, aux, back_out);
 		children_pid[i] = fork();
 		ft_def_signal(children_pid[i]);
 		if (children_pid[i] < 0)
@@ -81,12 +105,11 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 		if (!children_pid[i])
 		{
 			ft_handle_red_pipes(aux, my_env);
-            ft_exec_child_process(aux->comando, my_env);
+			ft_exec_child_process(aux->comando, my_env);
 		}
 		aux = aux->next;
-        i++;
+		i++;
 	}
-	free(children_pid);
 	back_saved_fd(saved_fds);
-	return (0); // QUAL SINAL RETORNAR???
+	return (wait_for_children(children_pid)); // QUAL SINAL RETORNAR???
 }

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 09:35:14 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 11:39:24 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int					ft_cmd_builtin(t_dados *data);
 int					str_equal(const char *str1, const char *str2);
 void				exit_child(t_dados *data, t_env *my_env);
 pid_t				*ft_alloc(t_dados *data);
+int	ft_get_exit_status(int status);
 
 // EXECUTES
 int					start_execution(t_dados *data, t_env **my_env);
