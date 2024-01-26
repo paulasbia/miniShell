@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 13:45:14 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 13:59:55 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,7 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 			if (!ft_cmd_builtin(aux))
 				ft_exec_child_process(aux->comando, my_env);
 			else
-            {    
-                exit(ft_execute_builtin(aux, &my_env));           
-            }
-
+				exit(ft_execute_builtin(aux, &my_env));
 		}
 		aux = aux->next;
 		i++;

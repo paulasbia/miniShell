@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 09:06:44 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 09:42:31 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 13:57:05 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ pid_t	*ft_alloc(t_dados *data)
 		i++;
 		data = data->next;
 	}
-	return (malloc(sizeof(pid_t) * i + 1));
+	return (malloc(sizeof(pid_t) * (i + 1)));
 }
