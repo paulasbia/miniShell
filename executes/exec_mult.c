@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 11:43:36 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 13:29:02 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	wait_for_children(int *children_pid)
 		exit_status = ft_get_exit_status(children_pid[i]);
 		i++;
 	}
-    free(children_pid);
+	free(children_pid);
 	return (exit_status);
 }
 
@@ -66,22 +66,6 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 	}
 }
 
-void	handle_fd_pipe(t_dados *data, t_dados *aux, int back_out)
-{
-	static int	fd_pipe[2];
-
-	if (aux != data)
-		redirect_fd(fd_pipe[IN], STDIN_FILENO);
-	if (aux->next)
-	{
-		if (pipe(fd_pipe) < 0)
-			ft_child_err("pipe", aux->comando[0]);
-		redirect_fd(fd_pipe[OUT], STDOUT_FILENO);
-	}
-	else
-		redirect_fd(back_out, STDOUT_FILENO);
-}
-
 int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 {
 	int		saved_fds[2];
@@ -89,6 +73,7 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 	int		i;
 	t_dados	*aux;
 	int		back_out;
+	int		fd_pipe[2];
 
 	ft_save_fds(saved_fds);
 	back_out = saved_fds[1];
@@ -97,7 +82,16 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 	i = 0;
 	while (aux)
 	{
-		handle_fd_pipe(data, aux, back_out);
+		if (aux != data)
+			redirect_fd(fd_pipe[IN], STDIN_FILENO);
+		if (aux->next)
+		{
+			if (pipe(fd_pipe) < 0)
+				ft_child_err("pipe", aux->comando[0]);
+			redirect_fd(fd_pipe[OUT], STDOUT_FILENO);
+		}
+		else
+			redirect_fd(back_out, STDOUT_FILENO);
 		children_pid[i] = fork();
 		ft_def_signal(children_pid[i]);
 		if (children_pid[i] < 0)
@@ -110,6 +104,7 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 		aux = aux->next;
 		i++;
 	}
+    children_pid[i] = 0;
 	back_saved_fd(saved_fds);
 	return (wait_for_children(children_pid)); // QUAL SINAL RETORNAR???
 }
