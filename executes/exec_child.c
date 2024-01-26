@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/01/21 10:42:48 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/26 09:50:05 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	is_folder(char *command)
 void	ft_check_exit(char **args, t_env *my_env)
 {
 	if (!args[0])
-		external_exit(args, my_env, EXIT_SUCCESS);
+		external_exit(args, my_env, EXIT_SUCCESS);		
 	if (is_folder(args[0]))
 		external_exit(args, my_env, NOT_EXECUTABLE);
 }
