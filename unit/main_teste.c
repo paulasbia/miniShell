@@ -137,6 +137,101 @@ static void	tests_ft_more_redirect(void)
 
 	assert_n_files_and_clean((char *[]){"actual.txt", "actual2.txt", NULL}, (char *[]){"expected.txt", "expected2.txt", NULL});
 }
+
+static void	assert_lista(t_dados *expected, t_dados *parsing)
+{
+		int		i;
+	t_dados	*aux = expected;
+	t_dados	*aux_p = parsing;
+
+	i = 0;
+	while (aux)
+	{
+		while (aux->comando[i])
+		{
+			TEST_ASSERT_NOT_NULL(aux_p);
+			TEST_ASSERT_NOT_NULL(aux_p->comando[i]);
+			printf("expec: %s\n", aux->comando[i]);
+			printf("parsing: %s\n", aux_p->comando[i]);
+			TEST_ASSERT_EQUAL_STRING(aux->comando[i], aux_p->comando[i]);
+			i++;
+		}
+		i = 0;
+		aux = aux->next;
+		aux_p = aux_p->next;
+	}
+	free_list(&parsing);
+}
+
+static void	tests_ft_parsing(void)
+{
+		t_dados expected = {
+		.comando = (char *[]){"wc", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = NULL
+	};
+	
+		t_dados expected2 = {
+		.comando = (char *[]){"pwd", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &expected
+	};
+
+	char	*input = {"pwd | wc"};
+	t_dados	*actual = parsing(input);
+
+	assert_lista(&expected2, actual);
+}
+
+static void	tests_ft_validate_open_quotes(void)
+{
+	int		expected = 1;
+	char	*input = {"pwd | grep \"a"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "imput com aspas abertas deve retornar erro");
+}
+
+static void	tests_ft_validate_without_space(void)
+{
+	int		expected = 0;
+	char	*input = {"echo\"1\"\"2\""};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "esperado que passe");
+}
+
+static void	tests_ft_parsing_with_space(void)
+{
+		t_dados expected2 = {
+		.comando = (char *[]){"echo", "12", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = NULL
+	};
+
+	char	*input = "echo \"1\"\"2\"";
+	t_dados	*actual = parsing(input);
+
+	assert_lista(&expected2, actual);
+}
+
+static void	tests_ft_parsing_without_space(void)
+{
+		t_dados expected2 = {
+		.comando = (char *[]){"echo12", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = NULL
+	};
+
+	char	*input = "echo\"1\"\"2\"";
+	t_dados	*actual = parsing(input);
+
+	assert_lista(&expected2, actual);
+}
 	//start_execution(&test1, &init_env);
 
 void	setUp(void)
@@ -161,5 +256,10 @@ int	main(int ac, char **av, char **env)
 	RUN_TEST(tests_ft_input_redirect);
 	RUN_TEST(tests_return_code_error);
 	RUN_TEST(tests_ft_more_redirect);
+	RUN_TEST(tests_ft_parsing);
+	RUN_TEST(tests_ft_validate_open_quotes);
+	RUN_TEST(tests_ft_validate_without_space);
+	RUN_TEST(tests_ft_parsing_with_space);
+	RUN_TEST(tests_ft_parsing_without_space);
 	return (UNITY_END());
 }
