@@ -188,10 +188,73 @@ static void	tests_ft_parsing(void)
 static void	tests_ft_validate_open_quotes(void)
 {
 	int		expected = 1;
-	char	*input = {"pwd | grep \"a"};
+	char	*input = {"echo \"a"};
 	int		actual = validate_input(input);
 
-	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "imput com aspas abertas deve retornar erro");
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com aspas abertas deve retornar erro");
+}
+
+static void	tests_ft_validate_open_quotes_pipe(void)
+{
+	int		expected = 1;
+	char	*input = {"ls | wc \"a"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com aspas abertas deve retornar erro");
+}
+
+static void	tests_ft_validate_open_quotes_pipe2(void)
+{
+	int		expected = 1;
+	char	*input = {"ls | wc \'a"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com aspas abertas deve retornar erro");
+}
+
+static void	tests_ft_validate_sintaxe(void)
+{
+	int		expected = 1;
+	char	*input = {" ls >< a. txt"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com erro de sintaxe red sem complemento ><");
+}
+
+static void	tests_ft_validate_sintaxe_start_pipe(void)
+{
+	int		expected = 1;
+	char	*input = {"| ls"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com erro de sintaxe, nao pode comecar com |");
+}
+
+static void	tests_ft_validate_sintaxe_empty_pipe(void)
+{
+	int		expected = 1;
+	char	*input = {"ls |"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com erro de sintaxe, nao conter | vazio");
+}
+
+static void	tests_ft_validate_sintaxe_not_error(void)
+{
+	int		expected = 0;
+	char	*input = {"ls |>> wc"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input sem erro de sintaxe");
+}
+
+static void	tests_ft_validate_sintaxe_with_error(void)
+{
+	int		expected = 1;
+	char	*input = {"ls |>>> wc"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com erro de sintaxe >>>");
 }
 
 static void	tests_ft_validate_without_space(void)
@@ -258,6 +321,13 @@ int	main(int ac, char **av, char **env)
 	RUN_TEST(tests_ft_more_redirect);
 	RUN_TEST(tests_ft_parsing);
 	RUN_TEST(tests_ft_validate_open_quotes);
+	RUN_TEST(tests_ft_validate_open_quotes_pipe);
+	RUN_TEST(tests_ft_validate_open_quotes_pipe2);
+	RUN_TEST(tests_ft_validate_sintaxe);
+	RUN_TEST(tests_ft_validate_sintaxe_start_pipe);
+	RUN_TEST(tests_ft_validate_sintaxe_empty_pipe);
+	RUN_TEST(tests_ft_validate_sintaxe_not_error);
+	RUN_TEST(tests_ft_validate_sintaxe_with_error);
 	RUN_TEST(tests_ft_validate_without_space);
 	RUN_TEST(tests_ft_parsing_with_space);
 	RUN_TEST(tests_ft_parsing_without_space);
