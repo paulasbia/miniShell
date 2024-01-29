@@ -6,23 +6,11 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 11:48:23 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 11:52:27 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_save_fds(int saved_fd[2])
-{
-	saved_fd[0] = dup(STDIN_FILENO);
-	saved_fd[1] = dup(STDOUT_FILENO);
-}
-
-void	redirect_fd(int fd_for_red, int fd_local)
-{
-	dup2(fd_for_red, fd_local);
-	close(fd_for_red);
-}
 
 void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 {
@@ -67,6 +55,14 @@ void	ft_handle_pipe(t_dados *aux, t_dados *data, int *saved_fds)
 		redirect_fd(back_out, STDOUT_FILENO);
 }
 
+void	ft_handle_exec(t_dados *aux, t_env *my_env)
+{
+	if (!ft_cmd_builtin(aux))
+		ft_exec_child_process(aux->comando, my_env);
+	else
+		exit(ft_execute_builtin(aux, &my_env));
+}
+
 int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 {
 	int		saved_fds[2];
@@ -88,10 +84,7 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 		if (!children_pid[i])
 		{
 			ft_handle_red_pipes(aux, my_env);
-			if (!ft_cmd_builtin(aux))
-				ft_exec_child_process(aux->comando, my_env);
-			else
-				exit(ft_execute_builtin(aux, &my_env));
+			ft_handle_exec(aux, my_env);
 		}
 		aux = aux->next;
 		i++;
