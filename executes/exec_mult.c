@@ -6,28 +6,11 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 13:59:55 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 10:58:09 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	wait_for_children(int *children_pid)
-{
-	int	i;
-	int	exit_status;
-
-	i = 0;
-	exit_status = 0;
-	while (children_pid[i])
-	{
-		waitpid(children_pid[i], &exit_status, 0);
-		exit_status = ft_get_exit_status(children_pid[i]);
-		i++;
-	}
-	free(children_pid);
-	return (exit_status);
-}
 
 void	ft_save_fds(int saved_fd[2])
 {

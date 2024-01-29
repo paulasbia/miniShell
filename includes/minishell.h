@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 11:39:24 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 10:58:57 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int					ft_cmd_builtin(t_dados *data);
 int					str_equal(const char *str1, const char *str2);
 void				exit_child(t_dados *data, t_env *my_env);
 pid_t				*ft_alloc(t_dados *data);
-int	ft_get_exit_status(int status);
+int					ft_get_exit_status(int status);
 
 // EXECUTES
 int					start_execution(t_dados *data, t_env **my_env);
@@ -74,7 +74,11 @@ int					ft_one_cmd(t_dados *data, t_env **my_env);
 int					ft_execute_child(t_dados *data, t_env *my_env);
 int					ft_execute_builtin(t_dados *data, t_env **minienv);
 int					ft_exec_child_process(char **args, t_env *my_env);
-int					ft_execute_multiple_cmd(t_dados *data,t_env *my_env);
+int					ft_execute_multiple_cmd(t_dados *data, t_env *my_env);
+
+// wait
+int					wait_for_children(int *children_pid);
+int					ft_wait_exit_status(int child_pid);
 
 // redirects
 int					handle_redirects(t_dados *data, int saved_fd[2]);
