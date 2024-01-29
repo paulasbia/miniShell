@@ -7,8 +7,8 @@ PARSING		=		parsing.c split_pipe.c split_minishell.c validate_input.c clean_quot
 MAIN		=		main.c
 ENV			=		checks.c minishell.c mini_env.c
 BUILTINS	=		pwd.c exit.c echo.c env.c utils.c unset.c export.c cd.c
-UTILS		=		init_signal.c prompt.c frees.c error.c env_utils.c env_utils_2.c error2.c
-EXECUTES	=		one_cmd.c exec_builtin.c exec_child.c redirects.c
+UTILS		=		init_signal.c prompt.c frees.c error.c env_utils.c env_utils_2.c error2.c exec_utils.c
+EXECUTES	=		one_cmd.c exec_builtin.c exec_child.c redirects.c exec_mult.c wait.c
 UNIT		=		main_teste.c unity.c
 SRCS		=		$(MAIN) $(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(PARSING)
 SRCS_T		=		$(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(UNIT) $(PARSING)
@@ -64,6 +64,7 @@ test:
 	./e2e/tester.sh ./e2e/builtin
 	./e2e/tester.sh ./e2e/extras
 	./e2e/tester.sh ./e2e/redirects
+	./e2e/tester.sh ./e2e/pipes
 
 valgrind:
 	valgrind --leak-check=full ./minishell

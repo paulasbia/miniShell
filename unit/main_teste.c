@@ -1,5 +1,6 @@
 #include "../libft/libft.h"
 #include "../includes/minishell.h"
+#include "../includes/parsing.h"
 #include "unity.h"
 
 t_env	*init_env;
@@ -137,6 +138,110 @@ static void	tests_ft_more_redirect(void)
 
 	assert_n_files_and_clean((char *[]){"actual.txt", "actual2.txt", NULL}, (char *[]){"expected.txt", "expected2.txt", NULL});
 }
+
+static void	tests_ft_pipe(void)
+{
+		t_dados actual2 = {
+		.comando = (char *[]){"grep", "a", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = NULL,
+	};
+
+		t_dados actual = {
+		.comando = (char *[]){"ls", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &actual2,
+	};
+
+	char** expected = (char *[]){"bash", "-c", "ls | grep a", NULL};
+
+	TEST_ASSERT_EQUAL(0, ft_execute_multiple_cmd(&actual, init_env));
+
+	TEST_ASSERT_EQUAL(0, run_cmd(expected));
+
+	assert_files_and_clean();
+}
+
+static void	compare_dados(t_dados *expected, t_dados *t_parsing)
+{
+	int		i;
+	t_dados	*aux = expected;
+	t_dados	*aux_p = t_parsing;
+
+	i = 0;
+	while (aux)
+	{
+		while (aux->comando[i])
+		{
+			TEST_ASSERT_NOT_NULL(aux_p);
+			TEST_ASSERT_NOT_NULL(aux_p->comando[i]);
+			printf("expec: %s\n", aux->comando[i]);
+			printf("parsing: %s\n", aux_p->comando[i]);
+			TEST_ASSERT_EQUAL_STRING(aux->comando[i], aux_p->comando[i]);
+			i++;
+		}
+		i = 0;
+		aux = aux->next;
+		aux_p = aux_p->next;
+	}
+	free_list(&t_parsing);
+}
+
+static void	tests_ft_pipe_parsing(void)
+{
+	char	*input = {"ls | grep a"};
+	t_dados	*t_parsing = parsing(input);
+
+	t_dados expected2 = {
+		.comando = (char *[]){"grep", "a", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = NULL,
+	};
+
+		t_dados expected = {
+		.comando = (char *[]){"ls", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &expected2,
+	};
+
+	compare_dados(&expected, t_parsing);
+}
+
+static void	tests_ft_2_pipe(void)
+{
+	t_dados actual3 = {
+	.comando = (char *[]){"wc", NULL},
+	.redirect = NULL,
+	.nbr_redirections = 0,
+	.next = NULL,
+	};
+
+		t_dados actual2 = {
+		.comando = (char *[]){"grep", "a", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &actual3,
+	};
+
+		t_dados actual = {
+		.comando = (char *[]){"ls", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &actual2,
+	};
+
+	char** expected = (char *[]){"bash", "-c", "ls | grep a | wc", NULL};
+
+	TEST_ASSERT_EQUAL(0, ft_execute_multiple_cmd(&actual, init_env));
+
+	TEST_ASSERT_EQUAL(0, run_cmd(expected));
+
+	assert_files_and_clean();
+}
 	//start_execution(&test1, &init_env);
 
 void	setUp(void)
@@ -161,5 +266,8 @@ int	main(int ac, char **av, char **env)
 	RUN_TEST(tests_ft_input_redirect);
 	RUN_TEST(tests_return_code_error);
 	RUN_TEST(tests_ft_more_redirect);
+	RUN_TEST(tests_ft_pipe);
+	RUN_TEST(tests_ft_2_pipe);
+	RUN_TEST(tests_ft_pipe_parsing);
 	return (UNITY_END());
 }

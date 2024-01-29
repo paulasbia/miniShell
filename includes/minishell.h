@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/24 17:09:24 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 11:53:06 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/wait.h>            // waitpid
 # include <unistd.h>              // getpwd
 
+# define IN 0
+# define OUT 1
 # define PATH_MAX 4096
 # define INTERRUPT 128
 # define CMD_NOT_FOUND 127
@@ -62,6 +64,11 @@ char				**myenv_to_array(t_env *my_env);
 // utils
 int					ft_cmd_builtin(t_dados *data);
 int					str_equal(const char *str1, const char *str2);
+void				exit_child(t_dados *data, t_env *my_env);
+pid_t				*ft_alloc(t_dados *data);
+int					ft_get_exit_status(int status);
+void				redirect_fd(int fd_for_red, int fd_local);
+void				ft_save_fds(int saved_fd[2]);
 
 // EXECUTES
 int					start_execution(t_dados *data, t_env **my_env);
@@ -69,10 +76,17 @@ int					ft_one_cmd(t_dados *data, t_env **my_env);
 int					ft_execute_child(t_dados *data, t_env *my_env);
 int					ft_execute_builtin(t_dados *data, t_env **minienv);
 int					ft_exec_child_process(char **args, t_env *my_env);
+int					ft_execute_multiple_cmd(t_dados *data, t_env *my_env);
+
+// wait
+int					wait_for_children(int *children_pid);
+int					ft_wait_exit_status(int child_pid);
 
 // redirects
 int					handle_redirects(t_dados *data, int saved_fd[2]);
 void				back_saved_fd(int saved_fd[2]);
+int					redirect_output(t_redirect *red);
+int					redirect_input(t_redirect *red);
 
 // builtins
 int					ft_pwd(void);

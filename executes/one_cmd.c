@@ -6,18 +6,11 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/01/24 17:08:48 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 10:59:59 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	ft_get_exit_status(int status)
-{
-	if (WIFSIGNALED(status))
-		return (128 + WTERMSIG(status));
-	return (WEXITSTATUS(status));
-}
 
 void	back_saved_fd(int saved_fd[2])
 {
@@ -37,7 +30,6 @@ void	back_saved_fd(int saved_fd[2])
 int	ft_execute_child(t_dados *data, t_env *my_env)
 {
 	pid_t	child_pid;
-	int		status;
 
 	child_pid = fork();
 	ft_def_signal(child_pid);
@@ -45,8 +37,7 @@ int	ft_execute_child(t_dados *data, t_env *my_env)
 		ft_child_err("fork", data->comando[0]);
 	if (!child_pid)
 		ft_exec_child_process(data->comando, my_env);
-	waitpid(child_pid, &status, 0);
-	return (ft_get_exit_status(status));
+	return (ft_wait_exit_status(child_pid));
 }
 
 // mudar a funcao free para o da Tais aqui
