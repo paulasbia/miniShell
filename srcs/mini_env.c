@@ -6,12 +6,13 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:05:18 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 11:20:05 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 13:13:28 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+//um malloc, como proteger?
 void	ft_add_list(char *key, t_env **my_list)
 {
 	struct s_env	*new_node;

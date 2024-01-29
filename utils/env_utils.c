@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:26:21 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 11:17:09 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 13:12:16 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_env	*ft_seach_node(char *name, t_env *my_env)
 	return (NULL);
 }
 
+//um malloc, como proteger?
 void	ft_update_envlist(char *name_var, char *value, t_env *my_env)
 {
 	t_env	*aux;

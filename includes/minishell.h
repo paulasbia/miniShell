@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 11:53:06 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 13:10:01 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define GRN "\001\e[0;32m\002"
 # define MAG "\001\e[0;35m\002"
 # define CRESET "\001\e[0m\002"
-# define PROMPT "minishell_by_pde-souz: "
+# define PROMPT "minishell_by_pde-souz_and_tbolzan-: "
 
 typedef struct s_env
 {

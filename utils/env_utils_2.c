@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 09:16:44 by paula             #+#    #+#             */
-/*   Updated: 2024/01/09 09:17:34 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 13:12:31 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ size_t	minienv_size(t_env *my_env)
 	return (i);
 }
 
+//um malloc, como proteger?
 char	**myenv_to_array(t_env *my_env)
 {
 	char	**envp;

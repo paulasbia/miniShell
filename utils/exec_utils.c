@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 09:06:44 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 12:02:00 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 13:12:07 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	exit_child(t_dados *data, t_env *my_env)
 	exit(EXIT_FAILURE);
 }
 
+//um malloc, como proteger?
 pid_t	*ft_alloc(t_dados *data)
 {
 	int		i;
