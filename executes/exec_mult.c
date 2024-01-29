@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 11:20:29 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 11:21:33 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 	int		i;
 	t_dados	*aux;
 	int		back_out;
-	int		fd_pipe[2];
 
 	ft_save_fds(saved_fds);
 	back_out = saved_fds[1];
@@ -66,12 +65,12 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 	while (aux)
 	{
 		if (aux != data)
-			redirect_fd(fd_pipe[IN], STDIN_FILENO);
+			redirect_fd(saved_fds[IN], STDIN_FILENO);
 		if (aux->next)
 		{
-			if (pipe(fd_pipe) < 0)
+			if (pipe(saved_fds) < 0)
 				ft_child_err("pipe", aux->comando[0]);
-			redirect_fd(fd_pipe[OUT], STDOUT_FILENO);
+			redirect_fd(saved_fds[OUT], STDOUT_FILENO);
 		}
 		else
 			redirect_fd(back_out, STDOUT_FILENO);
