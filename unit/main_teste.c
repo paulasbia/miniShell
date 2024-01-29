@@ -210,6 +210,38 @@ static void	tests_ft_pipe_parsing(void)
 
 	compare_dados(&expected, t_parsing);
 }
+
+static void	tests_ft_2_pipe(void)
+{
+	t_dados actual3 = {
+	.comando = (char *[]){"wc", NULL},
+	.redirect = NULL,
+	.nbr_redirections = 0,
+	.next = NULL,
+	};
+
+		t_dados actual2 = {
+		.comando = (char *[]){"grep", "a", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &actual3,
+	};
+
+		t_dados actual = {
+		.comando = (char *[]){"ls", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &actual2,
+	};
+
+	char** expected = (char *[]){"bash", "-c", "ls | grep a | wc", NULL};
+
+	TEST_ASSERT_EQUAL(0, ft_execute_multiple_cmd(&actual, init_env));
+
+	TEST_ASSERT_EQUAL(0, run_cmd(expected));
+
+	assert_files_and_clean();
+}
 	//start_execution(&test1, &init_env);
 
 void	setUp(void)
@@ -235,6 +267,7 @@ int	main(int ac, char **av, char **env)
 	RUN_TEST(tests_return_code_error);
 	RUN_TEST(tests_ft_more_redirect);
 	RUN_TEST(tests_ft_pipe);
+	RUN_TEST(tests_ft_2_pipe);
 	RUN_TEST(tests_ft_pipe_parsing);
 	return (UNITY_END());
 }
