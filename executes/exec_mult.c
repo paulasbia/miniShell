@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 11:28:11 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 11:48:23 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 	while (aux)
 	{
 		ft_handle_pipe(aux, data, saved_fds);
-		if ((children_pid[i] = fork()) < 0)
+		children_pid[i] = fork();
+		if (children_pid[i] < 0)
 			ft_child_err("fork", aux->comando[0]);
 		ft_def_signal(children_pid[i]);
 		if (!children_pid[i])
