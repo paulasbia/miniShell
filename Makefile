@@ -58,7 +58,7 @@ check:
 	norminette ./builtins
 	norminette ./utils
 	norminette ./executes
-	norminette ./includes/minishell.h
+	norminette ./includes
 
 test:
 	./e2e/tester.sh ./e2e/builtin
