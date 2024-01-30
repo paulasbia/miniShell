@@ -23,3 +23,8 @@ jobs:
       run: make test
     - name: unit
       run: make unit
+    - name: save expected
+      uses: actions/upload-artifact@v4
+      with:
+        name: output
+        path: *.txt
