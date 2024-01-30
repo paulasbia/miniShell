@@ -54,6 +54,7 @@ install-mac:
 	@python3 -m pip install norminette
 
 check:
+	norminette ./libft
 	norminette ./srcs
 	norminette ./builtins
 	norminette ./utils
