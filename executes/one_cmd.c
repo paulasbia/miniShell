@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 10:59:59 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/30 17:03:30 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ int	ft_execute_child(t_dados *data, t_env *my_env)
 }
 
 // mudar a funcao free para o da Tais aqui
-int	ft_one_cmd(t_dados *data, t_env **my_env)
-{
-	int	exit_status;
-	int	saved_fd[2];
+// int	ft_one_cmd(t_dados *data, t_env **my_env)
+// {
+// 	int	exit_status;
+// 	int	saved_fd[2];
 
-	if (!handle_redirects(data, &saved_fd[0]))
-	{
-		back_saved_fd(saved_fd);
-		return (EXIT_FAILURE);
-	}
-	if (ft_cmd_builtin(data))
-		exit_status = ft_execute_builtin(data, my_env);
-	else
-		exit_status = ft_execute_child(data, *my_env);
-	back_saved_fd(saved_fd);
-	return (exit_status);
-}
+// 	if (!handle_redirects(data, &saved_fd[0]))
+// 	{
+// 		back_saved_fd(saved_fd);
+// 		return (EXIT_FAILURE);
+// 	}
+// 	if (ft_cmd_builtin(data))
+// 		exit_status = ft_execute_builtin(data, my_env);
+// 	else
+// 		exit_status = ft_execute_child(data, *my_env);
+// 	back_saved_fd(saved_fd);
+// 	return (exit_status);
+// }
