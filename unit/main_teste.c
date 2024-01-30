@@ -17,7 +17,7 @@ static int run_cmd(char **cmd){
 
 static void assert_n_files_and_clean(char **actuals, char **expecteds)
 {
-	int return_code;
+	//int return_code;
 	
 	
 	while (*actuals)
