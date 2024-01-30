@@ -83,13 +83,13 @@ static void	tests_ft_append_redirect_ls(void)
 	test_creat();
 
 		t_dados actual = {
-		.comando = (char *[]){"ls", NULL},
+		.comando = (char *[]){"pwd", NULL},
 		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 3}},
 		.nbr_redirections = 1,
 		.next = NULL
 	};
 
-	char** expected = (char *[]){"bash", "-c", "ls >> expected.txt", NULL};
+	char** expected = (char *[]){"bash", "-c", "pwd >> expected.txt", NULL};
 
 	TEST_ASSERT_EQUAL(0, ft_execute_multiple_cmd(&actual, init_env));
 
