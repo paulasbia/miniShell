@@ -6,12 +6,11 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 09:39:25 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/29 12:55:02 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/parsing.h"
 
 int	start_execution(t_dados *data, t_env **my_env)
 {
