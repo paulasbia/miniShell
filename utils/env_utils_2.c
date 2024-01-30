@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 09:16:44 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 13:12:31 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/30 09:36:12 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	**myenv_to_array(t_env *my_env)
 	int		i;
 
 	envp = malloc(sizeof(char *) * (minienv_size(my_env) + 1));
+	if (envp == NULL)
+		print_error_msg(*envp, "malloc fail");
 	aux = my_env;
 	i = 0;
 	while (aux)

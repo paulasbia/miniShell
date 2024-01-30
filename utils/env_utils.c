@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:26:21 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 13:12:16 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/30 09:37:14 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_env	*ft_seach_node(char *name, t_env *my_env)
 	return (NULL);
 }
 
-//um malloc, como proteger?
+// um malloc, como proteger?
 void	ft_update_envlist(char *name_var, char *value, t_env *my_env)
 {
 	t_env	*aux;
@@ -67,6 +67,8 @@ void	ft_update_envlist(char *name_var, char *value, t_env *my_env)
 		free(aux->key);
 		size = ft_strlen(name_var) + ft_strlen(value) + 2;
 		new_key = malloc(size * sizeof(char));
+		if (new_key == NULL)
+			print_error_msg(new_key, "malloc fail");
 		i = 0;
 		while (*name_var)
 			new_key[i++] = *name_var++;
