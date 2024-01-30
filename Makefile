@@ -77,8 +77,11 @@ ${NAME_T}: ${OBJS_T}
 	@echo "$(COLOUR_MAG)\nNice! Minishell Compiled! $(COLOUR_GREEN)ᕦ$(COLOUR_RED)♥$(COLOUR_GREEN)_$(COLOUR_RED)♥$(COLOUR_GREEN)ᕤ\n$(COLOUR_END)"
 	@echo "$(COLOUR_MAG)\nTo start the program type ./minishell\nENJOY!\n$(COLOUR_END)"
 
-unit: ${NAME_T}
+unit_v: ${NAME_T}
 	valgrind --leak-check=full --show-leak-kinds=all ./${NAME_T}
+
+unit: ${NAME_T}
+	./${NAME_T}
 
 clean:
 	@make clean -C ./libft
