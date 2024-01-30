@@ -265,8 +265,8 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	init_env = init_minienv(env);
 	UNITY_BEGIN();
-	RUN_TEST(tests_ft_out_redirect_pwd);
 	RUN_TEST(tests_ft_append_redirect_ls);
+	RUN_TEST(tests_ft_out_redirect_pwd);
 	// RUN_TEST(tests_ft_input_redirect);
 	// RUN_TEST(tests_return_code_error);
 	// RUN_TEST(tests_ft_more_redirect);
