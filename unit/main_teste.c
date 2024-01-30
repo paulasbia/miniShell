@@ -44,23 +44,23 @@ static void assert_files_and_clean(void){
 	assert_n_files_and_clean((char *[]){"actual.txt", NULL}, (char *[]){"expected.txt", NULL});
 }
 
-// static void	tests_ft_out_redirect_pwd(void)
-// {
-// 	t_dados actual = {
-// 		.comando = (char *[]){"pwd", NULL},
-// 		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 0}},
-// 		.nbr_redirections = 1,
-// 		.next = NULL
-// 	};
+static void	tests_ft_out_redirect_pwd(void)
+{
+	t_dados actual = {
+		.comando = (char *[]){"pwd", NULL},
+		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 0}},
+		.nbr_redirections = 1,
+		.next = NULL
+	};
 
-// 	char** expected = (char *[]){"bash", "-c", "pwd > expected.txt", NULL};
+	char** expected = (char *[]){"bash", "-c", "pwd > expected.txt", NULL};
 
-// 	TEST_ASSERT_EQUAL(0, ft_execute_multiple_cmd(&actual, init_env));
+	TEST_ASSERT_EQUAL(0, ft_execute_multiple_cmd(&actual, init_env));
 
-// 	TEST_ASSERT_EQUAL(0, run_cmd(expected));
+	TEST_ASSERT_EQUAL(0, run_cmd(expected));
 
-// 	assert_files_and_clean();
-// }
+	assert_files_and_clean();
+}
 
 static void test_creat(void)
 {
@@ -265,7 +265,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	init_env = init_minienv(env);
 	UNITY_BEGIN();
-//	RUN_TEST(tests_ft_out_redirect_pwd);
+	RUN_TEST(tests_ft_out_redirect_pwd);
 	RUN_TEST(tests_ft_append_redirect_ls);
 	// RUN_TEST(tests_ft_input_redirect);
 	// RUN_TEST(tests_return_code_error);
