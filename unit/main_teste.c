@@ -18,22 +18,26 @@ static int run_cmd(char **cmd){
 static void assert_n_files_and_clean(char **actuals, char **expecteds)
 {
 	int return_code;
-	char *join1 = ft_strjoin(*actuals, " ");
-	char *join2 = ft_strjoin(join1, *expecteds);
-	char *join3 = ft_strjoin("diff ", join2);
+	
 	
 	while (*actuals)
 	{
+		char *join1 = ft_strjoin(*actuals, " ");
+		char *join2 = ft_strjoin(join1, *expecteds);
+		char *join3 = ft_strjoin("diff ", join2);
+		char *join4 = ft_strjoin("rm ", join2);
 		return_code = run_cmd((char *[]){"bash", "-c", join3, NULL});
 		TEST_ASSERT_EQUAL(0, return_code);
-		return_code = run_cmd((char *[]){"bash", "-c", join3, NULL});
+		return_code = run_cmd((char *[]){"bash", "-c", join4, NULL});
 		TEST_ASSERT_EQUAL(0, return_code);
 		actuals++;
 		expecteds++;
+		free(join1);
+		free(join2);
+		free(join3);
+		free(join4);
 	}
-	free(join1);
-	free(join2);
-	free(join3);
+	
 }
 
 static void assert_files_and_clean(void){
@@ -136,15 +140,15 @@ static void	tests_ft_more_redirect(void)
 
 	TEST_ASSERT_EQUAL(0, run_cmd(expected));
 
-	assert_n_files_and_clean((char *[]){"actual.txt", "actual2.txt", NULL}, (char *[]){"expected.txt", "expected2.txt", NULL});
+	assert_n_files_and_clean((char *[]){"actual2.txt", "actual.txt", NULL}, (char *[]){"expected2.txt", "expected.txt", NULL});
 }
 
 static void	tests_ft_pipe(void)
 {
 		t_dados actual2 = {
 		.comando = (char *[]){"grep", "a", NULL},
-		.redirect = NULL,
-		.nbr_redirections = 0,
+		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 0}},
+		.nbr_redirections = 1,
 		.next = NULL,
 	};
 
@@ -155,7 +159,7 @@ static void	tests_ft_pipe(void)
 		.next = &actual2,
 	};
 
-	char** expected = (char *[]){"bash", "-c", "ls | grep a", NULL};
+	char** expected = (char *[]){"bash", "-c", "ls | grep a > expected.txt", NULL};
 
 	TEST_ASSERT_EQUAL(0, ft_execute_multiple_cmd(&actual, init_env));
 
@@ -215,8 +219,8 @@ static void	tests_ft_2_pipe(void)
 {
 	t_dados actual3 = {
 	.comando = (char *[]){"wc", NULL},
-	.redirect = NULL,
-	.nbr_redirections = 0,
+	.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 0}},
+	.nbr_redirections = 1,
 	.next = NULL,
 	};
 
@@ -234,7 +238,7 @@ static void	tests_ft_2_pipe(void)
 		.next = &actual2,
 	};
 
-	char** expected = (char *[]){"bash", "-c", "ls | grep a | wc", NULL};
+	char** expected = (char *[]){"bash", "-c", "ls | grep a | wc > expected.txt", NULL};
 
 	TEST_ASSERT_EQUAL(0, ft_execute_multiple_cmd(&actual, init_env));
 
