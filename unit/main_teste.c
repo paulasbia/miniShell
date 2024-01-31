@@ -17,7 +17,7 @@ static int run_cmd(char **cmd){
 
 static void assert_n_files_and_clean(char **actuals, char **expecteds)
 {
-	//int return_code;
+	int return_code;
 	
 	
 	while (*actuals)
@@ -26,10 +26,10 @@ static void assert_n_files_and_clean(char **actuals, char **expecteds)
 		char *join2 = ft_strjoin(join1, *expecteds);
 		char *join3 = ft_strjoin("diff ", join2);
 		char *join4 = ft_strjoin("rm ", join2);
-	//	return_code = run_cmd((char *[]){"bash", "-c", join3, NULL});
-	//	TEST_ASSERT_EQUAL(0, return_code);
-	//	return_code = run_cmd((char *[]){"bash", "-c", join4, NULL});
-	//	TEST_ASSERT_EQUAL(0, return_code);
+		return_code = run_cmd((char *[]){"bash", "-c", join3, NULL});
+		TEST_ASSERT_EQUAL(0, return_code);
+		return_code = run_cmd((char *[]){"bash", "-c", join4, NULL});
+		TEST_ASSERT_EQUAL(0, return_code);
 		actuals++;
 		expecteds++;
 		free(join1);
