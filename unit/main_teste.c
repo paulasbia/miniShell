@@ -310,5 +310,6 @@ int	main(int ac, char **av, char **env)
 	RUN_TEST(tests_ft_pipe_parsing);
 	RUN_TEST(tests_ft_builtin_pwd);
 	RUN_TEST(tests_ft_builtin_pwd_red);
+	RUN_TEST(tests_ft_builtin_pwd_red);
 	return (UNITY_END());
 }
