@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/31 10:17:17 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/31 10:28:45 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ void	ft_handle_pipe(t_dados *aux, t_dados *data, int *saved_fds)
 void	ft_handle_exec(pid_t *children, int saved_fd[2], t_dados *aux,
 		t_env *my_env)
 {
+	(void)saved_fd[2];
+	ft_handle_red_pipes(aux, my_env);
 	if (!ft_cmd_builtin(aux))
 	{
-		ft_handle_red_pipes(aux, my_env);
 		ft_exec_child_process(aux->comando, my_env);
 	}
 	else
 	{
 		free(children);
-		handle_redirects(aux, saved_fd);
 		ft_execute_forked_builtin(aux, &my_env);
 	}
 }
