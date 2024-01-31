@@ -265,6 +265,24 @@ static void	tests_ft_builtin_pwd(void)
 //	assert_files_and_clean();
 }
 
+static void	tests_ft_builtin_pwd_red(void)
+{
+		t_dados actual = {
+		.comando = (char *[]){"pwd", NULL},
+		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 0}},
+		.nbr_redirections = 1,
+		.next = NULL,
+	};
+
+	char** expected = (char *[]){"bash", "-c", "pwd > expected.txt", NULL};
+
+	TEST_ASSERT_EQUAL(0, ft_execute_multiple_cmd(&actual, init_env));
+
+	TEST_ASSERT_EQUAL(0, run_cmd(expected));
+
+	assert_files_and_clean();
+}
+
 void	setUp(void)
 {
 	// set stuff up here
@@ -291,5 +309,6 @@ int	main(int ac, char **av, char **env)
 	RUN_TEST(tests_ft_2_pipe);
 	RUN_TEST(tests_ft_pipe_parsing);
 	RUN_TEST(tests_ft_builtin_pwd);
+	RUN_TEST(tests_ft_builtin_pwd_red);
 	return (UNITY_END());
 }
