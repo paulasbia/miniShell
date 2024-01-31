@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:08:28 by paula             #+#    #+#             */
-/*   Updated: 2024/01/30 17:37:06 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/31 09:45:20 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,14 @@ int	ft_execute_builtin(t_dados *data, t_env **minienv)
 		return (ft_cd(data, minienv));
 	else
 		return (EXIT_FAILURE);
+}
+
+int	ft_execute_forked_builtin(t_dados *data, t_env **my_env)
+{
+	int	exit_status;
+
+	exit_status = ft_execute_builtin(data, my_env);
+	ft_free_env(my_env);
+	rl_clear_history();
+	exit(exit_status);
 }

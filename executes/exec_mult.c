@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/30 16:57:20 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/31 09:41:57 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_handle_exec(pid_t *children, t_dados *aux, t_env *my_env)
 	else
 	{
 		free(children);
-		exit(ft_execute_builtin(aux, &my_env));
+		ft_execute_forked_builtin(aux, &my_env);
 	}
 }
 

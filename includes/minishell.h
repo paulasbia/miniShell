@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/30 17:29:39 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/31 09:45:16 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void				ft_save_fds(int saved_fd[2]);
 int					start_execution(t_dados *data, t_env **my_env);
 int					ft_one_cmd(t_dados *data, t_env **my_env);
 int					ft_execute_child(t_dados *data, t_env *my_env);
+int					ft_execute_forked_builtin(t_dados *data, t_env **my_env);
 int					ft_execute_builtin(t_dados *data, t_env **minienv);
 int					ft_exec_child_process(char **args, t_env *my_env);
 int					ft_execute_multiple_cmd(t_dados *data, t_env *my_env);
