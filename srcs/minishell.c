@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/31 17:44:21 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/31 18:27:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,52 @@ t_dados	*fake_parser(char *input)
 	return (parsed);
 }
 
-int check_heredoc(t_dados* dados, t_dados** temp, int *i){
-	
-	*temp = dados->next;
-	*i=3;
-	return 1;
-	return 0;
+int	check_heredoc(t_dados *data, t_dados **data_out, int *red_out)
+{
+	int	i;
+
+	*data_out = NULL;
+	i = 0;
+	while (data)
+	{
+		while (i < data->nbr_redirections)
+		{
+			if (data->redirect->redirect_type == 2)
+			{
+				*red_out = i;
+				*data_out = data;
+			}
+			i++;
+		}
+		data = data->next;
+		i = 0;
+	}
+	return (*data_out != NULL);
 }
 
-t_dados* parse_heredoc(t_dados* dados){
+t_dados	*parse_heredoc(t_dados *dados)
+{
 	char	*input;
-	t_dados* temp;
-	int i;
-	int	fd[2];
-	
-	if(check_heredoc(dados, &temp, &i))
+	t_dados	*temp;
+	int		i;
+	int		fd;
+
+	if (check_heredoc(dados, &temp, &i))
 	{
-		fd = open("temp")
-		while(1){
-			input = readline(">");
-			//guardar input
-			
-			if(input == temp->redirect[i].filename){
-				break;
-			}
-			write(input, fd);
+		fd = open("/tmp/heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
+		input = readline("> ");
+		while (input && !str_equal(input, temp->redirect[i].filename))
+		{
+			ft_putstr_fd(input, fd);
+			ft_putstr_fd("\n", fd);
+			free(input);
+			input = readline("> ");
 		}
+		free(input);
 		close(fd);
-		temp->redirect[i].filename = "temp";
+		temp->redirect[i].filename = "/tmp/heredoc";
 	}
-	return dados;
+	return (dados);
 }
 
 // antes do exit_status receber qualquer coisa vamos chamar o parsing
