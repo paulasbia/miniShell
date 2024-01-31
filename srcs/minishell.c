@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 12:55:02 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/31 13:49:23 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ int	minishell(t_env *my_env)
 		if (validate_input(input) == 0)
 		{
 			dados = parsing(input);
-			exit_status = start_execution(dados, &my_env);
-			free_list(&dados);
+			if (dados)
+			{
+				exit_status = start_execution(dados, &my_env);
+				free_list(&dados);
+			}
 		}
 		free(input);
 	}
