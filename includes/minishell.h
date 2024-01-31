@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/31 09:45:16 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/31 09:52:07 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int					wait_for_children(int *children_pid);
 int					ft_wait_exit_status(int child_pid);
 
 // redirects
-int					handle_redirects(t_dados *data, int saved_fd[2]);
+int					handle_redirects(t_dados *data, int saved_fd[2], t_env *my_env);
 void				back_saved_fd(int saved_fd[2]);
 int					redirect_output(t_redirect *red);
 int					redirect_input(t_redirect *red);

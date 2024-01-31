@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/31 09:41:57 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/31 10:07:10 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,18 @@ void	ft_handle_pipe(t_dados *aux, t_dados *data, int *saved_fds)
 		redirect_fd(back_out, STDOUT_FILENO);
 }
 
-void	ft_handle_exec(pid_t *children, t_dados *aux, t_env *my_env)
+void	ft_handle_exec(pid_t *children,int saved_fd[2], t_dados *aux, t_env *my_env)
 {
 	if (!ft_cmd_builtin(aux))
-		ft_exec_child_process(aux->comando, my_env);
+	{
+		ft_handle_red_pipes(aux, my_env);
+		ft_exec_child_process(aux->comando, my_env);		
+	}
+
 	else
 	{
 		free(children);
+		handle_redirects(aux, saved_fd, my_env);
 		ft_execute_forked_builtin(aux, &my_env);
 	}
 }
@@ -91,8 +96,9 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 		ft_def_signal(children_pid[i]);
 		if (!children_pid[i++])
 		{
-			ft_handle_red_pipes(aux, my_env);
-			ft_handle_exec(children_pid, aux, my_env);
+			// ft_handle_red_pipes(aux, my_env);
+			// handle_redirects(data, saved_fds, my_env);
+			ft_handle_exec(children_pid, saved_fds, aux, my_env);
 		}
 		aux = aux->next;
 	}
