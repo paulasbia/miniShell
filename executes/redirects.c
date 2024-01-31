@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/01/31 09:50:05 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/31 10:16:42 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	handle_red_output(t_redirect *red, int saved_fd[2])
 
 // TODO refatorar, criar variavel para nbr e so passar
 // os dados necessarios para out e in - OK
-int	handle_redirects(t_dados *data, int saved_fd[2], t_env *my_env)
+int	handle_redirects(t_dados *data, int saved_fd[2])
 {
 	int	number_red;
 	int	i;
@@ -96,12 +96,12 @@ int	handle_redirects(t_dados *data, int saved_fd[2], t_env *my_env)
 			|| data->redirect[i].redirect_type == 3)
 		{
 			if (!handle_red_output(&data->redirect[i], saved_fd))
-				exit_child(data, my_env);
+				return (0);
 		}
 		if (data->redirect[i].redirect_type == 1)
 		{
 			if (!handle_red_intput(&data->redirect[i], saved_fd))
-				exit_child(data, my_env);
+				return (0);
 		}
 		number_red--;
 		i++;
