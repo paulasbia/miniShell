@@ -283,7 +283,7 @@ static void	tests_ft_builtin_pwd(void)
 // 	assert_files_and_clean();
 // }
 
-static void	tests_ft_builtin_ls_red(void)
+static void	tests_ft_ls_red(void)
 {
 		t_dados actual = {
 		.comando = (char *[]){"ls", NULL},
@@ -327,7 +327,8 @@ int	main(int ac, char **av, char **env)
 	RUN_TEST(tests_ft_2_pipe);
 	RUN_TEST(tests_ft_pipe_parsing);
 	RUN_TEST(tests_ft_builtin_pwd);
-	RUN_TEST(tests_ft_builtin_ls_red);
+	RUN_TEST(tests_ft_ls_red);
+	RUN_TEST(tests_ft_ls_red);
 	//RUN_TEST(tests_ft_builtin_pwd_red);
 	return (UNITY_END());
 }
