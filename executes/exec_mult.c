@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 12:30:33 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/31 17:08:51 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 
 	number_red = data->nbr_redirections;
 	i = 0;
-	while (number_red)
+	while (number_red--)
 	{
 		if (data->redirect[i].redirect_type == 0
 			|| data->redirect[i].redirect_type == 3)
@@ -32,7 +32,11 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 			if (!redirect_input(&data->redirect[i]))
 				exit_child(data, my_env);
 		}
-		number_red--;
+		// else
+		// {
+		// 	if (!hadle_heredoc(&data->redirect[i]))
+		// 		exit_child(data, my_env);
+		// }
 		i++;
 	}
 }

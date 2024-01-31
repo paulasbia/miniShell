@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/31 13:46:18 by paula            ###   ########.fr       */
+/*   Updated: 2024/01/31 17:44:21 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,38 @@ t_dados	*fake_parser(char *input)
 	return (parsed);
 }
 
+int check_heredoc(t_dados* dados, t_dados** temp, int *i){
+	
+	*temp = dados->next;
+	*i=3;
+	return 1;
+	return 0;
+}
+
+t_dados* parse_heredoc(t_dados* dados){
+	char	*input;
+	t_dados* temp;
+	int i;
+	int	fd[2];
+	
+	if(check_heredoc(dados, &temp, &i))
+	{
+		fd = open("temp")
+		while(1){
+			input = readline(">");
+			//guardar input
+			
+			if(input == temp->redirect[i].filename){
+				break;
+			}
+			write(input, fd);
+		}
+		close(fd);
+		temp->redirect[i].filename = "temp";
+	}
+	return dados;
+}
+
 // antes do exit_status receber qualquer coisa vamos chamar o parsing
 int	minishell(t_env *my_env)
 {
@@ -56,6 +88,7 @@ int	minishell(t_env *my_env)
 			dados = parsing(input);
 			if (dados)
 			{
+				dados = parse_heredoc(dados);
 				exit_status = start_execution(dados, &my_env);
 				free_list(&dados);
 			}
