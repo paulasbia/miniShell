@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/01 09:59:59 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/01 10:09:20 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,30 @@ int	check_heredoc(t_dados *data, t_dados **data_out, int *red_out)
 	return (*data_out != NULL);
 }
 
+void	ft_read_heredoc(t_dados *temp, int i)
+{
+	char	*input_hd;
+	int		fd_hd;
+
+	fd_hd = open("/tmp/heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	input_hd = readline("> ");
+	while (input_hd && !str_equal(input_hd, temp->redirect[i].filename))
+	{
+		ft_putstr_fd(input_hd, fd_hd);
+		ft_putstr_fd("\n", fd_hd);
+		free(input_hd);
+		input_hd = readline("> ");
+	}
+	free(input_hd);
+	close(fd_hd);
+	temp->redirect[i].filename = "/tmp/heredoc";
+	exit(EXIT_SUCCESS);
+}
+
 t_dados	*parse_heredoc(t_dados *dados)
 {
-	char	*input;
 	t_dados	*temp;
 	int		i;
-	int		fd;
 	pid_t	child_pid;
 
 	if (check_heredoc(dados, &temp, &i))
@@ -69,25 +87,13 @@ t_dados	*parse_heredoc(t_dados *dados)
 			ft_child_err("fork - heredoc", temp->redirect->filename);
 		else if (!child_pid)
 		{
-			fd = open("/tmp/heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
-			input = readline("> ");
-			while (input && !str_equal(input, temp->redirect[i].filename))
-			{
-				ft_putstr_fd(input, fd);
-				ft_putstr_fd("\n", fd);
-				free(input);
-				input = readline("> ");
-			}
-			free(input);
-			close(fd);
-            temp->redirect[i].filename = "/tmp/heredoc";
-			exit(EXIT_SUCCESS);
+			ft_read_heredoc(temp, i);
 		}
-        else
-        {
-            ft_wait_exit_status(child_pid);
-            ft_init_signal();
-        }
+		else
+		{
+			ft_wait_exit_status(child_pid);
+			ft_init_signal();
+		}
 	}
 	return (dados);
 }
