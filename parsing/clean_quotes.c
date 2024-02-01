@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:31:41 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/24 14:55:27 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/01 20:07:28 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	quotes_len(char *s)
 			while (s[i++] != '"')
 				size++;
 		}
+		if (!s[i])
+			return (size);
 		i++;
 		size++;
 	}

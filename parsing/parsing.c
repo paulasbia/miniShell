@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/24 12:15:15 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/01 20:22:53 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,23 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 // 	}
 // }
 
+
+char **clear_dp_quotes(char **split_cmd)
+{
+	int i = 0;
+	char *new;
+
+	new = NULL;	
+	while (split_cmd[i] != NULL)
+	{
+		new = clean_quotes(split_cmd[i]);
+		free(split_cmd[i]);
+		split_cmd[i] = new;
+		i++;
+	}
+	return (split_cmd);
+}
+
 t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd)
 {
 	t_dados	*node;
@@ -107,6 +124,16 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd)
 	node->nbr_redirections = n_reds;
 		// salvo o n de red para paula saber qnts há.
 	node->comando[x] = NULL;
+	node->comando = clear_dp_quotes(node->comando);
+	int z = 0;
+	char *new;
+	while (z < node->nbr_redirections)
+	{
+		new = clean_quotes(node->redirect[i].filename);
+		free(node->redirect[i].filename);
+		node->redirect[i].filename = new;
+		i++;
+	}
 	node->next = NULL;
 	free_dp(split_cmd);
 	return (node);
@@ -116,16 +143,6 @@ void	alocacao(t_dados **dados_head, int redirection, int cmd,
 		char **split_cmd) // aqui tbm
 {
 	t_dados *node;
-	int i = 0;
-	char *new;
-
-	while (split_cmd[i] != NULL)
-	{
-		new = clean_quotes(split_cmd[i]);
-		free(split_cmd[i]);
-		split_cmd[i] = new;
-		i++;
-	}
 	node = ft_lstnew_p(redirection, cmd, split_cmd);
 	ms_lstadd_back(dados_head, node);
 }
