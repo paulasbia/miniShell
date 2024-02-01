@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/01 09:43:09 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/01 10:16:45 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,12 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 			if (!redirect_output(&data->redirect[i]))
 				exit_child(data, my_env);
 		}
-		if (data->redirect[i].redirect_type == 1)
+		if (data->redirect[i].redirect_type == 1
+			|| data->redirect[i].redirect_type == 2)
 		{
 			if (!redirect_input(&data->redirect[i]))
 				exit_child(data, my_env);
 		}
-		// else
-		// {
-		// 	if (!hadle_heredoc(&data->redirect[i]))
-		// 		exit_child(data, my_env);
-		// }
 		i++;
 	}
 }
