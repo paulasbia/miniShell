@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/02/01 11:12:36 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/01 17:25:05 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	redirect_input(t_redirect *red)
 {
 	int	fd;
 
-	printf("filename eh %s\n", red->filename);
 	fd = open(red->filename, O_RDONLY, 1);
 	if (fd < 0)
 	{
