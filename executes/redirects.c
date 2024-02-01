@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/02/01 10:55:01 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/01 11:12:36 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	redirect_input(t_redirect *red)
 {
 	int	fd;
 
+	printf("filename eh %s\n", red->filename);
 	fd = open(red->filename, O_RDONLY, 1);
 	if (fd < 0)
 	{
@@ -79,16 +80,6 @@ int	handle_red_output(t_redirect *red, int saved_fd[2])
 	return (1);
 }
 
-void	redirect_heredoc(t_redirect *red)
-{
-	int	fd_hd;
-	(void)red;
-
-	fd_hd = open("/tmp/heredoc",O_RDONLY);
-	redirect_fd(fd_hd, STDIN_FILENO);
-	
-}
-
 // TODO refatorar, criar variavel para nbr e so passar
 // os dados necessarios para out e in - OK
 int	handle_redirects(t_dados *data, int saved_fd[2])
@@ -108,15 +99,11 @@ int	handle_redirects(t_dados *data, int saved_fd[2])
 			if (!handle_red_output(&data->redirect[i], saved_fd))
 				return (0);
 		}
-		if (data->redirect[i].redirect_type == 1)
+		if (data->redirect[i].redirect_type == 1
+			|| data->redirect[i].redirect_type == 2)
 		{
 			if (!handle_red_intput(&data->redirect[i], saved_fd))
 				return (0);
-		}
-		else
-		{
-			back_saved_fd(saved_fd);
-			redirect_heredoc(&data->redirect[i]);
 		}
 		i++;
 	}

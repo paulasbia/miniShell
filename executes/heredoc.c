@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/01 10:50:21 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/01 11:08:54 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	ft_read_heredoc(t_dados *temp, int *i)
 	}
 	free(input_hd);
 	close(fd_hd);
-	temp->redirect[*i].filename = "/tmp/heredoc";
 	exit(EXIT_SUCCESS);
 }
 
@@ -92,10 +91,10 @@ t_dados	*parse_heredoc(t_dados *dados)
 		else
 		{
 			ft_wait_exit_status(child_pid);
+			free(temp->redirect[i].filename);
+			temp->redirect[i].filename = ft_strdup("/tmp/heredoc");
 			ft_init_signal();
 		}
-        printf("em data %s em temp %s\n", dados->redirect[i].filename, temp->redirect[i].filename);
-        return (temp);
 	}
 	return (dados);
 }
