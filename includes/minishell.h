@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 13:10:01 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/01 09:43:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void				ft_save_fds(int saved_fd[2]);
 
 // EXECUTES
 int					start_execution(t_dados *data, t_env **my_env);
+t_dados				*parse_heredoc(t_dados *dados);
 int					ft_one_cmd(t_dados *data, t_env **my_env);
 int					ft_execute_child(t_dados *data, t_env *my_env);
 int					ft_execute_builtin(t_dados *data, t_env **minienv);
