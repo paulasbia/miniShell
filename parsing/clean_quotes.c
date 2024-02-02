@@ -6,48 +6,11 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:31:41 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/01 20:07:28 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/02 23:17:08 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	free_dp(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i] != NULL)
-	{
-		free(split[i]);
-		split[i] = NULL;
-		i++;
-	}
-	free(split);
-	split = NULL;
-}
-
-void	free_list(t_dados **lst)
-{
-	t_dados	*temp;
-
-	while (*lst != NULL)
-	{
-		temp = *lst;
-		*lst = (*lst)->next;
-		free_dp(temp->comando);
-		while (temp->nbr_redirections > 0)
-		{
-			free(temp->redirect[temp->nbr_redirections - 1].filename);
-			temp->nbr_redirections--;
-		}
-		free(temp->redirect);
-		free(temp);
-		temp = NULL;
-	}
-	free(*lst);
-	*lst = NULL;
-}
 
 int	quotes_len(char *s)
 {
@@ -111,4 +74,38 @@ char	*clean_quotes(char *s)
 	}
 	new_string[j] = '\0';
 	return (new_string);
+}
+
+char	**clear_dp_quotes(char **split_cmd)
+{
+	int		i;
+	char	*new;
+
+	i = 0;
+	new = NULL;
+	while (split_cmd[i] != NULL)
+	{
+		new = clean_quotes(split_cmd[i]);
+		free(split_cmd[i]);
+		split_cmd[i] = new;
+		i++;
+	}
+	return (split_cmd);
+}
+
+void	handle_clean_quotes(t_dados *node, char **split_cmd)
+{
+	char	*new;
+	int		i;
+
+	node->comando = clear_dp_quotes(node->comando);
+	i = 0;
+	while (i < node->nbr_redirections)
+	{
+		new = clean_quotes(node->redirect[i].filename);
+		free(node->redirect[i].filename);
+		node->redirect[i].filename = new;
+		i++;
+	}
+	free_dp(split_cmd);
 }

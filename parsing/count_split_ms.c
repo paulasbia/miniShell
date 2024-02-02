@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:22:49 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/24 17:02:00 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/02 22:34:03 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,31 @@ void	handle_cont_redirection(int *i, const char *s, int *result)
 		(*result)++;
 }
 
-int	cont(char const *s)
+int	handle_count_loop(char const *s, int result, int *i)
+{
+	while (s[*i] != '\0' && s[*i] != ' ' && s[*i] != '\t')
+	{
+		if (s[*i] == '"')
+		{
+			handle_cont_ms(i, s, &result, '"');
+			if (s[*i] == '\0')
+				return (result + 1);
+		}
+		if (s[*i] == '\'')
+		{
+			handle_cont_ms(i, s, &result, '\'');
+			if (s[*i] == '\0')
+				return (result + 1);
+		}
+		if (s[*i] == '<' || s[*i] == '>')
+			handle_cont_redirection(i, s, &result);
+		if (s[*i])
+			(*i)++;
+	}
+	return (result + 1);
+}
+
+int	count_split_ms(char const *s)
 {
 	int	i;
 	int	result;
@@ -44,26 +68,9 @@ int	cont(char const *s)
 			i++;
 		if (s[i] == '\0')
 			return (result);
-		while (s[i] != '\0' && s[i] != ' ' && s[i] != '\t')
-		{
-			if (s[i] == '"')
-			{
-				handle_cont_ms(&i, s, &result, '"');
-				if (s[i] == '\0')
-					return (result + 1);
-			}
-			if (s[i] == '\'')
-			{
-				handle_cont_ms(&i, s, &result, '\'');
-				if (s[i] == '\0')
-					return (result + 1);
-			}
-			if (s[i] == '<' || s[i] == '>')
-				handle_cont_redirection(&i, s, &result);
-			if (s[i])
-				i++;
-		}
-		result++;
+		result = handle_count_loop(s, result, &i);
+		if (s[i] == '\0')
+			return (result);
 	}
 	return (result);
 }

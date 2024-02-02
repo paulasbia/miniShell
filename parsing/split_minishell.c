@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:56:43 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/24 17:17:38 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/02 22:27:34 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	**split_ms(char const *s)
 
 	i = 0;
 	j = 0;
-	count = cont(s);
+	count = count_split_ms(s);
 	totals = malloc(sizeof(char *) * (count + 1));
 	if (totals == NULL)
 		return (NULL);
