@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/01 20:22:53 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/01 21:28:26 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,25 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd)
 	node->nbr_redirections = n_reds;
 		// salvo o n de red para paula saber qnts há.
 	node->comando[x] = NULL;
-	node->comando = clear_dp_quotes(node->comando);
+	x = 0;
 	int z = 0;
+	while(node->comando[x] != NULL)
+	{
+		z = 0;
+		while(node->comando[x][z] != '\0')
+		{
+			if(node->comando[x][z] == '$')
+			{
+				printf("achou caraio\n");
+			}
+			z++;
+		}
+		printf("%s\n", node->comando[x]);
+		x++;
+	}
+	
+	node->comando = clear_dp_quotes(node->comando);
+	z = 0;
 	char *new;
 	while (z < node->nbr_redirections)
 	{
