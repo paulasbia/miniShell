@@ -6,24 +6,24 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:48:59 by paula             #+#    #+#             */
-/*   Updated: 2024/01/24 14:44:05 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/02 11:29:56 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_handle_errors(char **args, char *path, char **envp)
+void	ft_handle_errors(t_dados *data, char *path, char **envp)
 {
 	int	error;
 
 	error = EXIT_FAILURE;
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	perror(args[0]);
+	perror(data->comando[0]);
 	if (access(path, F_OK) != 0)
 		error = CMD_NOT_FOUND;
 	else if (access(path, X_OK) != 0)
 		error = NOT_EXECUTABLE;
-	ft_free_args(args);
+	free_list(&data);
 	ft_free_args(envp);
 	free(path);
 	exit(error);
