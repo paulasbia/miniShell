@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/02 09:46:38 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/02 10:09:51 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ void	ft_read_heredoc(t_dados *temp, int *i)
 		free(input_hd);
 		input_hd = readline("> ");
 	}
+	if (!input_hd)
+		print_error_msg("warning: heredoc delimited by EOF. Wanted",
+			temp->redirect->filename);
 	free(input_hd);
 	close(fd_hd);
 	exit(EXIT_SUCCESS);
