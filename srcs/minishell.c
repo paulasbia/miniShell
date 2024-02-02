@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/01/31 13:46:18 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/02 21:55:01 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	minishell(t_env *my_env)
 		if (validate_input(input) == 0)
 		{
 			dados = parsing(input);
+			// printf("%d\n", dados->comando[0][0]);
 			if (dados)
 			{
 				exit_status = start_execution(dados, &my_env);

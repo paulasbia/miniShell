@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/02 21:37:38 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/02 22:08:30 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char **clear_dp_quotes(char **split_cmd)
 	int i = 0;
 	char *new;
 
-	new = NULL;	
+	new = NULL;
 	while (split_cmd[i] != NULL)
 	{
 		new = clean_quotes(split_cmd[i]);
@@ -101,7 +101,7 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd)
 	node = (t_dados *)malloc(sizeof(t_dados)); // aloco memoria para meu node
 	if (!node)
 		return (NULL);
-	node->comando = malloc(sizeof(char *) * (n_cmd + 1));      
+	node->comando = malloc(sizeof(char *) * (n_cmd + 1));
 		// aloco memoria para o tanto de cmd que tenho
 	node->redirect = malloc(sizeof(t_redirect) * (n_reds + 1));
 		// e tbm para o n de redireções
@@ -125,31 +125,31 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd)
 		// salvo o n de red para paula saber qnts há.
 	node->comando[x] = NULL;
 	x = 0;
-	int z = 0;
-	while(node->comando[x] != NULL)
-	{
-		z = 0;
-		while(node->comando[x][z] != '\0')
-		{
-			if(node->comando[x][z] == '$')
-			{
-				printf("achou caraio\n");
-			}
-			z++;
-		}
-		printf("%s\n", node->comando[x]);
-		x++;
-	}
-	
+	// int z = 0;
+	// while(node->comando[x] != NULL)
+	// {
+	// 	z = 0;
+	// 	while(node->comando[x][z] != '\0')
+	// 	{
+	// 		if(node->comando[x][z] == '$')
+	// 		{
+	// 			// printf("achou caraio\n");
+	// 		}
+	// 		z++;
+	// 	}
+	// 	// printf("%s\n", node->comando[x]);
+	// 	x++;
+	// }
+
 	node->comando = clear_dp_quotes(node->comando);
-	z = 0;
+	int z = 0;
 	char *new;
 	while (z < node->nbr_redirections)
 	{
-		new = clean_quotes(node->redirect[i].filename);
-		free(node->redirect[i].filename);
-		node->redirect[i].filename = new;
-		i++;
+		new = clean_quotes(node->redirect[z].filename);
+		free(node->redirect[z].filename);
+		node->redirect[z].filename = new;
+		z++;
 	}
 	node->next = NULL;
 	free_dp(split_cmd);
