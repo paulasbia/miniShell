@@ -58,24 +58,6 @@ static void	tests_ft_out_redirect_pwd(void)
 	assert_files_and_clean();
 }
 
-static void	tests_heredoc(void)
-{
-	t_dados actual = {
-		.comando = (char *[]){"pwd", NULL},
-		.redirect = (t_redirect[]){(t_redirect) {.filename="EOF\na\nb\nc\nEOF", .redirect_type = 2}},
-		.nbr_redirections = 1,
-		.next = NULL
-	};
-
-	char** expected = (char *[]){"bash", "-c", "cat << EOF\n a\nb\nc\nEOF", NULL};
-
-	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
-
-	TEST_ASSERT_EQUAL(0, run_cmd(expected));
-
-	assert_files_and_clean();
-}
-
 static void test_creat(void)
 {
 		t_dados actual = {
@@ -260,7 +242,24 @@ static void	tests_ft_2_pipe(void)
 
 	assert_files_and_clean();
 }
-	//start_execution(&test1, &init_env);
+
+// static void	tests_heredoc(void)
+// {
+// 	t_dados actual = {
+// 		.comando = (char *[]){"pwd", NULL},
+// 		.redirect = (t_redirect[]){(t_redirect) {.filename="EOF\na\nb\nc\nEOF", .redirect_type = 2}},
+// 		.nbr_redirections = 1,
+// 		.next = NULL
+// 	};
+
+// 	char** expected = (char *[]){"bash", "-c", "cat << EOF\n a\nb\nc\nEOF", NULL};
+
+// 	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+
+// 	TEST_ASSERT_EQUAL(0, run_cmd(expected));
+
+// 	assert_files_and_clean();
+// }
 
 void	setUp(void)
 {

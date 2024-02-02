@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 11:46:40 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/02 09:43:43 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	ft_exec_child_process(char **args, t_env *my_env)
 		external_exit(args, my_env, CMD_NOT_FOUND);
 	rl_clear_history();
 	env_array = myenv_to_array(my_env);
+	ft_free_env(&my_env);
 	if (execve(path, args, env_array))
 		ft_handle_errors(args, path, env_array);
 	exit(EXIT_SUCCESS);
