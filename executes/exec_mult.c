@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 12:30:33 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/02 11:32:05 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_handle_pipe(t_dados *aux, t_dados *data, int *saved_fds)
 void	ft_handle_exec(t_dados *aux, t_env *my_env)
 {
 	if (!ft_cmd_builtin(aux))
-		ft_exec_child_process(aux->comando, my_env);
+		ft_exec_child_process(aux, my_env);
 	else
 		exit(ft_execute_builtin(aux, &my_env));
 }
