@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/01 21:28:26 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/02 10:39:40 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 // 		}
 // 		temp = temp->next;
 // 	}
-// }
+}
 
 
 char **clear_dp_quotes(char **split_cmd)
@@ -205,6 +205,6 @@ t_dados	*parsing(char *input)
 		i++;
 	}
 	free_dp(s_pipe);
-	//	print_list(dados_head);
+	//print_list(dados_head);
 	return (dados_head);
 }
