@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:34:54 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/24 16:34:58 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/02 23:56:49 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int					validate_input(char *s);
 char				*clean_quotes(char *s);
 void				free_dp(char **split);
 void				free_list(t_dados **lst);
-void				print_list(t_dados *lst);
-int					cont(char const *s);
+int					count_split_ms(char const *s);
+void				handle_clean_quotes(t_dados *node, char **split_cmd);
 
 #endif

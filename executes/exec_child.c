@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
 /*   Updated: 2024/02/03 10:30:44 by paula            ###   ########.fr       */
@@ -88,7 +88,7 @@ int	ft_exec_child_process(t_dados *data, t_env *my_env)
 	value = mini_value("PATH", my_env);
 	if (ft_strchr(data->comando[0], '/') || !value)
 		path = ft_strdup(data->comando[0]);
-	else
+	else if (data->comando[0][0] != '\0')
 		path = ft_get_path(data->comando[0], my_env);
 	if (path == NULL)
 		external_exit(data, my_env, CMD_NOT_FOUND);

@@ -3,101 +3,92 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 10:57:34 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/26 13:21:18 by paula            ###   ########.fr       */
+/*   Created: 2024/02/03 12:52:42 by ricardo           #+#    #+#             */
+/*   Updated: 2024/02/03 14:33:06 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	check_out_and_in(char *s)
+int	invalid_token(char token, char *s, int *i)
 {
-	char	*n;
-
-	n = "newline";
-	s++;
-	if (*s == '>')
+	if (s[*i] == token)
 	{
-		if (*s == '>')
-			s++;
-	}
-	else
-	{
-		if (*s == '<')
-			s++;
-	}
-	while (*s != '\0' && (*s == ' ' || *s == '\t'))
-		s++;
-	if (*s == '>' || *s == '<' || *s == '|' || *s == '\0')
-	{
-		if (*s == '>' || *s == '<' || *s == '|')
-			print_error_msg2("syntax error, command not found after token", *s);
-		else
-			print_error_msg("syntax error, command not found after token ", n);
-		return (1);
-	}
-	return (0);
-}
-
-int	check_pipe(char *s)
-{
-	s++;
-	while (*s == ' ' || *s == '\t')
-		s++;
-	if (*s == '\0')
-	{
-		print_error_msg("|", "syntax error,command not found after pipe");
-		return (1);
-	}
-	if (*s == '|')
-	{
-		print_error_msg("|", "syntax error near unexpected token `|'");
-		return (1);
-	}
-	return (0);
-}
-
-int	check_dup_quotes(char *s)
-{
-	s++;
-	while (*s != '"')
-	{
-		if (*s == '\0')
+		(*i)++;
+		if (s[*i] == token)
+			(*i)++;
+		while (s[*i] != '\0' && (s[*i] == ' ' || s[*i] == '\t'))
+			(*i)++;
+		if (s[*i] == '>' || s[*i] == '<' || s[*i] == '|' || s[*i] == '\0')
 		{
-			ft_putstr_fd("syntax error, open quotes\n", 1);
+			ft_putstr_fd("syntax error, command not found after token\n", 2);
 			return (1);
 		}
-		s++;
+	}
+	return (0);
+}
+
+int	invalid_quotes(char token, char *s, int *i)
+{
+	if (s[*i] == token)
+	{
+		(*i)++;
+		while (s[*i] != token)
+		{
+			if (s[*i] == '\0')
+			{
+				ft_putstr_fd("syntax error, open quotes\n", 2);
+				return (1);
+			}
+			(*i)++;
+		}
+	}
+	return (0);
+}
+
+int	invalid_pipe(char *s, int *i, int x)
+{
+	if (s[*i] == '|')
+	{
+		while (x > 0)
+		{
+			if (s[x - 1] != ' ' || s[x - 1] == '\t')
+				break ;
+			x--;
+		}
+		if (x <= 0)
+			return (ft_putstr_fd("syntax error near unexpected token `|'\n",
+					2));
+		(*i)++;
+		while (s[*i] == ' ' || s[*i] == '\t')
+			(*i)++;
+		if (s[*i] == '\0')
+			return (ft_putstr_fd("syntax error, command not found after pipe\n",
+					2));
+		if (s[*i] == '|')
+			return (ft_putstr_fd("syntax error near unexpected token `|'\n",
+					2));
+		(*i)--;
 	}
 	return (0);
 }
 
 int	validate_input(char *s)
 {
-	while (*s != '\0')
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
 	{
-		if (*s == '>' || *s == '<')
-			return (check_out_and_in(s));
-		if (*s == '|')
-			return (check_pipe(s));
-		if (*s == '"')
-			return (check_dup_quotes(s));
-		if (*s == '\'')
-		{
-			s++;
-			while (*s != '\'')
-			{
-				if (*s == '\0')
-				{
-					ft_putstr_fd("syntax error, open quotes\n", 1);
-					return (1);
-				}
-				s++;
-			}
-		}
-		s++;
+		if (invalid_token('>', s, &i) || invalid_token('<', s, &i))
+			return (1);
+		if (invalid_pipe(s, &i, i))
+			return (1);
+		if (invalid_quotes('"', s, &i) || invalid_quotes('\'', s, &i))
+			return (1);
+		i++;
 	}
 	return (0);
 }
