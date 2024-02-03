@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/01/25 10:37:44 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/01 17:25:05 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	handle_redirects(t_dados *data, int saved_fd[2])
 	number_red = data->nbr_redirections;
 	saved_fd[0] = -1;
 	saved_fd[1] = -1;
-	while (number_red)
+	while (number_red--)
 	{
 		if (data->redirect[i].redirect_type == 0
 			|| data->redirect[i].redirect_type == 3)
@@ -98,12 +98,12 @@ int	handle_redirects(t_dados *data, int saved_fd[2])
 			if (!handle_red_output(&data->redirect[i], saved_fd))
 				return (0);
 		}
-		if (data->redirect[i].redirect_type == 1)
+		if (data->redirect[i].redirect_type == 1
+			|| data->redirect[i].redirect_type == 2)
 		{
 			if (!handle_red_intput(&data->redirect[i], saved_fd))
 				return (0);
 		}
-		number_red--;
 		i++;
 	}
 	return (1);
