@@ -18,22 +18,22 @@ static int run_cmd(char **cmd){
 static void assert_n_files_and_clean(char **actuals, char **expecteds)
 {
 	int return_code;
-	char *join1 = ft_strjoin(*actuals, " ");
-	char *join2 = ft_strjoin(join1, *expecteds);
-	char *join3 = ft_strjoin("diff ", join2);
 	
 	while (*actuals)
 	{
+		char *join1 = ft_strjoin(*actuals, " ");
+		char *join2 = ft_strjoin(join1, *expecteds);
+		char *join3 = ft_strjoin("diff ", join2);
 		return_code = run_cmd((char *[]){"bash", "-c", join3, NULL});
 		TEST_ASSERT_EQUAL(0, return_code);
 		return_code = run_cmd((char *[]){"bash", "-c", join3, NULL});
 		TEST_ASSERT_EQUAL(0, return_code);
 		actuals++;
 		expecteds++;
+		free(join1);
+		free(join2);
+		free(join3);
 	}
-	free(join1);
-	free(join2);
-	free(join3);
 }
 
 static void assert_files_and_clean(void){
@@ -242,7 +242,24 @@ static void	tests_ft_2_pipe(void)
 
 	assert_files_and_clean();
 }
-	//start_execution(&test1, &init_env);
+
+// static void	tests_heredoc(void)
+// {
+// 	t_dados actual = {
+// 		.comando = (char *[]){"pwd", NULL},
+// 		.redirect = (t_redirect[]){(t_redirect) {.filename="EOF\na\nb\nc\nEOF", .redirect_type = 2}},
+// 		.nbr_redirections = 1,
+// 		.next = NULL
+// 	};
+
+// 	char** expected = (char *[]){"bash", "-c", "cat << EOF\n a\nb\nc\nEOF", NULL};
+
+// 	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+
+// 	TEST_ASSERT_EQUAL(0, run_cmd(expected));
+
+// 	assert_files_and_clean();
+// }
 
 void	setUp(void)
 {
