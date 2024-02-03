@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:52:42 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/03 14:21:44 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/03 14:33:06 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,37 +48,28 @@ int	invalid_quotes(char token, char *s, int *i)
 	return (0);
 }
 
-int	invalid_pipe(char *s, int *i)
+int	invalid_pipe(char *s, int *i, int x)
 {
-	int x;
-	
-	x  = *i;
 	if (s[*i] == '|')
 	{
-		while(x > 0)
+		while (x > 0)
 		{
-			if(s[x - 1] != ' '|| s[x - 1] == '\t')
-				break;
+			if (s[x - 1] != ' ' || s[x - 1] == '\t')
+				break ;
 			x--;
 		}
-		if(x <= 0)
-		{
-			ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
-			return (1);
-		}
+		if (x <= 0)
+			return (ft_putstr_fd("syntax error near unexpected token `|'\n",
+					2));
 		(*i)++;
 		while (s[*i] == ' ' || s[*i] == '\t')
 			(*i)++;
 		if (s[*i] == '\0')
-		{
-			ft_putstr_fd("syntax error, command not found after pipe\n", 2);
-			return (1);
-		}
+			return (ft_putstr_fd("syntax error, command not found after pipe\n",
+					2));
 		if (s[*i] == '|')
-		{
-			ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
-			return (1);
-		}
+			return (ft_putstr_fd("syntax error near unexpected token `|'\n",
+					2));
 		(*i)--;
 	}
 	return (0);
@@ -93,7 +84,7 @@ int	validate_input(char *s)
 	{
 		if (invalid_token('>', s, &i) || invalid_token('<', s, &i))
 			return (1);
-		if (invalid_pipe(s, &i))
+		if (invalid_pipe(s, &i, i))
 			return (1);
 		if (invalid_quotes('"', s, &i) || invalid_quotes('\'', s, &i))
 			return (1);
