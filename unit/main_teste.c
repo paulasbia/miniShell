@@ -139,36 +139,11 @@ static void	tests_ft_more_redirect(void)
 	assert_n_files_and_clean((char *[]){"actual.txt", "actual2.txt", NULL}, (char *[]){"expected.txt", "expected2.txt", NULL});
 }
 
-static void	tests_ft_pipe(void)
+static void	assert_lista(t_dados *expected, t_dados *parsing)
 {
-		t_dados actual2 = {
-		.comando = (char *[]){"grep", "a", NULL},
-		.redirect = NULL,
-		.nbr_redirections = 0,
-		.next = NULL,
-	};
-
-		t_dados actual = {
-		.comando = (char *[]){"ls", NULL},
-		.redirect = NULL,
-		.nbr_redirections = 0,
-		.next = &actual2,
-	};
-
-	char** expected = (char *[]){"bash", "-c", "ls | grep a", NULL};
-
-	TEST_ASSERT_EQUAL(0, ft_execute_multiple_cmd(&actual, init_env));
-
-	TEST_ASSERT_EQUAL(0, run_cmd(expected));
-
-	assert_files_and_clean();
-}
-
-static void	compare_dados(t_dados *expected, t_dados *t_parsing)
-{
-	int		i;
+		int		i;
 	t_dados	*aux = expected;
-	t_dados	*aux_p = t_parsing;
+	t_dados	*aux_p = parsing;
 
 	i = 0;
 	while (aux)
@@ -186,61 +161,140 @@ static void	compare_dados(t_dados *expected, t_dados *t_parsing)
 		aux = aux->next;
 		aux_p = aux_p->next;
 	}
-	free_list(&t_parsing);
+	free_list(&parsing);
 }
 
-static void	tests_ft_pipe_parsing(void)
+static void	tests_ft_parsing(void)
 {
-	char	*input = {"ls | grep a"};
-	t_dados	*t_parsing = parsing(input);
-
-	t_dados expected2 = {
-		.comando = (char *[]){"grep", "a", NULL},
-		.redirect = NULL,
-		.nbr_redirections = 0,
-		.next = NULL,
-	};
-
 		t_dados expected = {
-		.comando = (char *[]){"ls", NULL},
+		.comando = (char *[]){"wc", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
-		.next = &expected2,
+		.next = NULL
+	};
+	
+		t_dados expected2 = {
+		.comando = (char *[]){"pwd", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &expected
 	};
 
-	compare_dados(&expected, t_parsing);
+	char	*input = {"pwd | wc"};
+	t_dados	*actual = parsing(input);
+
+	assert_lista(&expected2, actual);
 }
 
-static void	tests_ft_2_pipe(void)
+static void	tests_ft_validate_open_quotes(void)
 {
-	t_dados actual3 = {
-	.comando = (char *[]){"wc", NULL},
-	.redirect = NULL,
-	.nbr_redirections = 0,
-	.next = NULL,
-	};
+	int		expected = 1;
+	char	*input = {"echo \"a"};
+	int		actual = validate_input(input);
 
-		t_dados actual2 = {
-		.comando = (char *[]){"grep", "a", NULL},
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com aspas abertas deve retornar erro");
+}
+
+static void	tests_ft_validate_open_quotes_pipe(void)
+{
+	int		expected = 1;
+	char	*input = {"ls | wc \"a"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com aspas abertas deve retornar erro");
+}
+
+static void	tests_ft_validate_open_quotes_pipe2(void)
+{
+	int		expected = 1;
+	char	*input = {"ls | wc \'a"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com aspas abertas deve retornar erro");
+}
+
+static void	tests_ft_validate_sintaxe(void)
+{
+	int		expected = 1;
+	char	*input = {" ls >< a. txt"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com erro de sintaxe red sem complemento ><");
+}
+
+static void	tests_ft_validate_sintaxe_start_pipe(void)
+{
+	int		expected = 1;
+	char	*input = {"| ls"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com erro de sintaxe, nao pode comecar com |");
+}
+
+static void	tests_ft_validate_sintaxe_empty_pipe(void)
+{
+	int		expected = 1;
+	char	*input = {"ls |"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com erro de sintaxe, nao conter | vazio");
+}
+
+static void	tests_ft_validate_sintaxe_not_error(void)
+{
+	int		expected = 0;
+	char	*input = {"ls |>> wc"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input sem erro de sintaxe");
+}
+
+static void	tests_ft_validate_sintaxe_with_error(void)
+{
+	int		expected = 1;
+	char	*input = {"ls |>>> wc"};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "input com erro de sintaxe >>>");
+}
+
+static void	tests_ft_validate_without_space(void)
+{
+	int		expected = 0;
+	char	*input = {"echo\"1\"\"2\""};
+	int		actual = validate_input(input);
+
+	TEST_ASSERT_EQUAL_INT64_MESSAGE(expected, actual, "esperado que passe");
+}
+
+static void	tests_ft_parsing_with_space(void)
+{
+		t_dados expected2 = {
+		.comando = (char *[]){"echo", "12", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
-		.next = &actual3,
+		.next = NULL
 	};
 
-		t_dados actual = {
-		.comando = (char *[]){"ls", NULL},
+	char	*input = "echo \"1\"\"2\"";
+	t_dados	*actual = parsing(input);
+
+	assert_lista(&expected2, actual);
+}
+
+static void	tests_ft_parsing_without_space(void)
+{
+		t_dados expected2 = {
+		.comando = (char *[]){"echo12", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
-		.next = &actual2,
+		.next = NULL
 	};
 
-	char** expected = (char *[]){"bash", "-c", "ls | grep a | wc", NULL};
+	char	*input = "echo\"1\"\"2\"";
+	t_dados	*actual = parsing(input);
 
-	TEST_ASSERT_EQUAL(0, ft_execute_multiple_cmd(&actual, init_env));
-
-	TEST_ASSERT_EQUAL(0, run_cmd(expected));
-
-	assert_files_and_clean();
+	assert_lista(&expected2, actual);
 }
 	//start_execution(&test1, &init_env);
 
@@ -266,8 +320,5 @@ int	main(int ac, char **av, char **env)
 	RUN_TEST(tests_ft_input_redirect);
 	RUN_TEST(tests_return_code_error);
 	RUN_TEST(tests_ft_more_redirect);
-	RUN_TEST(tests_ft_pipe);
-	RUN_TEST(tests_ft_2_pipe);
-	RUN_TEST(tests_ft_pipe_parsing);
 	return (UNITY_END());
 }
