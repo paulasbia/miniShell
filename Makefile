@@ -65,6 +65,7 @@ test:
 	./e2e/tester.sh ./e2e/extras
 	./e2e/tester.sh ./e2e/redirects
 	./e2e/tester.sh ./e2e/pipes
+	./e2e/tester.sh ./e2e/sintaxe
 
 valgrind:
 	valgrind --leak-check=full ./minishell

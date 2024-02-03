@@ -1,0 +1,24 @@
+echo"1""2"
+"""
+| ls
+ls |
+ls |>
+ls <
+ls >
+|
+| echo oi
+| |
+| $
+| >
+>
+>>
+>>>
+<
+<<
+echo hi <
+cat    <| ls
+echo hi | >
+echo hi | > >>
+echo hi | < |
+echo hi |   |
+echo hi |  "|"
