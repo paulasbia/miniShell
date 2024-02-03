@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/02 10:09:51 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/03 09:25:21 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,20 @@ void	define_heredoc_signals(int child_pid)
 
 int	check_heredoc(t_dados *data, t_dados **data_out, int *red_out)
 {
-	int	i;
-
 	*data_out = NULL;
-	i = 0;
 	while (data)
 	{
-		while (i < data->nbr_redirections)
+		while (*red_out < data->nbr_redirections)
 		{
 			if (data->redirect->redirect_type == 2)
 			{
-				*red_out = i;
 				*data_out = data;
+				return (*data_out != NULL);
 			}
-			i++;
+			(*red_out)++;
 		}
 		data = data->next;
-		i = 0;
+		*red_out = 0;
 	}
 	return (*data_out != NULL);
 }
@@ -81,7 +78,8 @@ t_dados	*parse_heredoc(t_dados *dados)
 	int		i;
 	pid_t	child_pid;
 
-	if (check_heredoc(dados, &temp, &i))
+	i = 0;
+	while (check_heredoc(dados, &temp, &i))
 	{
 		child_pid = fork();
 		define_heredoc_signals(child_pid);
