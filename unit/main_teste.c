@@ -320,5 +320,17 @@ int	main(int ac, char **av, char **env)
 	RUN_TEST(tests_ft_input_redirect);
 	RUN_TEST(tests_return_code_error);
 	RUN_TEST(tests_ft_more_redirect);
+		RUN_TEST(tests_ft_parsing);
+	RUN_TEST(tests_ft_validate_open_quotes);
+	RUN_TEST(tests_ft_validate_open_quotes_pipe);
+	RUN_TEST(tests_ft_validate_open_quotes_pipe2);
+	RUN_TEST(tests_ft_validate_sintaxe);
+	RUN_TEST(tests_ft_validate_sintaxe_start_pipe);
+	RUN_TEST(tests_ft_validate_sintaxe_empty_pipe);
+	RUN_TEST(tests_ft_validate_sintaxe_not_error);
+	RUN_TEST(tests_ft_validate_sintaxe_with_error);
+	RUN_TEST(tests_ft_validate_without_space);
+	RUN_TEST(tests_ft_parsing_with_space);
+	RUN_TEST(tests_ft_parsing_without_space);
 	return (UNITY_END());
 }

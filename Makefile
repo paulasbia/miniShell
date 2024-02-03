@@ -58,6 +58,7 @@ check:
 	norminette ./builtins
 	norminette ./utils
 	norminette ./executes
+	norminette ./parsing
 	norminette ./includes/minishell.h
 
 test:
