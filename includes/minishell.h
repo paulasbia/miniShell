@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/01 09:43:50 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/03 10:21:49 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+struct				s_parse_heredoc
+{
+	int				i;
+	pid_t			child_pid;
+	t_redirect		*red_temp;
+};
+
 int					ft_check_arg(int ac, char **av);
 int					minishell(t_env *my_env);
 void				ft_add_list(char *key, t_env **my_list);
@@ -72,7 +79,7 @@ void				ft_save_fds(int saved_fd[2]);
 
 // EXECUTES
 int					start_execution(t_dados *data, t_env **my_env);
-t_dados				*parse_heredoc(t_dados *dados);
+void				parse_heredoc(t_dados *dados);
 int					ft_one_cmd(t_dados *data, t_env **my_env);
 int					ft_execute_child(t_dados *data, t_env *my_env);
 int					ft_execute_builtin(t_dados *data, t_env **minienv);

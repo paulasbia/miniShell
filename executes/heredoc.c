@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/03 10:03:11 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/03 10:21:58 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_redirect	*check_heredoc(t_dados **data, int *red_out)
 		*data = (*data)->next;
 		*red_out = 0;
 	}
-	return NULL;
+	return (NULL);
 }
 
 void	ft_read_heredoc(t_redirect *redirect)
@@ -60,7 +60,7 @@ void	ft_read_heredoc(t_redirect *redirect)
 		ft_putstr_fd(input_hd, fd_hd);
 		ft_putstr_fd("\n", fd_hd);
 		free(input_hd);
-		input_hd = readline("> ");  
+		input_hd = readline("> ");
 	}
 	if (!input_hd)
 		print_error_msg("warning: heredoc delimited by EOF. Wanted",
@@ -70,33 +70,28 @@ void	ft_read_heredoc(t_redirect *redirect)
 	exit(EXIT_SUCCESS);
 }
 
-t_dados	*parse_heredoc(t_dados *dados)
+void	parse_heredoc(t_dados *dados)
 {
-	t_dados		*temp;
-	int			i;
-	pid_t		child_pid;
-	t_redirect	*red_temp;
+	struct s_parse_heredoc	ph;
 
-	temp = dados;
-	i = 0;
-	red_temp = check_heredoc(&temp, &i);
-	while ((red_temp))
+	ph.i = 0;
+	ph.red_temp = check_heredoc(&dados, &(ph.i));
+	while ((ph.red_temp))
 	{
-		i++;
-		child_pid = fork();
-		define_heredoc_signals(child_pid);
-		if (child_pid < 0)
-			ft_child_err("fork - heredoc", red_temp->filename);
-		else if (!child_pid)
-			ft_read_heredoc(red_temp);
+		ph.i++;
+		ph.child_pid = fork();
+		define_heredoc_signals(ph.child_pid);
+		if (ph.child_pid < 0)
+			ft_child_err("fork - heredoc", (ph.red_temp)->filename);
+		else if (!ph.child_pid)
+			ft_read_heredoc(ph.red_temp);
 		else
 		{
-			ft_wait_exit_status(child_pid);
-			free(red_temp->filename);
-			red_temp->filename = ft_strdup("/tmp/heredoc");
+			ft_wait_exit_status(ph.child_pid);
+			free((ph.red_temp)->filename);
+			(ph.red_temp)->filename = ft_strdup("/tmp/heredoc");
 			ft_init_signal();
-			red_temp = check_heredoc(&temp, &i);
+			ph.red_temp = check_heredoc(&dados, &(ph.i));
 		}
 	}
-	return (dados);
 }
