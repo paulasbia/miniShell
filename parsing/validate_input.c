@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:52:42 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/03 12:58:40 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/03 14:21:44 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	invalid_token(char token, char *s, int *i)
 			(*i)++;
 		if (s[*i] == '>' || s[*i] == '<' || s[*i] == '|' || s[*i] == '\0')
 		{
-			ft_putstr_fd("syntax error, command not found after token\n", 1);
+			ft_putstr_fd("syntax error, command not found after token\n", 2);
 			return (1);
 		}
 	}
@@ -39,7 +39,7 @@ int	invalid_quotes(char token, char *s, int *i)
 		{
 			if (s[*i] == '\0')
 			{
-				ft_putstr_fd("syntax error, open quotes\n", 1);
+				ft_putstr_fd("syntax error, open quotes\n", 2);
 				return (1);
 			}
 			(*i)++;
@@ -50,23 +50,36 @@ int	invalid_quotes(char token, char *s, int *i)
 
 int	invalid_pipe(char *s, int *i)
 {
+	int x;
+	
+	x  = *i;
 	if (s[*i] == '|')
 	{
+		while(x > 0)
+		{
+			if(s[x - 1] != ' '|| s[x - 1] == '\t')
+				break;
+			x--;
+		}
+		if(x <= 0)
+		{
+			ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
+			return (1);
+		}
 		(*i)++;
 		while (s[*i] == ' ' || s[*i] == '\t')
-		{
 			(*i)++;
-		}
 		if (s[*i] == '\0')
 		{
-			ft_putstr_fd("syntax error, command not found after pipe\n", 1);
+			ft_putstr_fd("syntax error, command not found after pipe\n", 2);
 			return (1);
 		}
 		if (s[*i] == '|')
 		{
-			ft_putstr_fd("syntax error near unexpected token `|'\n", 1);
+			ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 			return (1);
 		}
+		(*i)--;
 	}
 	return (0);
 }
