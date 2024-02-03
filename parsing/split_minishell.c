@@ -6,22 +6,11 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:56:43 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/02 22:27:34 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/02 23:55:51 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	handle_word_quotes(int *i, int *j, char const *s, char c)
-{
-	(*i)++;
-	(*j)++;
-	while (s[*i] != c)
-	{
-		(*i)++;
-		(*j)++;
-	}
-}
 
 static char	*alloc_word(const char *s, int j, int index)
 {
@@ -41,14 +30,67 @@ static char	*alloc_word(const char *s, int j, int index)
 	return (src);
 }
 
-static char	*cont_word(char const *s, int *i)
+char	*tata_2(char const *s, int *i, int *j, int *index)
 {
-	int			j;
-	int			index;
 	static int	help;
 
+	if (s[*i] == '<' || s[*i] == '>')
+	{
+		if (*i > 0 && s[(*i - 1)] != ' ' && help == 0)
+		{
+			help = 1;
+			return (alloc_word(s, *j, *index));
+		}
+		else
+			help = 0;
+		(*j)++;
+		(*i)++;
+		while (s[*i] == '>' || s[*i] == '<')
+		{
+			(*i)++;
+			(*j)++;
+		}
+		return (alloc_word(s, *j, *index));
+	}
+	return (NULL);
+}
+
+char	*handle_both_quotes(char const *s, int *i, int *index, int *j)
+{
+	if (s[*i] == '"')
+	{
+		(*i)++;
+		(*j)++;
+		while (s[*i] != '"')
+		{
+			(*i)++;
+			(*j)++;
+		}
+		if (s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\0')
+			return (alloc_word(s, *j, *index));
+	}
+	if (s[*i] == '\'')
+	{
+		(*i)++;
+		(*j)++;
+		while (s[*i] != '\'')
+		{
+			(*i)++;
+			(*j)++;
+		}
+		if (s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\0')
+			return (alloc_word(s, *j, *index));
+	}
+	return (NULL);
+}
+
+static char	*count_word(char const *s, int *i)
+{
+	int		j;
+	int		index;
+	char	*result;
+
 	j = 0;
-	help = 0;
 	while (s[*i] != '\0')
 	{
 		while (s[*i] == ' ' || s[*i] == '\t')
@@ -56,36 +98,12 @@ static char	*cont_word(char const *s, int *i)
 		index = *i;
 		while (s[*i] != '\0' && s[*i] != ' ' && s[*i] != '\t')
 		{
-			if (s[*i] == '"')
-			{
-				handle_word_quotes(i, &j, s, '"');
-				if (s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\0')
-					return (alloc_word(s, j, index));
-			}
-			if (s[*i] == '\'')
-			{
-				handle_word_quotes(i, &j, s, '\'');
-				if (s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\0')
-					return (alloc_word(s, j, index));
-			}
-			if (s[*i] == '<' || s[*i] == '>')
-			{
-				if (*i > 0 && s[(*i - 1)] != ' ' && help == 0)
-				{
-					help = 1;
-					return (alloc_word(s, j, index));
-				}
-				else
-					help = 0;
-				j++;
-				(*i)++;
-				while (s[*i] == '>' || s[*i] == '<')
-				{
-					(*i)++;
-					j++;
-				}
-				return (alloc_word(s, j, index));
-			}
+			result = handle_both_quotes(s, i, &index, &j);
+			if (result != NULL)
+				return (result);
+			result = tata_2(s, i, &j, &index);
+			if (result != NULL)
+				return (result);
 			(*i)++;
 			j++;
 		}
@@ -109,7 +127,7 @@ char	**split_ms(char const *s)
 		return (NULL);
 	while (j < count)
 	{
-		totals[j] = cont_word(s, &i);
+		totals[j] = count_word(s, &i);
 		j++;
 	}
 	totals[j] = NULL;

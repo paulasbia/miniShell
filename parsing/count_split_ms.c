@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cont_split_ms.c                                    :+:      :+:    :+:   */
+/*   count_split_ms.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:22:49 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/02 22:34:03 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/02 23:57:55 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handle_cont_ms(int *i, const char *s, int *result, char c)
+void	handle_count_ms(int *i, const char *s, int *result, char c)
 {
 	i++;
 	while (s[*i] != c)
@@ -21,7 +21,7 @@ void	handle_cont_ms(int *i, const char *s, int *result, char c)
 		(*result)++;
 }
 
-void	handle_cont_redirection(int *i, const char *s, int *result)
+void	handle_count_redirection(int *i, const char *s, int *result)
 {
 	if ((*i) > 0 && s[(*i) - 1] != ' ' && s[*i] != '\t')
 		(*result)++;
@@ -37,18 +37,18 @@ int	handle_count_loop(char const *s, int result, int *i)
 	{
 		if (s[*i] == '"')
 		{
-			handle_cont_ms(i, s, &result, '"');
+			handle_count_ms(i, s, &result, '"');
 			if (s[*i] == '\0')
 				return (result + 1);
 		}
 		if (s[*i] == '\'')
 		{
-			handle_cont_ms(i, s, &result, '\'');
+			handle_count_ms(i, s, &result, '\'');
 			if (s[*i] == '\0')
 				return (result + 1);
 		}
 		if (s[*i] == '<' || s[*i] == '>')
-			handle_cont_redirection(i, s, &result);
+			handle_count_redirection(i, s, &result);
 		if (s[*i])
 			(*i)++;
 	}
