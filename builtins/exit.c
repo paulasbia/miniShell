@@ -6,11 +6,27 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:23:00 by paula             #+#    #+#             */
-/*   Updated: 2024/02/04 19:04:23 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/04 19:12:57 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	ft_isnumber(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (s[i] == '+' || s[i] == '-')
+		i++;
+	while (s[i])
+	{
+		if (!ft_isdigit(s[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	ft_space_sign(const char **s, int *sign)
 {
@@ -73,6 +89,8 @@ int	ft_exit(t_dados *data, t_env **my_env)
 		exit_status = ft_atoi(data->comando[1]);
 		ft_exit_with_error("exit", "too many arguments", EXIT_FAILURE);
 	}
+	if (!ft_isnumber(data->comando[1]))
+		ft_exit_with_error("exit", "numeric argument required", 2);
 	else
 		exit_status = ft_strtoull(data->comando[1]);
 	free_list(&data);
