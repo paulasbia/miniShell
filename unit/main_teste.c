@@ -297,6 +297,49 @@ static void	tests_ft_parsing_without_space(void)
 	assert_lista(&expected2, actual);
 }
 
+static void	tests_ft_parsing_grep(void)
+{
+	t_dados expected5 = {
+		.comando = (char *[]){"grep", "-v", "PS.=", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = NULL
+	};
+
+		t_dados expected4 = {
+		.comando = (char *[]){"grep", "-v", "declare -x _", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &expected5
+	};
+
+		t_dados expected3 = {
+		.comando = (char *[]){"grep", "-v", "SHLVL", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &expected4
+	};
+
+		t_dados expected2 = {
+		.comando = (char *[]){"sort", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &expected3
+	};
+
+		t_dados expected = {
+		.comando = (char *[]){"export", NULL},
+		.redirect = NULL,
+		.nbr_redirections = 0,
+		.next = &expected2
+	};
+
+	char	*input = "export | sort | grep -v SHLVL | grep -v \"declare -x _\" | grep -v \"PS.=\"";
+	t_dados	*actual = parsing(input);
+
+	assert_lista(&expected, actual);
+}
+
 // static void	tests_heredoc(void)
 // {
 // 	t_dados actual = {
@@ -349,5 +392,6 @@ int	main(int ac, char **av, char **env)
 	RUN_TEST(tests_ft_validate_without_space);
 	RUN_TEST(tests_ft_parsing_with_space);
 	RUN_TEST(tests_ft_parsing_without_space);
+	RUN_TEST(tests_ft_parsing_grep);
 	return (UNITY_END());
 }
