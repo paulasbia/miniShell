@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:05:18 by paula             #+#    #+#             */
-/*   Updated: 2024/01/30 09:35:33 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/05 20:46:29 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ t_env	*init_minienv(char **env)
 		ft_add_list(env[i], &my_list);
 		i++;
 	}
+	if (!ft_seach_node("OLDPWD", my_list))
+		ft_add_list("OLDPWD", &my_list);
 	return (my_list);
 }
