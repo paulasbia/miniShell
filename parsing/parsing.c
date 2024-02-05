@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/31 18:12:28 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/05 20:19:09 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 // 		}
 // 		temp = temp->next;
 // 	}
-// 	printf("acabou\n");
 // }
 
 t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x)
