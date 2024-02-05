@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:57:17 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 19:22:35 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/05 20:26:40 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ char	**split_pipe(char const *s)
 	while (i < len)
 	{
 		totals[j] = cont_word_pipe(s, &i);
-		printf("total[%d] eh %s\n", j, totals[j]);
 		j++;
 	}
 	totals[j] = NULL;

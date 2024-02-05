@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/02/05 19:00:08 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/05 20:25:46 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	minishell(t_env *my_env)
 		if (validate_input(input) == 0)
 		{
 			dados = parsing(input);
-			print_list(dados);
 			if (dados)
 			{
 				parse_heredoc(dados);

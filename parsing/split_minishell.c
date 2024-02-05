@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:56:43 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 19:30:14 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/05 20:24:25 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,25 +91,23 @@ static char	*count_word(char const *s, int *i)
 	char	*result;
 
 	j = 0;
-	while (s[*i] != '\0')
+	while (s[*i] == ' ' || s[*i] == '\t')
+		(*i)++;
+	if (s[*i] == '\0')
+		return (NULL);
+	index = *i;
+	while (s[*i] != '\0' && s[*i] != ' ' && s[*i] != '\t')
 	{
-		while (s[*i] == ' ' || s[*i] == '\t')
-			(*i)++;
-		index = *i;
-		while (s[*i] != '\0' && s[*i] != ' ' && s[*i] != '\t')
-		{
-			result = handle_both_quotes(s, i, &index, &j);
-			if (result != NULL)
-				return (result);
-			result = tata_2(s, i, &j, &index);
-			if (result != NULL)
-				return (result);
-			(*i)++;
-			j++;
-		}
-		return (alloc_word(s, j, index));
+		result = handle_both_quotes(s, i, &index, &j);
+		if (result != NULL)
+			return (result);
+		result = tata_2(s, i, &j, &index);
+		if (result != NULL)
+			return (result);
+		(*i)++;
+		j++;
 	}
-	return (NULL);
+	return (alloc_word(s, j, index));
 }
 
 char	**split_ms(char const *s)
@@ -122,14 +120,12 @@ char	**split_ms(char const *s)
 	i = 0;
 	j = 0;
 	count = count_split_ms(s);
-	printf("em split_ms count eh %d\n", count);
 	totals = malloc(sizeof(char *) * (count + 1));
 	if (totals == NULL)
 		return (NULL);
 	while (j < count)
 	{
 		totals[j] = count_word(s, &i);
-		printf("em split_ms total[%d] eh %s\n", j, totals[j]);
 		j++;
 	}
 	totals[j] = NULL;

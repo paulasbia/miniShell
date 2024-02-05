@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_split_ms.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:22:49 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 19:42:07 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/05 20:27:34 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ int	handle_count_loop(char const *s, int result, int *i)
 	{
 		if (s[*i] == '"')
 		{
-			printf("s[%d] eh %c\n", *i, s[*i]);
 			handle_count_ms(i, s, &result, '"');
-			printf("result volta em %d\n", result);
 			if (s[*i] == '\0')
 				return (result + 1);
 		}
