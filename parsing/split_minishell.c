@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:56:43 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 19:27:22 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/05 19:30:14 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ char	**split_ms(char const *s)
 	i = 0;
 	j = 0;
 	count = count_split_ms(s);
+	printf("em split_ms count eh %d\n", count);
 	totals = malloc(sizeof(char *) * (count + 1));
 	if (totals == NULL)
 		return (NULL);
