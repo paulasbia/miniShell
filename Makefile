@@ -3,7 +3,7 @@
 NAME		= 		minishell
 NAME_T		=		minishell_unit
 LDLIBS		=		-lreadline -lft
-PARSING		=		parsing.c split_pipe.c split_minishell.c validate_input.c clean_quotes.c count_split_ms.c free_parsing.c
+PARSING		=		parsing.c split_pipe.c split_minishell.c validate_input.c clean_quotes.c count_split_ms.c free_parsing.c expansion.c
 MAIN		=		main.c
 ENV			=		checks.c minishell.c mini_env.c
 BUILTINS	=		pwd.c exit.c echo.c env.c utils.c unset.c export.c cd.c
@@ -15,7 +15,7 @@ SRCS_T		=		$(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(UNIT) $(PARSING)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 OBJS_T		=		$(addprefix objs/, $(SRCS_T:.c=.o))
-CFLAGS		=		-g3 -Wall -Wextra
+CFLAGS		=		-g3 -Wall -Wextra -Werror
 
 RM			=		rm -f
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/03 10:31:09 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/05 11:28:59 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,8 @@ int					ft_cd_err_msg(char *err_msg);
 void				ft_child_err(char *cmd, char *msg);
 void				ft_handle_errors(t_dados *data, char *path, char **envp);
 void				print_error_msg2(char *msg, char command);
+
+// expansion 
+
 
 #endif

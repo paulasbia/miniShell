@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/01/31 18:12:28 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/05 12:06:58 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,38 +41,37 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 	}
 }
 
-// void	print_list(t_dados *lst)
-// {
-// 	int		i;
-// 	int		j;
-// 	t_dados	*temp;
+void	print_list(t_dados *lst)
+{
+	int		i;
+	int		j;
+	t_dados	*temp;
 
-// 	i = 0;
-// 	j = 0;
-// 	temp = lst;
-// 	while (temp != NULL)
-// 	{
-// 		printf("redireçao:\n");
-// 		i = 0;
-// 		while (i < temp->nbr_redirections)
-// 		{
-// 			printf("%s\n", temp->redirect[i].filename);
-// 			printf("%d\n", temp->redirect[i].redirect_type);
-// 			i++;
-// 		}
-// 		j = 0;
-// 		printf("comandos:\n");
-// 		while (temp->comando[j] != NULL)
-// 		{
-// 			printf("%s\n", temp->comando[j]);
-// 			j++;
-// 		}
-// 		temp = temp->next;
-// 	}
-// 	printf("acabou\n");
-// }
+	i = 0;
+	j = 0;
+	temp = lst;
+	while (temp != NULL)
+	{
+		printf("redireçao:\n");
+		i = 0;
+		while (i < temp->nbr_redirections)
+		{
+			printf("%s\n", temp->redirect[i].filename);
+			printf("%d\n", temp->redirect[i].redirect_type);
+			i++;
+		}
+		j = 0;
+		printf("comandos:\n");
+		while (temp->comando[j] != NULL)
+		{
+			printf("%s\n", temp->comando[j]);
+			j++;
+		}
+		temp = temp->next;
+	}
+}
 
-t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x)
+t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env)
 {
 	t_dados	*node;
 	int		i;
@@ -96,12 +95,14 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x)
 	}
 	node->nbr_redirections = n_reds;
 	node->comando[x] = NULL;
+	//aqui 
+	expansion(node, env);
 	handle_clean_quotes(node, split_cmd);
 	node->next = NULL;
 	return (node);
 }
 
-void	handle_parsing_split(char *s_pipe, t_dados **dados_head)
+void	handle_parsing_split(char *s_pipe, t_dados **dados_head, t_env *env)
 {
 	int		j;
 	int		nbr_redirections;
@@ -126,11 +127,11 @@ void	handle_parsing_split(char *s_pipe, t_dados **dados_head)
 			nbr_comands++;
 		j++;
 	}
-	node = ft_lstnew_p(nbr_redirections, nbr_comands, split_cmd, 0);
+	node = ft_lstnew_p(nbr_redirections, nbr_comands, split_cmd, 0, env);
 	ms_lstadd_back(dados_head, node);
 }
 
-t_dados	*parsing(char *input)
+t_dados	*parsing(char *input, t_env *env)
 {
 	char	**s_pipe;
 	int		i;
@@ -141,9 +142,10 @@ t_dados	*parsing(char *input)
 	s_pipe = split_pipe(input);
 	while (s_pipe[i] != NULL)
 	{
-		handle_parsing_split(s_pipe[i], &dados_head);
+		handle_parsing_split(s_pipe[i], &dados_head, env);
 		i++;
 	}
 	free_dp(s_pipe);
+//	print_list(dados_head);
 	return (dados_head);
 }
