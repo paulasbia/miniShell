@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:23:00 by paula             #+#    #+#             */
-/*   Updated: 2024/02/02 09:19:40 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/04 19:12:57 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,50 @@ static int	ft_isnumber(char *s)
 	return (1);
 }
 
+void	ft_space_sign(const char **s, int *sign)
+{
+	const char	*str;
+
+	str = *s;
+	while (str && *str == ' ')
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			*sign = -1;
+		str++;
+	}
+	*s = str;
+}
+
+long long int	ft_strtoull(const char *str)
+{
+	long long int	result;
+	int				sign;
+	int				digit;
+
+	result = 0;
+	sign = 1;
+	ft_space_sign(&str, &sign);
+	while (ft_isdigit((int)*str))
+	{
+		digit = *str - '0';
+		if ((sign == 1 && result > (LLONG_MAX - digit) / 10))
+		{
+			result = LLONG_MAX;
+			ft_exit_with_error("exit", "numeric argument required", 2);
+		}
+		if (sign == -1 && (-result) < (LLONG_MIN + digit) / 10)
+		{
+			result = LLONG_MIN;
+			ft_exit_with_error("exit", "numeric argument required", 2);
+		}
+		result = result * 10 + digit;
+		str++;
+	}
+	return ((result * sign) % 256);
+}
+
 int	ft_exit(t_dados *data, t_env **my_env)
 {
 	int	exit_status;
@@ -46,11 +90,9 @@ int	ft_exit(t_dados *data, t_env **my_env)
 		ft_exit_with_error("exit", "too many arguments", EXIT_FAILURE);
 	}
 	if (!ft_isnumber(data->comando[1]))
-	{
-		exit_status = ft_atoi(data->comando[1]);
 		ft_exit_with_error("exit", "numeric argument required", 2);
-	}
-	exit_status = ft_atoi(data->comando[1]);
+	else
+		exit_status = ft_strtoull(data->comando[1]);
 	free_list(&data);
 	exit(exit_status);
 }

@@ -61,12 +61,16 @@ check:
 	norminette ./parsing
 	norminette ./includes/minishell.h
 
+test_u:
+	./e2e/tester.sh ./e2e/os_specifics
+
 test:
 	./e2e/tester.sh ./e2e/builtin
 	./e2e/tester.sh ./e2e/extras
 	./e2e/tester.sh ./e2e/redirects
 	./e2e/tester.sh ./e2e/pipes
 	./e2e/tester.sh ./e2e/sintaxe
+	./e2e/tester.sh ./e2e/os_specifics
 
 valgrind:
 	valgrind --leak-check=full ./minishell

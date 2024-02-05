@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/05 11:28:59 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/05 14:45:01 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 # include <sys/stat.h>            // stat
 # include <sys/wait.h>            // waitpid
 # include <unistd.h>              // getpwd
+# include <limits.h>			  //llong int
 
+//# define LLONG_MAX 9223372036854775807
 # define IN 0
 # define OUT 1
 # define PATH_MAX 4096
