@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:56:43 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/02 23:55:51 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/05 19:27:22 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ char	**split_ms(char const *s)
 	while (j < count)
 	{
 		totals[j] = count_word(s, &i);
+		printf("em split_ms total[%d] eh %s\n", j, totals[j]);
 		j++;
 	}
 	totals[j] = NULL;
