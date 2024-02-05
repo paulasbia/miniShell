@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/04 10:14:18 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/05 18:59:58 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,7 @@ int					ft_cd_err_msg(char *err_msg);
 void				ft_child_err(char *cmd, char *msg);
 void				ft_handle_errors(t_dados *data, char *path, char **envp);
 void				print_error_msg2(char *msg, char command);
+
+void	print_list(t_dados *lst);
 
 #endif
