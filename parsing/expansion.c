@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:35:21 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/06 17:25:50 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/06 17:50:50 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,13 @@ int expansion(t_dados *node, t_env *env)
 			if(node->comando[i][j] == '$')
 			{
                 j++;
-				if(node->comando[i][j] == '$') //AQUI TEM QUE DAR ERRO
-                    return (ft_putstr_fd("command not found\n", 2));
+				while(node->comando[i][j] == '$') 
+                   j++;
+                if(node->comando[i][j] == '?')
+                {
+                    
+                    
+                }
                 start  = j;
                 //while(node->comando[i][j] != '\0' && node->comando[i][j] != ' ' && node->comando[i][j] != '\t')
                 while(node->comando[i][j] != '\0' && node->comando[i][j] != ' ' && node->comando[i][j] != '\t' && validate_chars_env(node->comando[i][j]) == 0)
