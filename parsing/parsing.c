@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/06 18:38:42 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/06 19:04:38 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env)
 	}
 	node->nbr_redirections = n_reds;
 	node->comando[x] = NULL;
-	printf("antes da expansao %s\n", node->comando[0]);
+	//printf("antes da expansao %s\n", node->comando[0]);
 	expansion(node, env);
-	printf("depois da expansao %s\n", node->comando[0]);
+	//printf("depois da expansao %s\n", node->comando[0]);
 	handle_clean_quotes(node, split_cmd);
-	printf("depois da handle %s\n", node->comando[0]);
+	//printf("depois da handle %s\n", node->comando[0]);
 	node->next = NULL;
 	return (node);
 }

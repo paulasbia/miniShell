@@ -14,12 +14,10 @@ minishell
 minishell_tester
 minishell_unit
 objs
-outfile
 outfiles
 parsing
 README.md
 srcs
 subject_mini_shell.pdf
-teste.txt
 unit
 utils
