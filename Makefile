@@ -73,8 +73,8 @@ check:
 	norminette ./parsing
 	norminette ./includes/minishell.h
 
-test_u:
-	./e2e/tester.sh ./e2e/os_specifics
+test_r:
+	./e2e/tester.sh ./e2e/redirects
 
 test:
 	./e2e/tester.sh ./e2e/builtin
