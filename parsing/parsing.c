@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 12:06:58 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/05 21:26:02 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,35 +41,36 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 	}
 }
 
-void	print_list(t_dados *lst)
-{
-	int		i;
-	int		j;
-	t_dados	*temp;
+// void	print_list(t_dados *lst)
+// {
+// 	int		i;
+// 	int		j;
+// 	t_dados	*temp;
 
-	i = 0;
-	j = 0;
-	temp = lst;
-	while (temp != NULL)
-	{
-		printf("redireçao:\n");
-		i = 0;
-		while (i < temp->nbr_redirections)
-		{
-			printf("%s\n", temp->redirect[i].filename);
-			printf("%d\n", temp->redirect[i].redirect_type);
-			i++;
-		}
-		j = 0;
-		printf("comandos:\n");
-		while (temp->comando[j] != NULL)
-		{
-			printf("%s\n", temp->comando[j]);
-			j++;
-		}
-		temp = temp->next;
-	}
-}
+// 	i = 0;
+// 	j = 0;
+// 	temp = lst;
+// 	while (temp != NULL)
+// 	{
+// 		printf("redireçao:\n");
+// 		i = 0;
+// 		while (i < temp->nbr_redirections)
+// 		{
+// 			printf("%s\n", temp->redirect[i].filename);
+// 			printf("%d\n", temp->redirect[i].redirect_type);
+// 			i++;
+// 		}
+// 		j = 0;
+// 		printf("comandos:\n");
+// 		while (temp->comando[j] != NULL)
+// 		{
+// 			printf("o comando eh %s\n", temp->comando[j]);
+// 			printf("j vale %d\n\n", j);
+// 			j++;
+// 		}
+// 		temp = temp->next;
+// 	}
+// }
 
 t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env)
 {

@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:35:21 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 14:41:27 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/05 22:02:44 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,39 @@ int	find_char(char *s, char c)
     return(i);
 }
 
-char  *change_input(char *cmd_input, char *key, int size_index_env, int j, int start)
+char  *change_input(char *cmd_input, char *key, int size_index_env)
 {
     char *result;
     int i = 0; 
+    int j = 0;
+    int x = size_index_env + 1;
     int total_size = ft_strlen(cmd_input);
     int size_env = ft_strlen(key) - (size_index_env + 1);
-    int malloc_size = total_size + size_env - (j - start);
+    int malloc_size = total_size + size_env - (size_index_env);
     result = malloc(sizeof(char)*(malloc_size + 1));
-   
-    if(cmd_input[i] == '$')
+    printf("MALLOC igual %d\n", malloc_size);
+    
+    while(cmd_input[i] != '\0' && cmd_input[i] != '$')
     {
-        while(cmd_input[i] != '\0' && cmd_input[i] != ' ' && cmd_input[i] != '\t' && cmd_input[i] != '$')
-        {
-            i++;
-        }
+        result[j] = cmd_input[i];
+        i++;
+        j++;
     }
+    
+    while(key[x] != '\0')
+    {
+        result[j] = key[x];
+        j++;
+        x++;   
+    }
+    i = i + size_index_env + 1;
+    while(cmd_input[i] != '\0')
+    {
+        result[j] = cmd_input[i];
+        i++;
+        j++;
+    }
+    result[j] = '\0';
     
     return(result);
 }
@@ -58,6 +75,7 @@ int expansion(t_dados *node, t_env *env)
 	while(node->comando[i] != NULL)
 	{
 		j = 0;
+        printf("i é igual %d\n", i);
 		while(node->comando[i][j] != '\0')
 		{
 			if(node->comando[i][j] == '$')
@@ -78,7 +96,8 @@ int expansion(t_dados *node, t_env *env)
                     {
                         if(ft_strncmp(tmp_l_env->key, env_input, ft_strlen(env_input)) == 0)
                         {
-                            node->comando[i] = change_input(node->comando[i], tmp_l_env->key, index, j, (start - 1));
+                            node->comando[i] = change_input(node->comando[i], tmp_l_env->key, index);
+                            break ;
                         }
                     }
                     tmp_l_env = tmp_l_env->next;            

@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:56:43 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/02 23:55:51 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/05 20:24:25 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,25 +91,23 @@ static char	*count_word(char const *s, int *i)
 	char	*result;
 
 	j = 0;
-	while (s[*i] != '\0')
+	while (s[*i] == ' ' || s[*i] == '\t')
+		(*i)++;
+	if (s[*i] == '\0')
+		return (NULL);
+	index = *i;
+	while (s[*i] != '\0' && s[*i] != ' ' && s[*i] != '\t')
 	{
-		while (s[*i] == ' ' || s[*i] == '\t')
-			(*i)++;
-		index = *i;
-		while (s[*i] != '\0' && s[*i] != ' ' && s[*i] != '\t')
-		{
-			result = handle_both_quotes(s, i, &index, &j);
-			if (result != NULL)
-				return (result);
-			result = tata_2(s, i, &j, &index);
-			if (result != NULL)
-				return (result);
-			(*i)++;
-			j++;
-		}
-		return (alloc_word(s, j, index));
+		result = handle_both_quotes(s, i, &index, &j);
+		if (result != NULL)
+			return (result);
+		result = tata_2(s, i, &j, &index);
+		if (result != NULL)
+			return (result);
+		(*i)++;
+		j++;
 	}
-	return (NULL);
+	return (alloc_word(s, j, index));
 }
 
 char	**split_ms(char const *s)
