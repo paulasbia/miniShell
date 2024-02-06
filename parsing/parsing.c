@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/06 12:50:20 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/06 18:38:42 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 // 	while (temp != NULL)
 // 	{
 // 		printf("redireçao:\n");
+// 		printf("num red: %d\n", temp->nbr_redirections);
 // 		i = 0;
 // 		while (i < temp->nbr_redirections)
 // 		{
@@ -64,8 +65,7 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 // 		printf("comandos:\n");
 // 		while (temp->comando[j] != NULL)
 // 		{
-// 			printf("o comando eh %s\n", temp->comando[j]);
-// 			printf("j vale %d\n\n", j);
+// 			printf("o comando eh %s\n\n", temp->comando[j]);
 // 			j++;
 // 		}
 // 		temp = temp->next;
