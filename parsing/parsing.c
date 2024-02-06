@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/06 19:04:38 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:14:02 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 // 	}
 // }
 
-t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env) //LEAK PQ FAÇO MEU NODE E DEPOIS MUDO MINHA ALOCACAO
+t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env, int exit_status) //LEAK PQ FAÇO MEU NODE E DEPOIS MUDO MINHA ALOCACAO
 {
 	t_dados	*node;
 	int		i;
@@ -96,16 +96,16 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env)
 	}
 	node->nbr_redirections = n_reds;
 	node->comando[x] = NULL;
-	//printf("antes da expansao %s\n", node->comando[0]);
-	expansion(node, env);
-	//printf("depois da expansao %s\n", node->comando[0]);
+	printf("antes da expansao %s\n", node->comando[0]);
+	expansion(node, env, exit_status);
+	printf("depois da expansao %s\n", node->comando[0]);
 	handle_clean_quotes(node, split_cmd);
-	//printf("depois da handle %s\n", node->comando[0]);
+	printf("depois da handle %s\n", node->comando[0]);
 	node->next = NULL;
 	return (node);
 }
 
-void	handle_parsing_split(char *s_pipe, t_dados **dados_head, t_env *env)
+void	handle_parsing_split(char *s_pipe, t_dados **dados_head, t_env *env, int exit_status)
 {
 	int		j;
 	int		nbr_redirections;
@@ -130,11 +130,11 @@ void	handle_parsing_split(char *s_pipe, t_dados **dados_head, t_env *env)
 			nbr_comands++;
 		j++;
 	}
-	node = ft_lstnew_p(nbr_redirections, nbr_comands, split_cmd, 0, env);
+	node = ft_lstnew_p(nbr_redirections, nbr_comands, split_cmd, 0, env, exit_status);
 	ms_lstadd_back(dados_head, node);
 }
 
-t_dados	*parsing(char *input, t_env *env)
+t_dados	*parsing(char *input, t_env *env, int exit_status)
 {
 	char	**s_pipe;
 	int		i;
@@ -145,7 +145,7 @@ t_dados	*parsing(char *input, t_env *env)
 	s_pipe = split_pipe(input);
 	while (s_pipe[i] != NULL)
 	{
-		handle_parsing_split(s_pipe[i], &dados_head, env);
+		handle_parsing_split(s_pipe[i], &dados_head, env, exit_status);
 		i++;
 	}
 	free_dp(s_pipe);

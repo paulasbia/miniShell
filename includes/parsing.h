@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:34:54 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 11:33:51 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/06 19:52:46 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_dados
 }					t_dados;
 
 // PARSING
-t_dados				*parsing(char *input, t_env *my_env);
+t_dados				*parsing(char *input, t_env *my_env, int exit_status);
 char				**split_ms(char const *s);
 char				**split_pipe(char const *s);
 int					validate_input(char *s);
@@ -39,6 +39,6 @@ void				free_dp(char **split);
 void				free_list(t_dados **lst);
 int					count_split_ms(char const *s);
 void				handle_clean_quotes(t_dados *node, char **split_cmd);
-int				expansion(t_dados *node, t_env *env);
+int				expansion(t_dados *node, t_env *env, int exit_status);
 
 #endif

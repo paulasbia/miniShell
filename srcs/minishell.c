@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/02/06 18:20:34 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/06 19:47:24 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	start_execution(t_dados *data, t_env **my_env)
 int	minishell(t_env *my_env)
 {
 	char	*input;
+	int		exit_status = 0;
 	t_dados	*dados;
 
 	while (1)
@@ -39,15 +40,15 @@ int	minishell(t_env *my_env)
 			add_history(input);
 		if (validate_input(input) == 0)
 		{
-			dados = parsing(input, my_env);
+			dados = parsing(input, my_env, exit_status);
 			if (dados)
 			{
 				parse_heredoc(dados);
-				my_env->exit_status = start_execution(dados, &my_env);
+				exit_status = start_execution(dados, &my_env);
 				free_list(&dados);
 			}
 		}
 		free(input);
 	}
-	return (my_env->exit_status);
+	return (exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:35:21 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/06 17:50:50 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/06 21:01:51 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,17 @@ char  *change_input(char *cmd_input, char *key, int size_index_env)
     char *result;
     int i = 0; 
     int j = 0;
-    int x = size_index_env + 1;
-    int total_size = ft_strlen(cmd_input);
-    int size_env = ft_strlen(key) - x;
+    int x = size_index_env + 1; //4
+    int total_size = ft_strlen(cmd_input); //11
+    int size_env = ft_strlen(key) - x; //3
     int malloc_size = total_size + size_env - x;
-    
+
+    printf("s_index_env: %d\n", size_index_env);
+    printf("total size: %d\n", total_size);
+    printf("env size: %d\n", size_env);
+    printf("malloc size: %d\n", malloc_size);
+    printf("x size: %d\n", x);
+
     result = malloc(sizeof(char)*(malloc_size + 1));
     
     while(cmd_input[i] != '\0' && cmd_input[i] != '$')
@@ -67,11 +73,50 @@ char  *change_input(char *cmd_input, char *key, int size_index_env)
         j++;
     }
     result[j] = '\0';
-    
+    free(cmd_input);
     return(result);
 }
 
-int expansion(t_dados *node, t_env *env)
+char  *change_exit(char *cmd_input, char *exit_status, int size)
+{
+    char *result;
+    int i = 0; 
+    int j = 0;
+    int x = 0;
+    int total_size = ft_strlen(cmd_input); //2
+    int malloc_size = total_size - size + ft_strlen(exit_status); 
+
+    printf("total size: %d\n", total_size);
+    printf("malloc size: %d\n", malloc_size);
+
+    result = malloc(sizeof(char)*(malloc_size + 1));
+    
+    while(cmd_input[i] != '\0' && cmd_input[i] != '$')
+    {
+        result[j] = cmd_input[i];
+        i++;
+        j++;
+    }
+    while(exit_status[x] != '\0')
+    {
+        result[j] = exit_status[x];
+        j++;
+        x++;   
+    }
+    i += size;
+    while(cmd_input[i] != '\0')
+    {
+        result[j] = cmd_input[i];
+        i++;
+        j++;
+    }
+    result[j] = '\0';
+    free(cmd_input); 
+    return(result);
+}
+
+
+int expansion(t_dados *node, t_env *env, int exit_status)
 {
 	int i = 0;
     int j = 0;
@@ -80,6 +125,7 @@ int expansion(t_dados *node, t_env *env)
     int start = 0;
     int flag = 0;
     int index = 0;
+    char *string_exit;
     tmp_l_env = env;
 	while(node->comando[i] != NULL)
 	{
@@ -104,21 +150,15 @@ int expansion(t_dados *node, t_env *env)
                    j++;
                 if(node->comando[i][j] == '?')
                 {
-                    
-                    
+                    string_exit = ft_itoa(exit_status);
+                    node->comando[i] = change_exit(node->comando[i], string_exit, 2);
+                    free(string_exit);
+                    continue ;
                 }
                 start  = j;
                 //while(node->comando[i][j] != '\0' && node->comando[i][j] != ' ' && node->comando[i][j] != '\t')
                 while(node->comando[i][j] != '\0' && node->comando[i][j] != ' ' && node->comando[i][j] != '\t' && validate_chars_env(node->comando[i][j]) == 0)
                 {
-                    // if(node->comando[i][j] == '"')
-                    // {
-                    //     break ;  
-                    // } 
-                    // if(node->comando[i][j] == '$')
-                    // {
-                    //     break ;  
-                    // }
                     j++;
                 }
                 
@@ -136,8 +176,14 @@ int expansion(t_dados *node, t_env *env)
                     }
                     tmp_l_env = tmp_l_env->next;            
                 }
+                if(tmp_l_env == NULL)
+                {
+                    node->comando[i] = change_exit(node->comando[i], "", (j - start + 1));
+                }
+                free(env_input);
 			}
-			j++;
+            if (node->comando[i][j] != '\0')
+			    j++;
 		}        
 		i++;
 	}

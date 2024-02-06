@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/06 18:35:15 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/06 19:48:32 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@
 typedef struct s_env
 {
 	char			*key;
-	int				exit_status;
 	struct s_env	*next;
 }					t_env;
 
