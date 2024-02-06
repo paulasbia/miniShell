@@ -6,11 +6,30 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:35:21 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 22:02:44 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/06 15:49:43 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int find_invalidate_chars(char *cmd_input, int j)
+{
+    int flag = 0;
+    if(cmd_input[j] == '"')
+    {
+        j++;
+        while(cmd_input[j] != '\0' || cmd_input[j] != '$' || cmd_input[j] != '\'')
+        {
+            if(cmd_input[j] == '$' && flag == 0)
+                return (1);
+            if(cmd_input[j] == '\'' && flag == 0)
+                return (0);
+            j++;
+        }
+    }
+
+    return (0);
+}
 
 int	find_char(char *s, char c)
 {
@@ -23,7 +42,7 @@ int	find_char(char *s, char c)
 		}
 		i++;
 	}
-    return(i);
+    return (i);
 }
 
 char  *change_input(char *cmd_input, char *key, int size_index_env)
@@ -33,10 +52,10 @@ char  *change_input(char *cmd_input, char *key, int size_index_env)
     int j = 0;
     int x = size_index_env + 1;
     int total_size = ft_strlen(cmd_input);
-    int size_env = ft_strlen(key) - (size_index_env + 1);
-    int malloc_size = total_size + size_env - (size_index_env);
+    int size_env = ft_strlen(key) - x;
+    int malloc_size = total_size + size_env - x;
+    
     result = malloc(sizeof(char)*(malloc_size + 1));
-    printf("MALLOC igual %d\n", malloc_size);
     
     while(cmd_input[i] != '\0' && cmd_input[i] != '$')
     {
@@ -44,7 +63,6 @@ char  *change_input(char *cmd_input, char *key, int size_index_env)
         i++;
         j++;
     }
-    
     while(key[x] != '\0')
     {
         result[j] = key[x];
@@ -75,20 +93,32 @@ int expansion(t_dados *node, t_env *env)
 	while(node->comando[i] != NULL)
 	{
 		j = 0;
-        printf("i é igual %d\n", i);
 		while(node->comando[i][j] != '\0')
 		{
+            if(node->comando[i][j] == '\'')
+            {   
+                while(node->comando[i][j] != '\'')
+                    j++;
+            }
 			if(node->comando[i][j] == '$')
 			{
                 j++;
-				if(node->comando[i][j] == '$')
+				if(node->comando[i][j] == '$') //AQUI TEM QUE DAR ERRO
                     return (ft_putstr_fd("command not found\n", 2));
                 start  = j;
-                while(node->comando[i][j] != '\0' && node->comando[i][j] != ' ' && node->comando[i][j] != '\t' && node->comando[i][j] != '$')
+                while(node->comando[i][j] != '\0' && node->comando[i][j] != ' ' && node->comando[i][j] != '\t')
                 {
+                    if(node->comando[i][j] == '"')
+                    {
+                        break ;  
+                    } 
+                    if(node->comando[i][j] == '$')
+                    {
+                        break ;  
+                    }
                     j++;
                 }
-                env_input = ft_substr(node->comando[i], start, j);
+                env_input = ft_substr(node->comando[i], start, (j - start));
                 while(tmp_l_env != NULL)
                 {
                    index = find_char(tmp_l_env->key, '=');

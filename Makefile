@@ -32,6 +32,18 @@ ${NAME}: ${OBJS}
 	@echo "$(COLOUR_GREEN)----Compiling lib----"
 	@make re -C ./libft
 	@cc $(FLAGS) $(OBJS) -Llibft -lft -o $(NAME) $(LDLIBS)
+	@echo "  $(COLOUR_MAG)                                                                        ";
+	@echo "💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟";
+	@echo "                           _    _                   _          _                       ";
+	@echo "                          |  \/  (_)_ __ (_)___ ___| |__   ___| |                       ";
+	@echo "                          | |\/| | | '_ \| / __/ __| '_ \ / _ \ |                       ";
+	@echo "                          | |  | | | | | | \__ \__ \ | | |  __/ |                       ";
+	@echo "                          |_|  |_|_|_| |_|_|___/___/_| |_|\___|_|                       ";
+	@echo "                                                                   By pde-souz          ";
+	@echo "                                                                      tbolzan-          ";
+	@echo "💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟";
+	@echo "                                                                                         ";
+
 	@echo "$(COLOUR_MAG)\nNice! Minishell Compiled! $(COLOUR_GREEN)ᕦ$(COLOUR_RED)♥$(COLOUR_GREEN)_$(COLOUR_RED)♥$(COLOUR_GREEN)ᕤ\n$(COLOUR_END)"
 	@echo "$(COLOUR_MAG)\nTo start the program type ./minishell\nENJOY!\n$(COLOUR_END)"
 

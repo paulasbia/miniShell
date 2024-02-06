@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 21:26:02 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/06 12:50:20 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 // 	}
 // }
 
-t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env)
+t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env) //LEAK PQ FAÇO MEU NODE E DEPOIS MUDO MINHA ALOCACAO
 {
 	t_dados	*node;
 	int		i;
@@ -96,9 +96,11 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env)
 	}
 	node->nbr_redirections = n_reds;
 	node->comando[x] = NULL;
-	//aqui 
+	printf("antes da expansao %s\n", node->comando[0]);
 	expansion(node, env);
+	printf("depois da expansao %s\n", node->comando[0]);
 	handle_clean_quotes(node, split_cmd);
+	printf("depois da handle %s\n", node->comando[0]);
 	node->next = NULL;
 	return (node);
 }
