@@ -44,7 +44,7 @@ echo hi | cat "./e2e/test_files/infile"
 cat <"./e2e/test_files/infile" | echo hi
 cat <"./e2e/test_files/infile" | grep hello
 
-#cat <"./e2e/test_files/infile_big" | echo hi
+cat <"./e2e/test_files/infile_big" | echo hi
 cat <missing | cat
 cat <missing | echo oi
 cat <missing | cat <"./e2e/test_files/infile"

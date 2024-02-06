@@ -11,6 +11,7 @@ libft
 Makefile
 mini_outfiles
 minishell
+minishell_tester
 minishell_unit
 objs
 outfile
@@ -19,5 +20,6 @@ parsing
 README.md
 srcs
 subject_mini_shell.pdf
+teste.txt
 unit
 utils
