@@ -83,8 +83,8 @@ test:
 	./e2e/tester.sh ./e2e/sintaxe
 	./e2e/tester.sh ./e2e/os_specifics
 
-valgrind:
-	valgrind --leak-check=full ./minishell
+valgrind: readline.supp
+	valgrind --leak-check=full --suppressions=readline.supp ./minishell
 
 ${NAME_T}: ${OBJS_T}
 	@echo "$(COLOUR_GREEN)----Compiling lib----"
@@ -107,5 +107,9 @@ fclean: clean
 	@clear
 	
 re:			fclean all
+
+readline.supp:
+	@wget https://raw.githubusercontent.com/benjaminbrassart/minishell/master/readline.supp 2> /dev/null 1> /dev/null
+
 
 .PHONY: all clean fclean re 

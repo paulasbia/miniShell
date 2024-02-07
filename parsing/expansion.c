@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:35:21 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/07 16:26:58 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/07 18:36:37 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,17 +127,23 @@ int	find_exception(char *cmd_input, int j)
 void	move_empty_command(char **comando, int i)
 {
   //  char *tmp;
-    int help = 0;
+    // int help = 0;
 
 //    tmp = comando[i];
 
-    while(comando[i] != NULL || help == 0)
-    {
-        comando[i] = comando[i + 1];
-        //printf("%s\n", comando[i]);
-        help = 1;
-        i++;
-    }
+    // while (comando[i])
+    // {
+    //     printf("%i: %s\n", i, comando[i]);
+    //     i++;
+    // }
+    
+    // while(comando[i] != NULL || help == 0)
+    // {
+    //     comando[i] = comando[i + 1];
+    //     printf("%s\n", comando[i]);
+    //     help = 1;
+    //     i++;
+    // }
 //     printf("entrou\n");
 // 	while (comando[i] != NULL)
 // 	{

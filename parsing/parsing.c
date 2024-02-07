@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/07 16:39:37 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/07 18:18:38 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,6 @@ t_dados	*parsing(char *input, t_env *env, int exit_status)
 		i++;
 	}
 	free_dp(s_pipe);
-	print_list(dados_head);
+	// print_list(dados_head);
 	return (dados_head);
 }
