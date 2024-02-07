@@ -3,7 +3,7 @@
 NAME		= 		minishell
 NAME_T		=		minishell_unit
 LDLIBS		=		-lreadline -lft
-PARSING		=		parsing.c split_pipe.c split_minishell.c validate_input.c clean_quotes.c count_split_ms.c free_parsing.c expansion.c
+PARSING		=		parsing.c split_pipe.c split_minishell.c validate_input.c clean_quotes.c count_split_ms.c free_parsing.c expansion.c expansion_utils.c
 MAIN		=		main.c
 ENV			=		checks.c minishell.c mini_env.c
 BUILTINS	=		pwd.c exit.c echo.c env.c utils.c unset.c export.c cd.c

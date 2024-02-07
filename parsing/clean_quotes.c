@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:31:41 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/03 12:29:58 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/07 23:37:42 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ char	**clear_dp_quotes(char **split_cmd)
 	new = NULL;
 	while (split_cmd[i] != NULL)
 	{
+		// printf("split cmd %s", split_cmd[i]);
 		new = clean_quotes(split_cmd[i]);
 		free(split_cmd[i]);
 		split_cmd[i] = new;
