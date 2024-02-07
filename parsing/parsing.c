@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/06 20:14:02 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/07 16:39:37 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,36 +41,36 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 	}
 }
 
-// void	print_list(t_dados *lst)
-// {
-// 	int		i;
-// 	int		j;
-// 	t_dados	*temp;
+void	print_list(t_dados *lst)
+{
+	int		i;
+	int		j;
+	t_dados	*temp;
 
-// 	i = 0;
-// 	j = 0;
-// 	temp = lst;
-// 	while (temp != NULL)
-// 	{
-// 		printf("redireçao:\n");
-// 		printf("num red: %d\n", temp->nbr_redirections);
-// 		i = 0;
-// 		while (i < temp->nbr_redirections)
-// 		{
-// 			printf("%s\n", temp->redirect[i].filename);
-// 			printf("%d\n", temp->redirect[i].redirect_type);
-// 			i++;
-// 		}
-// 		j = 0;
-// 		printf("comandos:\n");
-// 		while (temp->comando[j] != NULL)
-// 		{
-// 			printf("o comando eh %s\n\n", temp->comando[j]);
-// 			j++;
-// 		}
-// 		temp = temp->next;
-// 	}
-// }
+	i = 0;
+	j = 0;
+	temp = lst;
+	while (temp != NULL)
+	{
+		printf("redireçao:\n");
+		printf("num red: %d\n", temp->nbr_redirections);
+		i = 0;
+		while (i < temp->nbr_redirections)
+		{
+			printf("%s\n", temp->redirect[i].filename);
+			printf("%d\n", temp->redirect[i].redirect_type);
+			i++;
+		}
+		j = 0;
+		printf("comandos:\n");
+		while (temp->comando[j] != NULL)
+		{
+			printf("o comando eh %s\n\n", temp->comando[j]);
+			j++;
+		}
+		temp = temp->next;
+	}
+}
 
 t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env, int exit_status) //LEAK PQ FAÇO MEU NODE E DEPOIS MUDO MINHA ALOCACAO
 {
@@ -96,11 +96,8 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env,
 	}
 	node->nbr_redirections = n_reds;
 	node->comando[x] = NULL;
-	printf("antes da expansao %s\n", node->comando[0]);
 	expansion(node, env, exit_status);
-	printf("depois da expansao %s\n", node->comando[0]);
 	handle_clean_quotes(node, split_cmd);
-	printf("depois da handle %s\n", node->comando[0]);
 	node->next = NULL;
 	return (node);
 }
@@ -149,6 +146,6 @@ t_dados	*parsing(char *input, t_env *env, int exit_status)
 		i++;
 	}
 	free_dp(s_pipe);
-//	print_list(dados_head);
+	print_list(dados_head);
 	return (dados_head);
 }
