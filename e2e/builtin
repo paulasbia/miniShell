@@ -2,7 +2,6 @@ echo oi
 echo
 echo hello world
 echo $
-#quando tratar as aspas, testar
 echo "hello world"
 echo 'hello world'
 echo hello'world'
@@ -39,7 +38,6 @@ unset HELLO1 HELLO2
 unset HOME
 unset PATH
 unset SHELL
-#para quando tiver o cd implementado
 cd $PWD
 cd $PWD hi 
 cd 123123
@@ -47,7 +45,6 @@ exit 123
 exit 298
 exit +100
 exit -100
-#quando tratar aspas, adicionar esses testes
 exit "-100"
 exit -"100"
 exit "+100"

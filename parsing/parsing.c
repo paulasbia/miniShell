@@ -53,6 +53,7 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 // 	while (temp != NULL)
 // 	{
 // 		printf("redireçao:\n");
+// 		printf("num red: %d\n", temp->nbr_redirections);
 // 		i = 0;
 // 		while (i < temp->nbr_redirections)
 // 		{
@@ -64,7 +65,7 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 // 		printf("comandos:\n");
 // 		while (temp->comando[j] != NULL)
 // 		{
-// 			printf("%s\n", temp->comando[j]);
+// 			printf("o comando eh %s\n\n", temp->comando[j]);
 // 			j++;
 // 		}
 // 		temp = temp->next;
