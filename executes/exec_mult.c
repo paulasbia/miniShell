@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/06 15:46:36 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/07 14:57:59 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,10 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 	}
 }
 
-void	ft_handle_pipe(t_dados *aux, t_dados *data, int *saved_fds)
+void	ft_handle_pipe(t_dados *aux, t_dados *data, int back_out)
 {
-	int			back_out;
 	static int	pipe_fd[2];
 
-	back_out = saved_fds[OUT];
 	if (aux != data)
 		redirect_fd(pipe_fd[IN], STDIN_FILENO);
 	if (aux->next)
@@ -83,7 +81,7 @@ int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
 	i = 0;
 	while (aux)
 	{
-		ft_handle_pipe(aux, data, saved_fds);
+		ft_handle_pipe(aux, data, saved_fds[OUT]);
 		children_pid[i] = fork();
 		check_child_pid(children_pid[i], aux);
 		ft_def_signal(children_pid[i]);
