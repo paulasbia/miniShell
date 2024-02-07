@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/02/06 19:47:24 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/07 21:46:04 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	minishell(t_env *my_env)
 	char	*input;
 	int		exit_status = 0;
 	t_dados	*dados;
+	int		tmp_exit;
 
 	while (1)
 	{
@@ -38,7 +39,8 @@ int	minishell(t_env *my_env)
 			(ft_exit(NULL, &my_env));
 		if (input[0])
 			add_history(input);
-		if (validate_input(input) == 0)
+		tmp_exit = validate_input(input);
+		if (tmp_exit == 0)
 		{
 			dados = parsing(input, my_env, exit_status);
 			if (dados)
@@ -48,6 +50,8 @@ int	minishell(t_env *my_env)
 				free_list(&dados);
 			}
 		}
+		else
+			exit_status = tmp_exit;
 		free(input);
 	}
 	return (exit_status);

@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:35:21 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/07 18:36:37 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/07 21:40:34 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,36 @@ int	find_exception(char *cmd_input, int j)
 	return (0);
 }
 
+// char **move_empty_command(char **comando, int i)
+// {
+// 	char **new_comand;
+// 	int size = 0;
+// 	int x = 0;
+
+// 	while (comando[size] != NULL)
+// 		size++;
+// 	new_comand = malloc(sizeof(char *) * (size - 1 + 1));
+// 	size = 0;
+//     while(comando[x] != NULL)
+//     {
+// 		if (size == i)
+// 		{
+// 			x++;
+// 			i = -1;
+// 			continue;
+// 		}
+//         new_comand[size] = ft_strdup(comando[x]);
+//         size++;
+// 		x++;
+//     }
+//     new_comand[size] = NULL;
+// 	free_dp(comando);
+// 	return (new_comand);
+// }
+
 void	move_empty_command(char **comando, int i)
 {
-  //  char *tmp;
-    // int help = 0;
+    int help = 0;
 
 //    tmp = comando[i];
 
@@ -137,13 +163,12 @@ void	move_empty_command(char **comando, int i)
     //     i++;
     // }
     
-    // while(comando[i] != NULL || help == 0)
-    // {
-    //     comando[i] = comando[i + 1];
-    //     printf("%s\n", comando[i]);
-    //     help = 1;
-    //     i++;
-    // }
+    while(comando[i] != NULL || help == 0)
+    {
+        comando[i] = comando[i + 1];
+        help = 1;
+        i++;
+    }
 //     printf("entrou\n");
 // 	while (comando[i] != NULL)
 // 	{
@@ -161,7 +186,7 @@ void	move_empty_command(char **comando, int i)
 // 		else
 // 		    i++;
 // 	}
-//     comando[i] = NULL;
+    comando[i] = NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                     REFATORAÇÃO EM ANDAMENTO
@@ -201,10 +226,10 @@ int	expansion(t_dados *node, t_env *env, int exit_status)
 	start = 0;
 	flag = 0;
 	index = 0;
-	tmp_l_env = env;
 	while (node->comando[i] != NULL)
 	{
 		j = 0;
+		tmp_l_env = env;
 		while (node->comando[i][j] != '\0')
 		{
 			if (node->comando[i][j] == '"')
@@ -250,17 +275,29 @@ int	expansion(t_dados *node, t_env *env, int exit_status)
 				}
 				if (tmp_l_env == NULL)
 				{
-			        free(node->comando[i]);
-					node->comando[i] = NULL;
-                    move_empty_command(node->comando, i);
-                    i--;
-                    break ;
-					//help = 1;
+					int z = start;
+					int m = 1;
+					if (node->comando[i][0] == '"')
+						m += 2;
+					while (node->comando[i][z] != '\0' && node->comando[i][z] != ' ' && node->comando[i][z] != '\t' && validate_chars_env(node->comando[i][z]) == 0)
+					{
+						m++;
+						z++;
+					}
+					if ((int)ft_strlen(node->comando[i]) == m)
+					{
+						free(node->comando[i]);
+						node->comando[i] = NULL;
+						move_empty_command(node->comando, i);
+						i--;
+					}
+					else
+						node->comando[i] = change_exit(node->comando[i], "", (ft_strlen(env_input) + 1));
+					free(env_input);
+					break ;
 				}
-				//free(env_input);
-                //free(tmp_l_env);
+				free(env_input);
 			}
-           // printf("Length %ld\n", ft_strlen(node->comando[i]));
 			if ( node->comando[i][j] != '\0')
 				j++;
 		}

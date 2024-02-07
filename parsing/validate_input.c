@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:52:42 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/03 14:33:06 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/07 21:43:49 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ int	validate_input(char *s)
 	while (s[i] != '\0')
 	{
 		if (invalid_token('>', s, &i) || invalid_token('<', s, &i))
-			return (1);
+			return (2);
 		if (invalid_pipe(s, &i, i))
-			return (1);
+			return (2);
 		if (invalid_quotes('"', s, &i) || invalid_quotes('\'', s, &i))
-			return (1);
+			return (2);
 		i++;
 	}
 	return (0);
