@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:35:21 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/07 23:41:16 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/07 23:53:15 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ char	*change_exit(char *cmd_input, char *string_exit, int size)
 void	change_wrong_env(char **command, char *env_input, char *replace, int j)
 {
 	int	x;
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (command[i] != NULL)
 	{
 		if (command[i] == replace)
-			break;
+			break ;
 		i++;
 	}
-
 	x = 1;
 	if (command[i][0] == '"')
 		x += 2;
@@ -85,8 +85,7 @@ void	change_wrong_env(char **command, char *env_input, char *replace, int j)
 	{
 		free(command[i]);
 		command[i] = NULL;
-		move_empty_command(command, i);
-		i--;
+		move_empty_command(command, i--);
 	}
 	else
 		command[i] = change_exit(command[i], "", (ft_strlen(env_input) + 1));
@@ -116,15 +115,14 @@ int	handle_exit_status(char **command, int j, int exit_status)
 	{
 		string_exit = ft_itoa(exit_status);
 		*command = change_exit(*command, string_exit, 2);
-		// printf("commando antes %s\n", *command);
 		free(string_exit);
 		return (1);
 	}
 	return (0);
 }
 
-// echo teste"asdsadasd"'$TESTE'
-int	command_expansion(t_dados *n, char **command, t_env *tmp_l_env, int exit_status)
+int	command_expansion(t_dados *n, char **command, t_env *tmp_l_env,
+		int exit_status)
 {
 	int		j;
 	char	*env_input;
@@ -163,7 +161,6 @@ int	command_expansion(t_dados *n, char **command, t_env *tmp_l_env, int exit_sta
 	return (0);
 }
 
-
 int	expansion(t_dados *n, t_env *env, int exit_status)
 {
 	int		i;
@@ -178,6 +175,3 @@ int	expansion(t_dados *n, t_env *env, int exit_status)
 	}
 	return (0);
 }
-
-
-

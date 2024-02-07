@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/07 21:25:55 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/07 23:52:25 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,15 @@ void	ms_lstadd_back(t_dados **lst, t_dados *node)
 // 	}
 // }
 
-t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env, int exit_status) //LEAK PQ FAÇO MEU NODE E DEPOIS MUDO MINHA ALOCACAO
+t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, t_env *env,
+		int exit)
 {
 	t_dados	*node;
 	int		i;
 	int		j;
+	int		x;
 
+	x = 0;
 	i = 0;
 	j = 0;
 	node = (t_dados *)malloc(sizeof(t_dados));
@@ -96,13 +99,14 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x, t_env *env,
 	}
 	node->nbr_redirections = n_reds;
 	node->comando[x] = NULL;
-	expansion(node, env, exit_status);
+	expansion(node, env, exit);
 	handle_clean_quotes(node, split_cmd);
 	node->next = NULL;
 	return (node);
 }
 
-void	handle_parsing_split(char *s_pipe, t_dados **dados_head, t_env *env, int exit_status)
+void	handle_parsing_split(char *s_pipe, t_dados **dados_head, t_env *env,
+		int exit)
 {
 	int		j;
 	int		nbr_redirections;
@@ -127,11 +131,11 @@ void	handle_parsing_split(char *s_pipe, t_dados **dados_head, t_env *env, int ex
 			nbr_comands++;
 		j++;
 	}
-	node = ft_lstnew_p(nbr_redirections, nbr_comands, split_cmd, 0, env, exit_status);
+	node = ft_lstnew_p(nbr_redirections, nbr_comands, split_cmd, env, exit);
 	ms_lstadd_back(dados_head, node);
 }
 
-t_dados	*parsing(char *input, t_env *env, int exit_status)
+t_dados	*parsing(char *input, t_env *env, int exit)
 {
 	char	**s_pipe;
 	int		i;
@@ -142,10 +146,9 @@ t_dados	*parsing(char *input, t_env *env, int exit_status)
 	s_pipe = split_pipe(input);
 	while (s_pipe[i] != NULL)
 	{
-		handle_parsing_split(s_pipe[i], &dados_head, env, exit_status);
+		handle_parsing_split(s_pipe[i], &dados_head, env, exit);
 		i++;
 	}
 	free_dp(s_pipe);
-	// print_list(dados_head);
 	return (dados_head);
 }
