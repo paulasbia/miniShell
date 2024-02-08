@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/07 14:57:59 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 15:23:25 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ void	ft_handle_exec(t_dados *aux, t_env *my_env)
 {
 	close_extra_fds();
 	if (!ft_cmd_builtin(aux))
+	{
 		ft_exec_child_process(aux, my_env);
+	}
 	else
 		exit(ft_execute_builtin(aux, &my_env));
 }

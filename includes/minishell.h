@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/06 15:47:41 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:29:25 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ struct				s_parse_heredoc
 	pid_t			child_pid;
 	t_redirect		*red_temp;
 };
+
+int	exec_testes(t_dados *data, t_env **my_env);
+
 
 int					ft_check_arg(int ac, char **av);
 int					minishell(t_env *my_env);

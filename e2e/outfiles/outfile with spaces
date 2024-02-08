@@ -17,6 +17,7 @@ objs
 outfile
 outfiles
 parsing
+readline.supp
 README.md
 srcs
 subject_mini_shell.pdf
