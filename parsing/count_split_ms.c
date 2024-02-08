@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:22:49 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 20:27:34 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 18:20:56 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_count_ms(int *i, const char *s, int *result, char c)
 {
-	i++;
+	(*i)++;
 	while (s[*i] != c)
 		(*i)++;
 	if (s[*i] == ' ' || s[*i] == '\t')

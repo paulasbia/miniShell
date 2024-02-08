@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:35:21 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/08 15:29:24 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 20:21:25 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,30 @@ int	handle_exit_status(char **command, int j, int exit_status)
 	return (0);
 }
 
-int	command_expansion(t_dados *n, char **cmd, t_env *tmp_l_env,
-		int exit_status)
+int	handle_command(int *j, char **cmd, t_env *tmp_l_env, t_dados *n)
 {
-	int		j;
-	char	*env_input;
 	int		start;
+	char	*env_input;
+
+	start = *j;
+	while (!is_space((*cmd)[*j]) && val_chars_env((*cmd)[*j]) == 0)
+		(*j)++;
+	env_input = ft_substr((*cmd), start, (*j - start));
+	*j = 0;
+	if (search_env(cmd, tmp_l_env, env_input) == NULL)
+	{
+		change_wrong_env(n->comando, env_input, *cmd, start);
+		return (1);
+	}
+	free(env_input);
+	return (0);
+}
+
+int	command_expansion(t_dados *n, char **cmd, t_env *tmp_l_env, int exit_status)
+{
+	int	j;
 
 	j = 0;
-	start = 0;
 	while ((*cmd)[j] != '\0')
 	{
 		check_expansion_quotes((*cmd), &j);
@@ -47,16 +62,8 @@ int	command_expansion(t_dados *n, char **cmd, t_env *tmp_l_env,
 				j++;
 			if (handle_exit_status(cmd, j, exit_status) == 1)
 				continue ;
-			start = j;
-			while (!is_space((*cmd)[j]) && val_chars_env((*cmd)[j]) == 0)
-				j++;
-			env_input = ft_substr((*cmd), start, (j - start));
-			if (search_env(cmd, tmp_l_env, env_input) == NULL)
-			{
-				change_wrong_env(n->comando, env_input, *cmd, start);
+			if (handle_command(&j, cmd, tmp_l_env, n) == 1)
 				break ;
-			}
-			free(env_input);
 		}
 		if ((*cmd)[j] != '\0')
 			j++;

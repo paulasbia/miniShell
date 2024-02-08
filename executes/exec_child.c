@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/02/03 10:30:44 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 18:53:10 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	ft_exec_child_process(t_dados *data, t_env *my_env)
 	char	**env_array;
 	char	*value;
 
+	path = NULL;
 	ft_check_exit(data, my_env);
 	value = mini_value("PATH", my_env);
 	if (ft_strchr(data->comando[0], '/') || !value)

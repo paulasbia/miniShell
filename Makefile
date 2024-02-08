@@ -1,4 +1,4 @@
-.SILENT:
+# .SILENT:
 
 NAME		= 		minishell
 NAME_T		=		minishell_unit
@@ -15,7 +15,7 @@ SRCS_T		=		$(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(UNIT) $(PARSING)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 OBJS_T		=		$(addprefix objs/, $(SRCS_T:.c=.o))
-CFLAGS		=		-g3 -Wall -Wextra -Werror
+CFLAGS		=		-g3 -Wall -Wextra -Werror -fsanitize=address
 RM			=		rm -f
 
 COLOUR_GREEN=\033[32m
@@ -30,7 +30,7 @@ objs/%.o: */%.c
 ${NAME}: ${OBJS}
 	@echo "$(COLOUR_GREEN)----Compiling lib----"
 	@make re -C ./libft
-	@cc $(FLAGS) $(OBJS) -Llibft -lft -o $(NAME) $(LDLIBS)
+	cc $(CFLAGS) $(OBJS) -Llibft -lft -o $(NAME) $(LDLIBS)
 	@echo "  $(COLOUR_MAG)                                                                        ";
 	@echo "💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟💟";
 	@echo "                          _    _               _          _ _                          ";
@@ -70,7 +70,7 @@ check:
 	norminette ./utils
 	norminette ./executes
 	norminette ./parsing
-	norminette ./includes/minishell.h
+	norminette ./includes
 
 test_r:
 	./e2e/tester.sh ./e2e/redirects
@@ -82,6 +82,7 @@ test:
 	./e2e/tester.sh ./e2e/pipes
 	./e2e/tester.sh ./e2e/sintaxe
 	./e2e/tester.sh ./e2e/os_specifics
+	./e2e/tester.sh ./e2e/random
 
 valgrind: readline.supp
 	valgrind --leak-check=full --suppressions=readline.supp ./minishell
@@ -89,7 +90,7 @@ valgrind: readline.supp
 ${NAME_T}: ${OBJS_T}
 	@echo "$(COLOUR_GREEN)----Compiling lib----"
 	@make re -C ./libft
-	@cc $(FLAGS) $(OBJS_T) -Llibft -lft -o $(NAME_T) $(LDLIBS)
+	cc $(CFLAGS)  $(OBJS_T) -Llibft -lft -o $(NAME_T) $(LDLIBS)
 	@echo "$(COLOUR_MAG)\nNice! Minishell Compiled! $(COLOUR_GREEN)ᕦ$(COLOUR_RED)♥$(COLOUR_GREEN)_$(COLOUR_RED)♥$(COLOUR_GREEN)ᕤ\n$(COLOUR_END)"
 	@echo "$(COLOUR_MAG)\nTo start the program type ./minishell\nENJOY!\n$(COLOUR_END)"
 
