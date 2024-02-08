@@ -1,17 +1,30 @@
 #include "../includes/minishell.h"
 
-int exec_testes(t_dados *data, t_env **my_env) {
-	t_dados *temporary = data;
+int	number_pipes(t_dados *temporary)
+{
+	int	i;
 
-	int i = 0;
-	(void)my_env;
-	while (temporary) {
+	i = 0;
+	while (temporary) 
+	{
 		i++;
 		temporary = temporary->next;
 	}
+	return(i);
 
-	int pipes[i][2];
-	for (int x = 0; x < i; x++) {
+}
+
+int exec_testes(t_dados *data, t_env **my_env) 
+{
+	t_dados *temporary = data;
+	int		nbr_pipes;
+
+	nbr_pipes = number_pipes(temporary);
+	(void)my_env;
+
+
+	int pipes[nbr_pipes][2];
+	for (int x = 0; x < nbr_pipes; x++) {
 		if (pipe(pipes[x]) == -1) {
 			perror("pipe");
 			return -1;
@@ -20,7 +33,7 @@ int exec_testes(t_dados *data, t_env **my_env) {
 
 	temporary = data;
 	int pos = 0;
-	while (temporary && pos < i) {
+	while (temporary && pos < nbr_pipes) {
 		pid_t pid = fork();
 		if (pid == -1) {
 			perror("fork");
@@ -30,13 +43,13 @@ int exec_testes(t_dados *data, t_env **my_env) {
 				dup2(pipes[pos - 1][IN], STDIN_FILENO);
 				close(pipes[pos - 1][IN]);
 			}
-			if (pos != i - 1) {
+			if (pos != nbr_pipes - 1) {
 				dup2(pipes[pos][OUT], STDOUT_FILENO);
 				close(pipes[pos][OUT]);
 			}
 
 			// Close all pipe file descriptors in the child process
-			for (int j = 0; j < i; j++) {
+			for (int j = 0; j < nbr_pipes; j++) {
 				close(pipes[j][IN]);
 				close(pipes[j][OUT]);
 			}
@@ -52,13 +65,13 @@ int exec_testes(t_dados *data, t_env **my_env) {
 	}
 
 	// Close all pipe file descriptors in the parent process
-	for (int x = 0; x < i; x++) {
+	for (int x = 0; x < nbr_pipes; x++) {
 		close(pipes[x][IN]);
 		close(pipes[x][OUT]);
 	}
 
 	// Wait for all child processes to finish
-	for (int j = 0; j < i; j++) {
+	for (int j = 0; j < nbr_pipes; j++) {
 		wait(NULL);
 	}
 
