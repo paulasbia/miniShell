@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/08 14:29:25 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 18:46:03 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ struct				s_parse_heredoc
 };
 
 int	exec_testes(t_dados *data, t_env **my_env);
+void	ft_handle_red_pipes(t_dados *data, t_env *my_env);
+void	ft_handle_exec(t_dados *aux, t_env *my_env);
 
 
 int					ft_check_arg(int ac, char **av);
