@@ -6,99 +6,44 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/07 23:52:25 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 15:17:28 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	redirection(char *red)
-{
-	if (ft_strncmp("<<", red, 2) == 0)
-		return (2);
-	else if (ft_strncmp(">>", red, 2) == 0)
-		return (3);
-	else if (ft_strncmp(">", red, 1) == 0)
-		return (0);
-	else if (ft_strncmp("<", red, 1) == 0)
-		return (1);
-	else
-		return (-1);
-}
-
-void	ms_lstadd_back(t_dados **lst, t_dados *node)
-{
-	t_dados	*temp;
-
-	temp = *lst;
-	if (*lst == NULL)
-		*lst = node;
-	else
-	{
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = node;
-	}
-}
-
-// void	print_list(t_dados *lst)
-// {
-// 	int		i;
-// 	int		j;
-// 	t_dados	*temp;
-
-// 	i = 0;
-// 	j = 0;
-// 	temp = lst;
-// 	while (temp != NULL)
-// 	{
-// 		printf("redireçao:\n");
-// 		printf("num red: %d\n", temp->nbr_redirections);
-// 		i = 0;
-// 		while (i < temp->nbr_redirections)
-// 		{
-// 			printf("%s\n", temp->redirect[i].filename);
-// 			printf("%d\n", temp->redirect[i].redirect_type);
-// 			i++;
-// 		}
-// 		j = 0;
-// 		printf("comandos:\n");
-// 		while (temp->comando[j] != NULL)
-// 		{
-// 			printf("o comando eh %s\n\n", temp->comando[j]);
-// 			j++;
-// 		}
-// 		temp = temp->next;
-// 	}
-// }
-
-t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, t_env *env,
-		int exit)
+t_dados	*alloc_nodes(int n_reds, int n_cmd)
 {
 	t_dados	*node;
-	int		i;
-	int		j;
-	int		x;
 
-	x = 0;
-	i = 0;
-	j = 0;
 	node = (t_dados *)malloc(sizeof(t_dados));
 	node->comando = malloc(sizeof(char *) * (n_cmd + 1));
 	node->redirect = malloc(sizeof(t_redirect) * (n_reds + 1));
-	while (split_cmd[i] != NULL)
+	return (node);
+}
+
+t_dados	*ft_lstnew_p(char **split_cmd, t_env *env, int exit, t_dados *node)
+{
+	t_int_parsing	ip;
+
+	ip.x = 0;
+	ip.i = 0;
+	ip.j = 0;
+	ip.nbr_reds = 0;
+	while (split_cmd[ip.i] != NULL)
 	{
-		if (redirection(split_cmd[i]) != -1)
+		if (redirection(split_cmd[ip.i]) != -1)
 		{
-			node->redirect[j].redirect_type = redirection(split_cmd[i]);
-			node->redirect[j++].filename = ft_strdup(split_cmd[i + 1]);
-			i += 2;
+			node->redirect[ip.j].redirect_type = redirection(split_cmd[ip.i]);
+			node->redirect[ip.j++].filename = ft_strdup(split_cmd[ip.i + 1]);
+			ip.nbr_reds++;
+			ip.i += 2;
 		}
 		else
-			node->comando[x++] = ft_strdup(split_cmd[i++]);
+			node->comando[ip.x++] = ft_strdup(split_cmd[ip.i++]);
 	}
-	node->nbr_redirections = n_reds;
-	node->comando[x] = NULL;
+	node->nbr_redirections = ip.nbr_reds;
+	node->comando[ip.x] = NULL;
 	expansion(node, env, exit);
 	handle_clean_quotes(node, split_cmd);
 	node->next = NULL;
@@ -108,30 +53,29 @@ t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, t_env *env,
 void	handle_parsing_split(char *s_pipe, t_dados **dados_head, t_env *env,
 		int exit)
 {
-	int		j;
-	int		nbr_redirections;
-	int		nbr_comands;
-	char	**split_cmd;
-	t_dados	*node;
+	t_int_parsing	ip;
+	char			**split_cmd;
+	t_dados			*node;
 
 	split_cmd = split_ms(s_pipe);
-	j = 0;
-	nbr_redirections = 0;
-	nbr_comands = 0;
-	while (split_cmd[j] != NULL)
+	ip.j = 0;
+	ip.nbr_reds = 0;
+	ip.nbr_cmd = 0;
+	while (split_cmd[ip.j] != NULL)
 	{
-		if (redirection(split_cmd[j]) != -1)
+		if (redirection(split_cmd[ip.j]) != -1)
 		{
-			nbr_redirections++;
-			if (split_cmd[j + 1] == NULL)
+			ip.nbr_reds++;
+			if (split_cmd[ip.j + 1] == NULL)
 				break ;
-			j++;
+			ip.j++;
 		}
 		else
-			nbr_comands++;
-		j++;
+			ip.nbr_cmd++;
+		ip.j++;
 	}
-	node = ft_lstnew_p(nbr_redirections, nbr_comands, split_cmd, env, exit);
+	node = alloc_nodes(ip.nbr_reds, ip.nbr_cmd);
+	node = ft_lstnew_p(split_cmd, env, exit, node);
 	ms_lstadd_back(dados_head, node);
 }
 
