@@ -1,15 +1,12 @@
-actual2.txt
-actual.txt
+$TATA
+$USER
 archive.tar.gz
 bash_outfiles
 builtins
 combined_file.txt
 e2e
 executes
-expected2.txt
-expected.txt
 includes
-k
 libft
 Makefile
 mini_outfiles
@@ -24,8 +21,8 @@ output.txt
 parsing
 readline.supp
 README.md
+ricardo
 srcs
 subject_mini_shell.pdf
-tata.txt
 unit
 utils

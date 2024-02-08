@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:22:23 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/08 14:06:30 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@
 // 			i++;
 // 		}
 // 		j = 0;
-// 		printf("comandos:\n");
-// 		while (temp->comando[j] != NULL)
+// 		printf("cmds:\n");
+// 		while (temp->cmd[j] != NULL)
 // 		{
-// 			printf("o comando eh %s\n\n", temp->comando[j]);
+// 			printf("o cmd eh %s\n\n", temp->cmd[j]);
 // 			j++;
 // 		}
 // 		temp = temp->next;

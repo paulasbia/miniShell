@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:09:50 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/08 15:29:44 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 23:11:21 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ int	is_space(char c)
 	return (0);
 }
 
-void	move_empty_command(char **comando, int i)
+void	move_empty_command(char **cmd, int i)
 {
 	int	help;
 
 	help = 0;
-	while (comando[i] != NULL || help == 0)
+	while (cmd[i] != NULL || help == 0)
 	{
-		comando[i] = comando[i + 1];
+		cmd[i] = cmd[i + 1];
 		help = 1;
 		i++;
 	}
-	comando[i] = NULL;
+	cmd[i] = NULL;
 }
 
 char	*change_input(char **cmd_input, char *key, int size_index_env)

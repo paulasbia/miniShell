@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:48:59 by paula             #+#    #+#             */
-/*   Updated: 2024/02/08 18:53:51 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_handle_errors(t_dados *data, char *path, char **envp)
 
 	error = EXIT_FAILURE;
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	perror(data->comando[0]);
+	perror(data->cmd[0]);
 	if (access(path, F_OK) != 0)
 		error = CMD_NOT_FOUND;
 	else if (access(path, X_OK) != 0)

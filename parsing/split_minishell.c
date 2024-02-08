@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:56:43 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 20:24:25 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 20:35:00 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*alloc_word(const char *s, int j, int index)
 	return (src);
 }
 
-char	*tata_2(char const *s, int *i, int *j, int *index)
+char	*handle_tokens(char const *s, int *i, int *j, int *index)
 {
 	static int	help;
 
@@ -101,7 +101,7 @@ static char	*count_word(char const *s, int *i)
 		result = handle_both_quotes(s, i, &index, &j);
 		if (result != NULL)
 			return (result);
-		result = tata_2(s, i, &j, &index);
+		result = handle_tokens(s, i, &j, &index);
 		if (result != NULL)
 			return (result);
 		(*i)++;

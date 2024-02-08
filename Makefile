@@ -1,4 +1,4 @@
-# .SILENT:
+.SILENT:
 
 NAME		= 		minishell
 NAME_T		=		minishell_unit
@@ -90,7 +90,7 @@ valgrind: readline.supp
 ${NAME_T}: ${OBJS_T}
 	@echo "$(COLOUR_GREEN)----Compiling lib----"
 	@make re -C ./libft
-	cc $(CFLAGS)  $(OBJS_T) -Llibft -lft -o $(NAME_T) $(LDLIBS)
+	@cc $(CFLAGS)  $(OBJS_T) -Llibft -lft -o $(NAME_T) $(LDLIBS)
 	@echo "$(COLOUR_MAG)\nNice! Minishell Compiled! $(COLOUR_GREEN)ᕦ$(COLOUR_RED)♥$(COLOUR_GREEN)_$(COLOUR_RED)♥$(COLOUR_GREEN)ᕤ\n$(COLOUR_END)"
 	@echo "$(COLOUR_MAG)\nTo start the program type ./minishell\nENJOY!\n$(COLOUR_END)"
 

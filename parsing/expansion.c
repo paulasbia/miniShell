@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:35:21 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/08 20:21:25 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 23:16:08 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	handle_command(int *j, char **cmd, t_env *tmp_l_env, t_dados *n)
 	*j = 0;
 	if (search_env(cmd, tmp_l_env, env_input) == NULL)
 	{
-		change_wrong_env(n->comando, env_input, *cmd, start);
+		change_wrong_env(n->cmd, env_input, *cmd, start);
 		return (1);
 	}
 	free(env_input);
@@ -77,10 +77,16 @@ int	expansion(t_dados *n, t_env *env, int exit_status)
 	t_env	*tmp_l_env;
 
 	i = 0;
-	while (n->comando[i] != NULL)
+	while (n->cmd[i] != NULL)
 	{
 		tmp_l_env = env;
-		command_expansion(n, &n->comando[i], tmp_l_env, exit_status);
+		command_expansion(n, &n->cmd[i], tmp_l_env, exit_status);
+		i++;
+	}
+	i = 0;
+	while (i < n->nbr_redirections)
+	{
+		tmp_l_env = env;
 		i++;
 	}
 	return (0);

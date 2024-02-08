@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/08 19:23:08 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_dados	*alloc_nodes(int n_reds, int n_cmd)
 	t_dados	*node;
 
 	node = (t_dados *)malloc(sizeof(t_dados));
-	node->comando = malloc(sizeof(char *) * (n_cmd + 1));
+	node->cmd = malloc(sizeof(char *) * (n_cmd + 1));
 	node->redirect = malloc(sizeof(t_redirect) * (n_reds + 1));
 	return (node);
 }
@@ -40,10 +40,10 @@ t_dados	*ft_lstnew_p(char **split_cmd, t_env *env, int exit, t_dados *node)
 			ip.i += 2;
 		}
 		else
-			node->comando[ip.x++] = ft_strdup(split_cmd[ip.i++]);
+			node->cmd[ip.x++] = ft_strdup(split_cmd[ip.i++]);
 	}
 	node->nbr_redirections = ip.nbr_reds;
-	node->comando[ip.x] = NULL;
+	node->cmd[ip.x] = NULL;
 	expansion(node, env, exit);
 	handle_clean_quotes(node, split_cmd);
 	node->next = NULL;

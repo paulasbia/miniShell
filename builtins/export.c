@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2024/02/08 19:22:51 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,20 @@ int	ft_export(t_dados *data, t_env **my_env)
 
 	exit_status = EXIT_SUCCESS;
 	i = 1;
-	if (!data->comando[i])
+	if (!data->cmd[i])
 		return (export_msg(*my_env));
-	while (data->comando[i])
+	while (data->cmd[i])
 	{
-		name_var = ft_varname(data->comando[i]);
+		name_var = ft_varname(data->cmd[i]);
 		if (check_key(name_var) == 0)
 		{
-			ft_print_error_var("export", data->comando[i]);
+			ft_print_error_var("export", data->cmd[i]);
 			exit_status = EXIT_FAILURE;
 		}
 		else if (ft_env_entry_exist(name_var, *my_env))
-			ft_update_envlist(name_var, ft_varvalue(data->comando[i]), *my_env);
+			ft_update_envlist(name_var, ft_varvalue(data->cmd[i]), *my_env);
 		else
-			ft_add_list(data->comando[i], my_env);
+			ft_add_list(data->cmd[i], my_env);
 		i++;
 		free(name_var);
 	}

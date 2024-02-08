@@ -126,5 +126,5 @@ if [[ "$ok" == "$i" ]]; then
 	exit 0
 else
 	echo "😭 😭 😭"
-	exit 0
+	exit 1
 fi

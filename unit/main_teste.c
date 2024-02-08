@@ -7,7 +7,7 @@ t_env	*init_env;
 
 static int run_cmd(char **cmd){
 	t_dados test1 = {
-		.comando = cmd,
+		.cmd = cmd,
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = NULL
@@ -43,7 +43,7 @@ static void assert_files_and_clean(void){
 static void	tests_ft_out_redirect_pwd(void)
 {
 	t_dados actual = {
-		.comando = (char *[]){"pwd", NULL},
+		.cmd = (char *[]){"pwd", NULL},
 		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 0}},
 		.nbr_redirections = 1,
 		.next = NULL
@@ -61,7 +61,7 @@ static void	tests_ft_out_redirect_pwd(void)
 static void test_creat(void)
 {
 		t_dados actual = {
-		.comando = (char *[]){"pwd", NULL},
+		.cmd = (char *[]){"pwd", NULL},
 		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 0}},
 		.nbr_redirections = 1,
 		.next = NULL
@@ -79,7 +79,7 @@ static void	tests_ft_append_redirect_ls(void)
 	test_creat();
 
 		t_dados actual = {
-		.comando = (char *[]){"ls", NULL},
+		.cmd = (char *[]){"ls", NULL},
 		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 3}},
 		.nbr_redirections = 1,
 		.next = NULL
@@ -99,7 +99,7 @@ static void	tests_ft_input_redirect(void)
 	test_creat();
 
 		t_dados actual = {
-		.comando = (char *[]){"wc", NULL},
+		.cmd = (char *[]){"wc", NULL},
 		.redirect = (t_redirect[]){(t_redirect) {.filename="actual.txt", .redirect_type = 1}},
 		.nbr_redirections = 1,
 		.next = NULL
@@ -124,7 +124,7 @@ static void tests_return_code_error(void){
 static void	tests_ft_more_redirect(void)
 {
 		t_dados actual = {
-		.comando = (char *[]){"pwd", NULL},
+		.cmd = (char *[]){"pwd", NULL},
 		.redirect = (t_redirect[]){(t_redirect) {.filename="actual2.txt", .redirect_type = 0}, (t_redirect) {.filename="actual.txt", .redirect_type = 3}},
 		.nbr_redirections = 2,
 		.next = NULL
@@ -148,13 +148,13 @@ static void	assert_lista(t_dados *expected, t_dados *parsing)
 	i = 0;
 	while (aux)
 	{
-		while (aux->comando[i])
+		while (aux->cmd[i])
 		{
 			TEST_ASSERT_NOT_NULL(aux_p);
-			TEST_ASSERT_NOT_NULL(aux_p->comando[i]);
-			printf("expec: %s\n", aux->comando[i]);
-			printf("parsing: %s\n", aux_p->comando[i]);
-			TEST_ASSERT_EQUAL_STRING(aux->comando[i], aux_p->comando[i]);
+			TEST_ASSERT_NOT_NULL(aux_p->cmd[i]);
+			printf("expec: %s\n", aux->cmd[i]);
+			printf("parsing: %s\n", aux_p->cmd[i]);
+			TEST_ASSERT_EQUAL_STRING(aux->cmd[i], aux_p->cmd[i]);
 			i++;
 		}
 		i = 0;
@@ -167,14 +167,14 @@ static void	assert_lista(t_dados *expected, t_dados *parsing)
 static void	tests_ft_parsing(void)
 {
 		t_dados expected = {
-		.comando = (char *[]){"wc", NULL},
+		.cmd = (char *[]){"wc", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = NULL
 	};
 	
 		t_dados expected2 = {
-		.comando = (char *[]){"pwd", NULL},
+		.cmd = (char *[]){"pwd", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = &expected
@@ -270,7 +270,7 @@ static void	tests_ft_validate_without_space(void)
 static void	tests_ft_parsing_with_space(void)
 {
 		t_dados expected2 = {
-		.comando = (char *[]){"echo", "12", NULL},
+		.cmd = (char *[]){"echo", "12", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = NULL
@@ -285,7 +285,7 @@ static void	tests_ft_parsing_with_space(void)
 static void	tests_ft_parsing_without_space(void)
 {
 		t_dados expected2 = {
-		.comando = (char *[]){"echo12", NULL},
+		.cmd = (char *[]){"echo12", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = NULL
@@ -300,35 +300,35 @@ static void	tests_ft_parsing_without_space(void)
 static void	tests_ft_parsing_grep(void)
 {
 	t_dados expected5 = {
-		.comando = (char *[]){"grep", "-v", "PS.=", NULL},
+		.cmd = (char *[]){"grep", "-v", "PS.=", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = NULL
 	};
 
 		t_dados expected4 = {
-		.comando = (char *[]){"grep", "-v", "declare -x _", NULL},
+		.cmd = (char *[]){"grep", "-v", "declare -x _", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = &expected5
 	};
 
 		t_dados expected3 = {
-		.comando = (char *[]){"grep", "-v", "SHLVL", NULL},
+		.cmd = (char *[]){"grep", "-v", "SHLVL", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = &expected4
 	};
 
 		t_dados expected2 = {
-		.comando = (char *[]){"sort", NULL},
+		.cmd = (char *[]){"sort", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = &expected3
 	};
 
 		t_dados expected = {
-		.comando = (char *[]){"export", NULL},
+		.cmd = (char *[]){"export", NULL},
 		.redirect = NULL,
 		.nbr_redirections = 0,
 		.next = &expected2
@@ -343,7 +343,7 @@ static void	tests_ft_parsing_grep(void)
 // static void	tests_heredoc(void)
 // {
 // 	t_dados actual = {
-// 		.comando = (char *[]){"pwd", NULL},
+// 		.cmd = (char *[]){"pwd", NULL},
 // 		.redirect = (t_redirect[]){(t_redirect) {.filename="EOF\na\nb\nc\nEOF", .redirect_type = 2}},
 // 		.nbr_redirections = 1,
 // 		.next = NULL

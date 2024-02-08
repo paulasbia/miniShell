@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 10:08:28 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 10:47:26 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_execute_builtin(t_dados *data, t_env **minienv)
 {
 	char	*command;
 
-	command = data->comando[0];
+	command = data->cmd[0];
 	if (str_equal(command, "pwd"))
 		return (ft_pwd());
 	if (str_equal(command, "exit"))
