@@ -21,11 +21,9 @@ int exec_testes(t_dados *data, t_env **my_env)
 
 	nbr_pipes = number_pipes(temporary);
 	(void)my_env;
-
-
-	int pipes[nbr_pipes][2];
+	auto int pipes_fd[nbr_pipes][2];
 	for (int x = 0; x < nbr_pipes; x++) {
-		if (pipe(pipes[x]) == -1) {
+		if (pipe(pipes_fd[x]) == -1) {
 			perror("pipe");
 			return -1;
 		}
@@ -40,18 +38,18 @@ int exec_testes(t_dados *data, t_env **my_env)
 			return -1;
 		} else if (pid == 0) {  // Child process
 			if (pos != 0) {
-				dup2(pipes[pos - 1][IN], STDIN_FILENO);
-				close(pipes[pos - 1][IN]);
+				dup2(pipes_fd[pos - 1][IN], STDIN_FILENO);
+				close(pipes_fd[pos - 1][IN]);
 			}
 			if (pos != nbr_pipes - 1) {
-				dup2(pipes[pos][OUT], STDOUT_FILENO);
-				close(pipes[pos][OUT]);
+				dup2(pipes_fd[pos][OUT], STDOUT_FILENO);
+				close(pipes_fd[pos][OUT]);
 			}
 
 			// Close all pipe file descriptors in the child process
 			for (int j = 0; j < nbr_pipes; j++) {
-				close(pipes[j][IN]);
-				close(pipes[j][OUT]);
+				close(pipes_fd[j][IN]);
+				close(pipes_fd[j][OUT]);
 			}
 
 			if (execvp(temporary->comando[0], temporary->comando) == -1) {
@@ -66,8 +64,8 @@ int exec_testes(t_dados *data, t_env **my_env)
 
 	// Close all pipe file descriptors in the parent process
 	for (int x = 0; x < nbr_pipes; x++) {
-		close(pipes[x][IN]);
-		close(pipes[x][OUT]);
+		close(pipes_fd[x][IN]);
+		close(pipes_fd[x][OUT]);
 	}
 
 	// Wait for all child processes to finish
