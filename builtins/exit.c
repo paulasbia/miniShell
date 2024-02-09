@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:23:00 by paula             #+#    #+#             */
-/*   Updated: 2024/02/04 19:12:57 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,20 @@ int	ft_exit(t_dados *data, t_env **my_env)
 	rl_clear_history();
 	ft_free_env(my_env);
 	ft_putstr_fd("exit\n", 1);
-	if (!data || (!data->comando[1] && data))
+	if (!data || (!data->cmd[1] && data))
 	{
 		free_list(&data);
 		exit(EXIT_SUCCESS);
 	}
-	if (data->comando[2])
+	if (data->cmd[2])
 	{
-		exit_status = ft_atoi(data->comando[1]);
+		exit_status = ft_atoi(data->cmd[1]);
 		ft_exit_with_error("exit", "too many arguments", EXIT_FAILURE);
 	}
-	if (!ft_isnumber(data->comando[1]))
+	if (!ft_isnumber(data->cmd[1]))
 		ft_exit_with_error("exit", "numeric argument required", 2);
 	else
-		exit_status = ft_strtoull(data->comando[1]);
+		exit_status = ft_strtoull(data->cmd[1]);
 	free_list(&data);
 	exit(exit_status);
 }

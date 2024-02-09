@@ -6,13 +6,17 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:56:43 by ricardo           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/05 20:18:39 by ricardo          ###   ########.fr       */
+=======
+/*   Updated: 2024/02/09 10:11:28 by ricardo          ###   ########.fr       */
+>>>>>>> f667816e2593fb8d061182e1f549c6b5f858f640
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*alloc_word(const char *s, int j, int index)
+char	*alloc_word(const char *s, int j, int index)
 {
 	char	*src;
 	int		i;
@@ -30,7 +34,7 @@ static char	*alloc_word(const char *s, int j, int index)
 	return (src);
 }
 
-char	*tata_2(char const *s, int *i, int *j, int *index)
+char	*handle_tokens(char const *s, int *i, int *j, int *index)
 {
 	static int	help;
 
@@ -84,7 +88,7 @@ char	*handle_both_quotes(char const *s, int *i, int *index, int *j)
 	return (NULL);
 }
 
-static char	*count_word(char const *s, int *i)
+char	*count_word(char const *s, int *i)
 {
 	int		j;
 	int		index;
@@ -101,7 +105,11 @@ static char	*count_word(char const *s, int *i)
 		result = handle_both_quotes(s, i, &index, &j);
 		if (result != NULL)
 			return (result);
+<<<<<<< HEAD
 		result = tata_2(s, i, &j, &index);
+=======
+		result = handle_tokens(s, i, &j, &index);
+>>>>>>> f667816e2593fb8d061182e1f549c6b5f858f640
 		if (result != NULL)
 			return (result);
 		(*i)++;

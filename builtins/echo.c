@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:36:33 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:20:01 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 10:16:51 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,20 @@
 
 static int	ft_check_n(char *args)
 {
-	if (strncmp(args, "-n", 3))
+	int	i;
+
+	i = 0;
+	if (args[0] != '-')
 		return (0);
+	if (args[0] == '-' && args[i + 1] != 'n')
+		return (0);
+	i++;
+	while (args[i])
+	{
+		if (args[i] == ' ' || args[i] != 'n')
+			return (0);
+		i++;
+	}
 	return (1);
 }
 
@@ -26,15 +38,15 @@ int	ft_echo(t_dados *data)
 
 	i = 1;
 	new_line = 0;
-	if (data->comando[i] && ft_check_n(data->comando[i]))
+	while (data->cmd[i] && ft_check_n(data->cmd[i]))
 	{
 		new_line = 1;
 		i++;
 	}
-	while (data->comando[i])
+	while (data->cmd[i])
 	{
-		ft_putstr_fd(data->comando[i], STDOUT_FILENO);
-		if (data->comando[i + 1])
+		ft_putstr_fd(data->cmd[i], STDOUT_FILENO);
+		if (data->cmd[i + 1])
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}

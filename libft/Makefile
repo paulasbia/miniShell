@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+         #
+#    By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/28 17:48:30 by paula             #+#    #+#              #
-#    Updated: 2023/08/18 10:55:36 by paulabiazot      ###   ########.fr        #
+#    Updated: 2024/02/07 18:04:27 by ricardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

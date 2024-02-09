@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/04 10:14:18 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 20:21:48 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ struct				s_parse_heredoc
 };
 
 int					ft_check_arg(int ac, char **av);
-int					minishell(t_env *my_env);
+int					minishell(t_env *my_env, int exit_status);
 void				ft_add_list(char *key, t_env **my_list);
 
 // env
@@ -78,6 +78,7 @@ pid_t				*ft_alloc(t_dados *data);
 int					ft_get_exit_status(int status);
 void				redirect_fd(int fd_for_red, int fd_local);
 void				ft_save_fds(int saved_fd[2]);
+void				close_extra_fds(void);
 
 // EXECUTES
 int					start_execution(t_dados *data, t_env **my_env);

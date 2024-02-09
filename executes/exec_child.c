@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/02/03 10:30:44 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ char	*ft_get_path(char *cmd, t_env *my_env)
 void	external_exit(t_dados *data, t_env *minienv, int exit_status)
 {
 	if (exit_status == NOT_EXECUTABLE)
-		print_error_msg(data->comando[0], NOT_EXECUTABLE_MSG);
+		print_error_msg(data->cmd[0], NOT_EXECUTABLE_MSG);
 	if (exit_status == CMD_NOT_FOUND)
-		print_error_msg(data->comando[0], CMD_NOT_FOUND_MSG);
+		print_error_msg(data->cmd[0], CMD_NOT_FOUND_MSG);
 	rl_clear_history();
 	ft_free_env(&minienv);
 	free_list(&data);
@@ -72,9 +72,9 @@ static int	is_folder(char *command)
 
 void	ft_check_exit(t_dados *data, t_env *my_env)
 {
-	if (!data->comando[0])
+	if (!data->cmd[0])
 		external_exit(data, my_env, EXIT_SUCCESS);
-	if (is_folder(data->comando[0]))
+	if (is_folder(data->cmd[0]))
 		external_exit(data, my_env, NOT_EXECUTABLE);
 }
 
@@ -84,18 +84,19 @@ int	ft_exec_child_process(t_dados *data, t_env *my_env)
 	char	**env_array;
 	char	*value;
 
+	path = NULL;
 	ft_check_exit(data, my_env);
 	value = mini_value("PATH", my_env);
-	if (ft_strchr(data->comando[0], '/') || !value)
-		path = ft_strdup(data->comando[0]);
-	else if (data->comando[0][0] != '\0')
-		path = ft_get_path(data->comando[0], my_env);
+	if (ft_strchr(data->cmd[0], '/') || !value)
+		path = ft_strdup(data->cmd[0]);
+	else if (data->cmd[0][0] != '\0')
+		path = ft_get_path(data->cmd[0], my_env);
 	if (path == NULL)
 		external_exit(data, my_env, CMD_NOT_FOUND);
 	rl_clear_history();
 	env_array = myenv_to_array(my_env);
 	ft_free_env(&my_env);
-	if (execve(path, data->comando, env_array))
+	if (execve(path, data->cmd, env_array))
 		ft_handle_errors(data, path, env_array);
 	exit(EXIT_SUCCESS);
 }
