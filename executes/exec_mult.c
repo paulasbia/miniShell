@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/09 15:25:03 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 15:41:44 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,11 @@ int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes)
 	else if (!nbr_pipes)
 		exit_status = ft_execute_builtin(aux, &my_env);
 	else
-		exit(ft_execute_builtin(aux, &my_env));
+	{
+		exit_status = ft_execute_builtin(aux, &my_env);
+		close(STDOUT_FILENO);
+		exit(exit_status);
+	}
 	return(exit_status);
 }
 

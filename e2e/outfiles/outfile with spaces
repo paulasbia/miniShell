@@ -15,7 +15,6 @@ libft
 Makefile
 mini_outfiles
 minishell
-minishell_tester
 minishell_unit
 new_directory
 new_file.txt

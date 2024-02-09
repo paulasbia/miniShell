@@ -69,7 +69,7 @@ int	exec_testes(t_dados *data, t_env **my_env)
 			if (count != nbr_pipes) 
 			{
 				dup2(children[count].pfd[WRITE_END], STDOUT_FILENO);
-				//close(children[count].pfd[OUT]);
+				//close(children[count].pfd[WRITE_END]);
 			}
 			ft_close_pipes(data->cmd[0], children, nbr_pipes);
 			ft_handle_red_pipes(data, *my_env);
