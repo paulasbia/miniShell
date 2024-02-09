@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:34:54 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/08 23:19:23 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/09 10:13:31 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char					**split_pipe(char const *s);
 char					*cont_word_pipe(char const *s, int *i);
 void					handle_quotes_on_pipe(int *i, int *j, char const *s,
 							char c);
-char					*alloc_word(const char *s, int j, int index);
+char					*alloc_word_p(const char *s, int j, int index);
 int						cont_pipe(char const *s);
 
 ////////////////// UTILS PARSING ///////////// ok
