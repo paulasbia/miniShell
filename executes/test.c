@@ -33,12 +33,15 @@ int exec_testes(t_dados *data, t_env **my_env)
 		x++;
 	}
 	auto int pos = 0;
+	auto int j = 0;
 	while (temp && pos < nbr_pipes) 
 	{
 		child_pid = fork();
+		ft_def_signal(child_pid);
 		if (child_pid == -1)
 			ft_child_err("fork", temp->comando[0]);
-		else if (child_pid == 0) {  // Child process
+		else if (child_pid == 0) // Child process
+		{
 			if (pos != 0) {
 				dup2(pipes_fd[pos - 1][IN], STDIN_FILENO);
 				close(pipes_fd[pos - 1][IN]);
@@ -49,9 +52,11 @@ int exec_testes(t_dados *data, t_env **my_env)
 				close(pipes_fd[pos][OUT]);
 			}
 			// Close all pipe file descriptors in the child process
-			for (int j = 0; j < nbr_pipes; j++) {
+			while (j < nbr_pipes) 
+			{
 				close(pipes_fd[j][IN]);
 				close(pipes_fd[j][OUT]);
+				j++;
 			}
 			// ft_handle_red_pipes(temp, *my_env);
 			// ft_handle_exec(temp, *my_env);
