@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/02/09 10:34:16 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 15:49:11 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void	external_exit(t_dados *data, t_env *minienv, int exit_status)
 	rl_clear_history();
 	ft_free_env(&minienv);
 	free_list(&data);
+	close(STDOUT_FILENO);
+	close(STDIN_FILENO);
+	close(STDERR_FILENO);
 	exit(exit_status);
 }
 
