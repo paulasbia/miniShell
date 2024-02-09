@@ -32,13 +32,13 @@ int exec_testes(t_dados *data, t_env **my_env)
 			ft_child_err("pipe", temp->comando[0]);
 		x++;
 	}
-	int pos = 0;
-	while (temp && pos < nbr_pipes) {
-	child_pid = fork();
-		if (child_pid == -1) {
-			perror("fork");
-			return -1;
-		} else if (child_pid == 0) {  // Child process
+	auto int pos = 0;
+	while (temp && pos < nbr_pipes) 
+	{
+		child_pid = fork();
+		if (child_pid == -1)
+			ft_child_err("fork", temp->comando[0]);
+		else if (child_pid == 0) {  // Child process
 			if (pos != 0) {
 				dup2(pipes_fd[pos - 1][IN], STDIN_FILENO);
 				close(pipes_fd[pos - 1][IN]);
