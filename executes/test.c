@@ -19,13 +19,17 @@ int exec_testes(t_dados *data, t_env **my_env)
 	t_dados *temp = data;
 	int		nbr_pipes;
 	pid_t	child_pid;
+	int		x;
 
 	nbr_pipes = number_pipes(temp);
 	(void)my_env;
 	auto int pipes_fd[nbr_pipes][2];
-	for (int x = 0; x < nbr_pipes; x++) {
+	x = 0;
+	while (x < nbr_pipes) 
+	{
 		if (pipe(pipes_fd[x]) == -1)
 			ft_child_err("pipe", temp->comando[0]);
+		x++;
 	}
 
 	temp = data;
