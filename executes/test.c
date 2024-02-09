@@ -1,14 +1,14 @@
 #include "../includes/minishell.h"
 
-int	number_pipes(t_dados *temporary)
+int	number_pipes(t_dados *temp)
 {
 	int	i;
 
 	i = 0;
-	while (temporary) 
+	while (temp) 
 	{
 		i++;
-		temporary = temporary->next;
+		temp = temp->next;
 	}
 	return(i);
 
@@ -16,23 +16,21 @@ int	number_pipes(t_dados *temporary)
 
 int exec_testes(t_dados *data, t_env **my_env) 
 {
-	t_dados *temporary = data;
+	t_dados *temp = data;
 	int		nbr_pipes;
 	pid_t	child_pid;
 
-	nbr_pipes = number_pipes(temporary);
+	nbr_pipes = number_pipes(temp);
 	(void)my_env;
 	auto int pipes_fd[nbr_pipes][2];
 	for (int x = 0; x < nbr_pipes; x++) {
-		if (pipe(pipes_fd[x]) == -1) {
-			perror("pipe");
-			return -1;
-		}
+		if (pipe(pipes_fd[x]) == -1)
+			ft_child_err("pipe", temp->comando[0]);
 	}
 
-	temporary = data;
+	temp = data;
 	int pos = 0;
-	while (temporary && pos < nbr_pipes) {
+	while (temp && pos < nbr_pipes) {
 	child_pid = fork();
 		if (child_pid == -1) {
 			perror("fork");
@@ -52,15 +50,15 @@ int exec_testes(t_dados *data, t_env **my_env)
 				close(pipes_fd[j][IN]);
 				close(pipes_fd[j][OUT]);
 			}
-			ft_handle_red_pipes(temporary, *my_env);
-			ft_handle_exec(temporary, *my_env);
-			// if (execvp(temporary->comando[0], temporary->comando) == -1) {
-			// 	perror("execvp");
-			// 	exit(EXIT_FAILURE);
-			// }
+			// ft_handle_red_pipes(temp, *my_env);
+			// ft_handle_exec(temp, *my_env);
+			if (execvp(temp->comando[0], temp->comando) == -1) {
+				perror("execvp");
+				exit(EXIT_FAILURE);
+			}
 		} else { // Parent process
 			pos++;
-			temporary = temporary->next;
+			temp = temp->next;
 		}
 	}
 
@@ -72,7 +70,7 @@ int exec_testes(t_dados *data, t_env **my_env)
 
 	// Wait for all child processes to finish
 	for (int j = 0; j < nbr_pipes; j++) {
-		ft_wait_exit_status(child_pid);
+		wait(NULL);
 	}
 	return (EXIT_SUCCESS);
 }
