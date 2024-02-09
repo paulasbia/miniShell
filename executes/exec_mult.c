@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/09 14:00:18 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 14:28:55 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	ft_handle_pipe(t_dados *aux, t_dados *data, int back_out)
 	static int	pipe_fd[2];
 
 	if (aux != data)
-		redirect_fd(pipe_fd[IN], STDIN_FILENO);
+		redirect_fd(pipe_fd[READ_END], STDIN_FILENO);
 	if (aux->next)
 	{
 		if (pipe(pipe_fd) < 0)
 			ft_child_err("pipe", aux->cmd[0]);
-		redirect_fd(pipe_fd[OUT], STDOUT_FILENO);
+		redirect_fd(pipe_fd[WRITE_END], STDOUT_FILENO);
 	}
 	else
 		redirect_fd(back_out, STDOUT_FILENO);

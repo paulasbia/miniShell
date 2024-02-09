@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/09 13:41:09 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 14:28:48 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # include <limits.h>			  //llong int
 
 //# define LLONG_MAX 9223372036854775807
-# define IN 0
-# define OUT 1
+# define READ_END 0
+# define WRITE_END 1
 # define PATH_MAX 4096
 # define INTERRUPT 128
 # define CMD_NOT_FOUND 127
