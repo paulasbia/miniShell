@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:37:26 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 09:08:25 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_cmd_builtin(t_dados *data)
 {
 	char	*command;
 
-	command = data->comando[0];
+	command = data->cmd[0];
 	if (!command)
 		return (0);
 	if (str_equal(command, "pwd"))

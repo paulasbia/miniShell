@@ -35,7 +35,6 @@ ls <missing >>./e2e/test_files/invalid_permission >>./e2e/outfiles/outfile02
 ls >>./e2e/test_files/invalid_permission >>./e2e/outfiles/outfile02 <missing
 cat <missing
 cat <minishell.h>./e2e/outfiles/outfile
-#pipes
 echo <"./e2e/test_files/infile_big" | cat <"./e2e/test_files/infile"
 echo <"./e2e/test_files/infile_big" | cat "./e2e/test_files/infile"
 echo <"./e2e/test_files/infile_big" | echo <"./e2e/test_files/infile"
@@ -70,7 +69,6 @@ echo hi | echo bye >./e2e/test_files/invalid_permission
 echo hi | >./outfiles/outfile01 echo bye >./e2e/test_files/invalid_permission
 echo hi | echo bye >./e2e/test_files/invalid_permission >./e2e/outfiles/outfile01
 cat <minishell.h|ls
-#aspas
 ls >"./e2e/outfiles/outfile with spaces"
 ls >"./e2e/outfiles/outfile01" >./e2e/test_files/invalid_permission >"./e2e/outfiles/outfile02"
 ls >./e2e/test_files/invalid_permission >"./e2e/outfiles/outfile01" >./e2e/test_files/invalid_permission

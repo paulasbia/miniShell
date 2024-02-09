@@ -1,6 +1,5 @@
 $PWD
-$EMPTY
-#$EMPTY echo hi
+$EMPTY echo hi
 ./e2e/test_files/invalid_permission
 ./e2e/missing.out
 missing.out

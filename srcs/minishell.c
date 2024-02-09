@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/02/08 15:22:24 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 10:35:11 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,33 @@ int	start_execution(t_dados *data, t_env **my_env)
 	return (exit_status);
 }
 
-// antes do exit_status receber qualquer coisa vamos chamar o parsing
-int	minishell(t_env *my_env)
+char	*get_input(t_env **my_env)
 {
 	char	*input;
-	int		exit_status;
+
+	input = readline(ft_get_prompt());
+	if (!input)
+		(ft_exit(NULL, my_env));
+	if (input[0])
+		add_history(input);
+	return (input);
+}
+
+// antes do exit_status receber qualquer coisa vamos chamar o parsing
+int	minishell(t_env *my_env, int exit_status)
+{
 	t_dados	*dados;
+	int		tmp_exit;
+	char	*input;
 
 	while (1)
 	{
 		ft_init_signal();
-		input = readline(ft_get_prompt());
-		if (!input)
-			(ft_exit(NULL, &my_env));
-		if (input[0])
-			add_history(input);
-		if (validate_input(input) == 0)
+		input = get_input(&my_env);
+		tmp_exit = validate_input(input);
+		if (tmp_exit == 0)
 		{
-			dados = parsing(input);
+			dados = parsing(input, my_env, exit_status);
 			if (dados)
 			{
 				parse_heredoc(dados);
@@ -49,6 +58,8 @@ int	minishell(t_env *my_env)
 				free_list(&dados);
 			}
 		}
+		else
+			exit_status = tmp_exit;
 		free(input);
 	}
 	return (exit_status);

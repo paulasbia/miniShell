@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:28:57 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 10:20:34 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ int	ft_unset(t_dados *data, t_env **my_env)
 
 	i = 1;
 	exit_status = EXIT_SUCCESS;
-	while (data->comando[i])
+	while (data->cmd[i])
 	{
-		if (!ft_strncmp(data->comando[i], "-", 1) && data->comando[i][1])
+		if (!ft_strncmp(data->cmd[i], "-", 1) && data->cmd[i][1])
 		{
-			ft_print_error_var("unset", data->comando[i]);
+			ft_print_error_var("unset", data->cmd[i]);
 			exit_status = 2;
 		}
-		remove_env(data->comando[i], my_env);
+		remove_env(data->cmd[i], my_env);
 		i++;
 	}
 	return (exit_status);
