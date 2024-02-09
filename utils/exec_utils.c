@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 09:06:44 by paula             #+#    #+#             */
-/*   Updated: 2024/02/06 15:47:01 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 13:27:21 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	exit_child(t_dados *data, t_env *my_env)
 }
 
 //um malloc, como proteger?
-pid_t	*ft_alloc(t_dados *data)
+t_child	*ft_alloc(t_dados *data)
 {
 	int		i;
-	pid_t	*alloc;
+	t_child	*alloc;
 
 	i = 0;
 	while (data)
@@ -32,10 +32,10 @@ pid_t	*ft_alloc(t_dados *data)
 		i++;
 		data = data->next;
 	}
-	alloc = malloc(sizeof(pid_t) * (i + 1));
+	alloc = malloc(sizeof(t_child) * (i));
 	if (alloc == NULL)
 		print_error_msg("alloc", "malloc fail");
-	alloc[i] = 0;
+	//alloc[i] = NULL;
 	return (alloc);
 }
 

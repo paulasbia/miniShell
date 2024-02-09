@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/09 10:33:17 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 13:41:09 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ struct				s_parse_heredoc
 	t_redirect		*red_temp;
 };
 
+typedef struct s_children
+{
+	pid_t	pid;
+	int		pfd[2];
+} t_child;
+
 int	exec_testes(t_dados *data, t_env **my_env);
 void	ft_handle_red_pipes(t_dados *data, t_env *my_env);
 void	ft_handle_exec(t_dados *aux, t_env *my_env);
@@ -79,7 +85,7 @@ char				**myenv_to_array(t_env *my_env);
 int					ft_cmd_builtin(t_dados *data);
 int					str_equal(const char *str1, const char *str2);
 void				exit_child(t_dados *data, t_env *my_env);
-pid_t				*ft_alloc(t_dados *data);
+t_child				*ft_alloc(t_dados *data);
 int					ft_get_exit_status(int status);
 void				redirect_fd(int fd_for_red, int fd_local);
 void				ft_save_fds(int saved_fd[2]);
@@ -95,7 +101,7 @@ int					ft_exec_child_process(t_dados *data, t_env *my_env);
 int					ft_execute_multiple_cmd(t_dados *data, t_env *my_env);
 
 // wait
-int					wait_for_children(int *children_pid);
+int					wait_for_children(t_child *children, int size_children);
 int					ft_wait_exit_status(int child_pid);
 
 // redirects

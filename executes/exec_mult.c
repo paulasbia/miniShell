@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/09 10:34:25 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 14:00:18 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_handle_pipe(t_dados *aux, t_dados *data, int back_out)
 
 void	ft_handle_exec(t_dados *aux, t_env *my_env)
 {
-	close_extra_fds();
+	//close_extra_fds();
 	if (!ft_cmd_builtin(aux))
 	{
 		ft_exec_child_process(aux, my_env);
@@ -70,30 +70,30 @@ void	check_child_pid(int child_pid, t_dados *data)
 		ft_child_err("fork", data->cmd[0]);
 }
 
-int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
-{
-	int		saved_fds[2];
-	pid_t	*children_pid;
-	int		i;
-	t_dados	*aux;
+// int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
+// {
+// 	int		saved_fds[2];
+// 	pid_t	*children_pid;
+// 	int		i;
+// 	t_dados	*aux;
 
-	ft_save_fds(saved_fds);
-	children_pid = ft_alloc(data);
-	aux = data;
-	i = 0;
-	while (aux)
-	{
-		ft_handle_pipe(aux, data, saved_fds[OUT]);
-		children_pid[i] = fork();
-		check_child_pid(children_pid[i], aux);
-		ft_def_signal(children_pid[i]);
-		if (!children_pid[i++])
-		{
-			ft_handle_red_pipes(aux, my_env);
-			ft_handle_exec(aux, my_env);
-		}
-		aux = aux->next;
-	}
-	back_saved_fd(saved_fds);
-	return (wait_for_children(children_pid));
-}
+// 	ft_save_fds(saved_fds);
+// 	children_pid = ft_alloc(data);
+// 	aux = data;
+// 	i = 0;
+// 	while (aux)
+// 	{
+// 		ft_handle_pipe(aux, data, saved_fds[OUT]);
+// 		children_pid[i] = fork();
+// 		check_child_pid(children_pid[i], aux);
+// 		ft_def_signal(children_pid[i]);
+// 		if (!children_pid[i++])
+// 		{
+// 			ft_handle_red_pipes(aux, my_env);
+// 			ft_handle_exec(aux, my_env);
+// 		}
+// 		aux = aux->next;
+// 	}
+// 	back_saved_fd(saved_fds);
+// 	return (wait_for_children(children_pid));
+// }
