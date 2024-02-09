@@ -71,6 +71,7 @@ check:
 	norminette ./executes
 	norminette ./parsing
 	norminette ./includes
+	norminette ./libft
 
 test_r:
 	./e2e/tester.sh ./e2e/redirects

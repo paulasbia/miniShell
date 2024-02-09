@@ -181,7 +181,7 @@ static void	tests_ft_parsing(void)
 	};
 
 	char	*input = {"pwd | wc"};
-	t_dados	*actual = parsing(input);
+	t_dados	*actual = parsing(input, init_env, 0);
 
 	assert_lista(&expected2, actual);
 }
@@ -277,7 +277,7 @@ static void	tests_ft_parsing_with_space(void)
 	};
 
 	char	*input = "echo \"1\"\"2\"";
-	t_dados	*actual = parsing(input);
+	t_dados	*actual = parsing(input, init_env, 0);
 
 	assert_lista(&expected2, actual);
 }
@@ -292,7 +292,7 @@ static void	tests_ft_parsing_without_space(void)
 	};
 
 	char	*input = "echo\"1\"\"2\"";
-	t_dados	*actual = parsing(input);
+	t_dados	*actual = parsing(input, init_env, 0);
 
 	assert_lista(&expected2, actual);
 }
@@ -335,7 +335,7 @@ static void	tests_ft_parsing_grep(void)
 	};
 
 	char	*input = "export | sort | grep -v SHLVL | grep -v \"declare -x _\" | grep -v \"PS.=\"";
-	t_dados	*actual = parsing(input);
+	t_dados	*actual = parsing(input, init_env, 0);
 
 	assert_lista(&expected, actual);
 }
