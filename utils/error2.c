@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:48:59 by paula             #+#    #+#             */
-/*   Updated: 2024/02/02 11:29:56 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ void	ft_handle_errors(t_dados *data, char *path, char **envp)
 
 	error = EXIT_FAILURE;
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	perror(data->comando[0]);
+	perror(data->cmd[0]);
 	if (access(path, F_OK) != 0)
 		error = CMD_NOT_FOUND;
 	else if (access(path, X_OK) != 0)
 		error = NOT_EXECUTABLE;
 	free_list(&data);
 	ft_free_args(envp);
-	free(path);
+	if (path)
+		free(path);
 	exit(error);
 }
 

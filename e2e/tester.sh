@@ -77,7 +77,7 @@ for testfile in ${test_lists[*]}; do
 		printf $YELLOW
 		printf "Test %3s: " $i
         # temporary removed && "$MINI_EXIT_CODE" == "$BASH_EXIT_CODE" from if bellow
-		if [[ "$MINI_OUTPUT" == "$BASH_OUTPUT"  && -z "$OUTFILES_DIFF" ]]; then
+		if [[ "$MINI_OUTPUT" == "$BASH_OUTPUT"  && -z "$OUTFILES_DIFF" && "$MINI_EXIT_CODE" == "$BASH_EXIT_CODE" ]]; then
 			printf ✅
 			((ok++))
 			if [ "$MINI_ERROR_MSG" != "$BASH_ERROR_MSG" ]; then

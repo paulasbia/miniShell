@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 23:01:12 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/02 23:02:15 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	free_list(t_dados **lst)
 	{
 		temp = *lst;
 		*lst = (*lst)->next;
-		free_dp(temp->comando);
+		free_dp(temp->cmd);
 		while (temp->nbr_redirections > 0)
 		{
 			free(temp->redirect[temp->nbr_redirections - 1].filename);

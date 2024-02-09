@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 10:57:01 by paula             #+#    #+#             */
-/*   Updated: 2024/01/17 10:47:57 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ int	ft_cd(t_dados *data, t_env **my_env)
 {
 	char	*path;
 
-	if (data->comando[1] && data->comando[2])
+	if (data->cmd[1] && data->cmd[2])
 	{
 		print_error_msg("cd", "too many arguments");
 		return (EXIT_FAILURE);
 	}
-	if (!data->comando[1] || !ft_strncmp(data->comando[1], "~", 1))
+	if (!data->cmd[1] || !ft_strncmp(data->cmd[1], "~", 1))
 		path = mini_value("HOME", *my_env);
 	else
-		path = data->comando[1];
+		path = data->cmd[1];
 	if (ft_execute_cd(path, my_env))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

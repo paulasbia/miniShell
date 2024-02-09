@@ -6,13 +6,13 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:57:17 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/05 20:26:40 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/09 10:13:42 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	cont_pipe(char const *s)
+int	cont_pipe(char const *s)
 {
 	int	result;
 
@@ -38,7 +38,7 @@ static int	cont_pipe(char const *s)
 	return (result);
 }
 
-static char	*alloc_word(const char *s, int j, int index)
+char	*alloc_word_p(const char *s, int j, int index)
 {
 	char	*src;
 	int		i;
@@ -67,7 +67,7 @@ void	handle_quotes_on_pipe(int *i, int *j, char const *s, char c)
 	}
 }
 
-static char	*cont_word_pipe(char const *s, int *i)
+char	*cont_word_pipe(char const *s, int *i)
 {
 	int	j;
 	int	index;

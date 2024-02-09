@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:31:41 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/03 12:29:58 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	handle_clean_quotes(t_dados *node, char **split_cmd)
 	char	*new;
 	int		i;
 
-	node->comando = clear_dp_quotes(node->comando);
+	node->cmd = clear_dp_quotes(node->cmd);
 	i = 0;
 	while (i < node->nbr_redirections)
 	{

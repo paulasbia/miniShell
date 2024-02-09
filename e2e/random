@@ -1,0 +1,26 @@
+echo "Hello, World!"
+ls -l
+cat "file.txt"
+echo $USER
+pwd
+echo "Welcome to $HOME"
+ls > output.txt
+cat < input.txt
+echo "This is a test" > output.txt
+grep "pattern" < file.txt | wc -l
+mkdir "new_directory"
+echo $PATH
+ls -la | grep "file"
+cp "file.txt" "new_directory"
+mv "old_file.txt" "new_file.txt"
+chmod +x "script.sh"
+rm "file.txt"
+grep -i "pattern" < "file.txt" | sort
+sed 's/old/new/' < "file.txt"
+echo "$USER's home directory is $HOME"
+touch "new_file.txt"
+find . -type f -name "*.txt"
+head -n 10 "file.txt" | tail -n 5
+cat "file1.txt" "file2.txt" > "combined_file.txt"
+tar -czf "archive.tar.gz" "directory"
+
