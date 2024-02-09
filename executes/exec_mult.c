@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/09 14:28:55 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 15:25:03 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,20 @@ void	ft_handle_pipe(t_dados *aux, t_dados *data, int back_out)
 		redirect_fd(back_out, STDOUT_FILENO);
 }
 
-void	ft_handle_exec(t_dados *aux, t_env *my_env)
+int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes)
 {
-	//close_extra_fds();
+	int	exit_status;
+
+	exit_status = 0;
 	if (!ft_cmd_builtin(aux))
 	{
 		ft_exec_child_process(aux, my_env);
 	}
+	else if (!nbr_pipes)
+		exit_status = ft_execute_builtin(aux, &my_env);
 	else
 		exit(ft_execute_builtin(aux, &my_env));
+	return(exit_status);
 }
 
 void	check_child_pid(int child_pid, t_dados *data)

@@ -52,7 +52,10 @@ int	exec_testes(t_dados *data, t_env **my_env)
 	// auto int count = 0;
 	while (data)
 	{
-		children[count].pid = fork();
+		if (nbr_pipes > 0 || !ft_cmd_builtin(data))
+			children[count].pid = fork();
+		else
+			children[count].pid = 0;
 		ft_def_signal(children[count].pid);
 		if (children[count].pid < 0)
 			ft_child_err("fork", data->cmd[0]);
@@ -70,20 +73,16 @@ int	exec_testes(t_dados *data, t_env **my_env)
 			}
 			ft_close_pipes(data->cmd[0], children, nbr_pipes);
 			ft_handle_red_pipes(data, *my_env);
-			ft_handle_exec(data, *my_env);
+			i = ft_handle_exec(data, *my_env, nbr_pipes);
 		}
-		// else // eh o pai
-		// {
-		// 	if (count < nbr_pipes)
-		// 		close(children[count].pfd[WRITE_END]);				
-		// 	if (count > 0)
-		// 		close(children[count - 1].pfd[READ_END]);
-		// }
 		data = data->next;
 		count++;
 	}
 	ft_close_pipes(temp->cmd[0], children, nbr_pipes);
-	return(wait_for_children(children, nbr_pipes + 1));
+	if (nbr_pipes > 0 || !ft_cmd_builtin(temp))
+		return(wait_for_children(children, nbr_pipes + 1));
+	else
+		return (i);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/09 14:28:48 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 15:25:34 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_children
 
 int	exec_testes(t_dados *data, t_env **my_env);
 void	ft_handle_red_pipes(t_dados *data, t_env *my_env);
-void	ft_handle_exec(t_dados *aux, t_env *my_env);
+int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes);
 
 
 int					ft_check_arg(int ac, char **av);
