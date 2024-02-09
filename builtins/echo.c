@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:36:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/08 19:51:06 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,20 @@
 
 static int	ft_check_n(char *args)
 {
-	if (strncmp(args, "-n", 3))
+	int	i;
+
+	i = 0;
+	if (args[0] != '-')
 		return (0);
+	if (args[0] == '-' && args[i + 1] != 'n')
+		return (0);
+	i++;
+	while (args[i])
+	{
+		if (args[i] == ' ' || args[i] != 'n')
+			return (0);
+		i++;
+	}
 	return (1);
 }
 
@@ -26,7 +38,7 @@ int	ft_echo(t_dados *data)
 
 	i = 1;
 	new_line = 0;
-	if (data->cmd[i] && ft_check_n(data->cmd[i]))
+	while (data->comando[i] && ft_check_n(data->comando[i]))
 	{
 		new_line = 1;
 		i++;
