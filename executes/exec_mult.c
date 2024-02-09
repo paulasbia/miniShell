@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/09 15:47:09 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 16:27:57 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 	int	i;
 
 	number_red = data->nbr_redirections;
+	//printf("nbr red eh %d\n", number_red);
 	i = 0;
 	while (number_red--)
 	{
 		if (data->redirect[i].redirect_type == 0
 			|| data->redirect[i].redirect_type == 3)
 		{
+		//	printf("output\n");
 			if (!redirect_output(&data->redirect[i]))
 				exit_child(data, my_env);
 		}
@@ -33,6 +35,7 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 			if (!redirect_input(&data->redirect[i]))
 				exit_child(data, my_env);
 		}
+	//	printf("somando i\n");
 		i++;
 	}
 }
@@ -55,6 +58,7 @@ void	ft_handle_pipe(t_dados *aux, t_dados *data, int back_out)
 
 int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes)
 {
+//	printf("entrou no exec\n");
 	int	exit_status;
 
 	exit_status = 0;
@@ -72,7 +76,7 @@ int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes)
 		close(STDERR_FILENO);
 		exit(exit_status);
 	}
-	return(exit_status);
+	return (exit_status);
 }
 
 void	check_child_pid(int child_pid, t_dados *data)

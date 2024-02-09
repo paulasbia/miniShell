@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/02/06 15:46:15 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 16:29:51 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,20 @@ int	redirect_output(t_redirect *red)
 	else if (red->redirect_type == 0)
 		open_flags = O_WRONLY | O_CREAT | O_TRUNC;
 	fd = open(red->filename, open_flags, 0644);
+	//printf("filename eh %s\n", red->filename);
 	if (fd < 0)
 	{
+	//	printf("eh menor\n");
 		ft_child_err("open", red->filename);
 		return (0);
 	}
 	else
 	{
+	//	printf("entrou no else\n");
 		dup2(fd, STDOUT_FILENO);
-		close(fd);
+		//close(fd);
 	}
+	//printf("retorna 1\n");
 	return (1);
 }
 

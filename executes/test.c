@@ -53,12 +53,16 @@ int	exec_testes(t_dados *data, t_env **my_env)
 		if (nbr_pipes > 0 || !ft_cmd_builtin(data))
 			children[count].pid = fork();
 		else
+		{
+		//	printf("vai zerar o pid\n");
 			children[count].pid = 0;
+		}
 		ft_def_signal(children[count].pid);
 		if (children[count].pid < 0)
 			ft_child_err("fork", data->cmd[0]);
 		if (children[count].pid == 0) //filho
 		{
+		//	printf("count eh %d e cmd eh %s\n", count, data->cmd[0]);
 			if (count != 0) 
 				dup2(children[count - 1].pfd[READ_END], STDIN_FILENO);
 			if (count != nbr_pipes) 
