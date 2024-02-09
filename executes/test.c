@@ -16,11 +16,12 @@ int	number_pipes(t_dados *temp)
 
 int exec_testes(t_dados *data, t_env **my_env) 
 {
-	t_dados *temp = data;
+	t_dados *temp;
 	int		nbr_pipes;
 	pid_t	child_pid;
 	int		x;
 
+	temp = data;
 	nbr_pipes = number_pipes(temp);
 	(void)my_env;
 	auto int pipes_fd[nbr_pipes][2];
@@ -31,8 +32,6 @@ int exec_testes(t_dados *data, t_env **my_env)
 			ft_child_err("pipe", temp->comando[0]);
 		x++;
 	}
-
-	temp = data;
 	int pos = 0;
 	while (temp && pos < nbr_pipes) {
 	child_pid = fork();
