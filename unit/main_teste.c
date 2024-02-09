@@ -188,7 +188,7 @@ static void	tests_ft_parsing(void)
 
 static void	tests_ft_validate_open_quotes(void)
 {
-	int		expected = 1;
+	int		expected = 2;
 	char	*input = {"echo \"a"};
 	int		actual = validate_input(input);
 
@@ -197,7 +197,7 @@ static void	tests_ft_validate_open_quotes(void)
 
 static void	tests_ft_validate_open_quotes_pipe(void)
 {
-	int		expected = 1;
+	int		expected = 2;
 	char	*input = {"ls | wc \"a"};
 	int		actual = validate_input(input);
 
@@ -206,7 +206,7 @@ static void	tests_ft_validate_open_quotes_pipe(void)
 
 static void	tests_ft_validate_open_quotes_pipe2(void)
 {
-	int		expected = 1;
+	int		expected = 2;
 	char	*input = {"ls | wc \'a"};
 	int		actual = validate_input(input);
 
@@ -215,7 +215,7 @@ static void	tests_ft_validate_open_quotes_pipe2(void)
 
 static void	tests_ft_validate_sintaxe(void)
 {
-	int		expected = 1;
+	int		expected = 2;
 	char	*input = {" ls >< a. txt"};
 	int		actual = validate_input(input);
 
@@ -224,7 +224,7 @@ static void	tests_ft_validate_sintaxe(void)
 
 static void	tests_ft_validate_sintaxe_start_pipe(void)
 {
-	int		expected = 1;
+	int		expected = 2;
 	char	*input = {"| ls"};
 	int		actual = validate_input(input);
 
@@ -233,7 +233,7 @@ static void	tests_ft_validate_sintaxe_start_pipe(void)
 
 static void	tests_ft_validate_sintaxe_empty_pipe(void)
 {
-	int		expected = 1;
+	int		expected = 2;
 	char	*input = {"ls |"};
 	int		actual = validate_input(input);
 
@@ -251,7 +251,7 @@ static void	tests_ft_validate_sintaxe_not_error(void)
 
 static void	tests_ft_validate_sintaxe_with_error(void)
 {
-	int		expected = 1;
+	int		expected = 2;
 	char	*input = {"ls |>>> wc"};
 	int		actual = validate_input(input);
 
