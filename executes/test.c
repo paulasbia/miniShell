@@ -31,7 +31,6 @@ void	ft_close_pipes(char *cmd, t_child *children, int nbr_pipes)
 
 int	exec_testes(t_dados *data, t_env **my_env)
 {
-	(void)my_env;
 	t_child	*children;
 	int	nbr_pipes;
 	int	i;
@@ -49,7 +48,6 @@ int	exec_testes(t_dados *data, t_env **my_env)
 		i++;
 	}
 	count = 0;
-	// auto int count = 0;
 	while (data)
 	{
 		if (nbr_pipes > 0 || !ft_cmd_builtin(data))
@@ -62,15 +60,9 @@ int	exec_testes(t_dados *data, t_env **my_env)
 		if (children[count].pid == 0) //filho
 		{
 			if (count != 0) 
-			{
 				dup2(children[count - 1].pfd[READ_END], STDIN_FILENO);
-				//close(children[count - 1].pfd[READ_END]);
-			}
 			if (count != nbr_pipes) 
-			{
 				dup2(children[count].pfd[WRITE_END], STDOUT_FILENO);
-				//close(children[count].pfd[WRITE_END]);
-			}
 			ft_close_pipes(data->cmd[0], children, nbr_pipes);
 			ft_handle_red_pipes(data, *my_env);
 			i = ft_handle_exec(data, *my_env, nbr_pipes);
