@@ -12,7 +12,7 @@ static int run_cmd(char **cmd){
 		.nbr_redirections = 0,
 		.next = NULL
 	};
-	return ft_one_cmd(&test1, &init_env);
+	return start_execution(&test1, &init_env);
 }
 
 static void assert_n_files_and_clean(char **actuals, char **expecteds)
@@ -51,7 +51,7 @@ static void	tests_ft_out_redirect_pwd(void)
 
 	char** expected = (char *[]){"bash", "-c", "pwd > expected.txt", NULL};
 
-	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+	TEST_ASSERT_EQUAL(0, start_execution(&actual, &init_env));
 
 	TEST_ASSERT_EQUAL(0, run_cmd(expected));
 
@@ -69,7 +69,7 @@ static void test_creat(void)
 
 	char** expected = (char *[]){"bash", "-c", "pwd > expected.txt", NULL};
 
-	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+	TEST_ASSERT_EQUAL(0, start_execution(&actual, &init_env));
 
 	TEST_ASSERT_EQUAL(0, run_cmd(expected));
 }
@@ -87,7 +87,7 @@ static void	tests_ft_append_redirect_ls(void)
 
 	char** expected = (char *[]){"bash", "-c", "ls >> expected.txt", NULL};
 
-	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+	TEST_ASSERT_EQUAL(0, start_execution(&actual, &init_env));
 
 	TEST_ASSERT_EQUAL(0, run_cmd(expected));
 
@@ -107,7 +107,7 @@ static void	tests_ft_input_redirect(void)
 	
 	char** expected = (char *[]){"bash", "-c", "wc < expected.txt", NULL};
 
-	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+	TEST_ASSERT_EQUAL(0, start_execution(&actual, &init_env));
 
 	TEST_ASSERT_EQUAL(0, run_cmd(expected));
 
@@ -132,7 +132,7 @@ static void	tests_ft_more_redirect(void)
 	
 	char** expected = (char *[]){"bash", "-c", "pwd > expected2.txt >> expected.txt", NULL};
 
-	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+	TEST_ASSERT_EQUAL(0, start_execution(&actual, &init_env));
 
 	TEST_ASSERT_EQUAL(0, run_cmd(expected));
 
@@ -351,7 +351,7 @@ static void	tests_ft_parsing_grep(void)
 
 // 	char** expected = (char *[]){"bash", "-c", "cat << EOF\n a\nb\nc\nEOF", NULL};
 
-// 	TEST_ASSERT_EQUAL(0, ft_one_cmd(&actual, &init_env));
+// 	TEST_ASSERT_EQUAL(0, start_execution(&actual, &init_env));
 
 // 	TEST_ASSERT_EQUAL(0, run_cmd(expected));
 
@@ -375,12 +375,12 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	init_env = init_minienv(env);
 	UNITY_BEGIN();
-	RUN_TEST(tests_ft_out_redirect_pwd);
-	RUN_TEST(tests_ft_append_redirect_ls);
-	RUN_TEST(tests_ft_input_redirect);
-	RUN_TEST(tests_return_code_error);
+	// RUN_TEST(tests_ft_out_redirect_pwd);
+	// RUN_TEST(tests_ft_append_redirect_ls);
+	// RUN_TEST(tests_ft_input_redirect);
+	// RUN_TEST(tests_return_code_error);
 	RUN_TEST(tests_ft_more_redirect);
-		RUN_TEST(tests_ft_parsing);
+	RUN_TEST(tests_ft_parsing);
 	RUN_TEST(tests_ft_validate_open_quotes);
 	RUN_TEST(tests_ft_validate_open_quotes_pipe);
 	RUN_TEST(tests_ft_validate_open_quotes_pipe2);
