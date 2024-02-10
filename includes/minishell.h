@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/09 15:25:34 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/10 10:39:01 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../includes/parsing.h" // parsing
 # include "../libft/libft.h"      // libft
 # include <fcntl.h>               // open flags
+# include <limits.h>              //llong int
 # include <readline/history.h>    // history
 # include <readline/readline.h>   // readline
 # include <signal.h>              // sigaction
@@ -24,7 +25,6 @@
 # include <sys/stat.h>            // stat
 # include <sys/wait.h>            // waitpid
 # include <unistd.h>              // getpwd
-# include <limits.h>			  //llong int
 
 //# define LLONG_MAX 9223372036854775807
 # define READ_END 0
@@ -59,14 +59,20 @@ struct				s_parse_heredoc
 
 typedef struct s_children
 {
-	pid_t	pid;
-	int		pfd[2];
-} t_child;
+	pid_t			pid;
+	int				pfd[2];
+}					t_child;
 
-int	exec_testes(t_dados *data, t_env **my_env);
-void	ft_handle_red_pipes(t_dados *data, t_env *my_env);
-int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes);
+typedef struct s_exec
+{
+	int	i;
+	int	count;
+	int	nbr_pipes;
+}					t_exec;
 
+int					exec_testes(t_dados *data, t_env **my_env);
+void				ft_handle_red_pipes(t_dados *data, t_env *my_env);
+int					ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes);
 
 int					ft_check_arg(int ac, char **av);
 int					minishell(t_env *my_env, int exit_status);

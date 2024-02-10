@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/09 16:27:57 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/10 10:45:57 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,6 @@ int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes)
 		exit(exit_status);
 	}
 	return (exit_status);
-}
-
-void	check_child_pid(int child_pid, t_dados *data)
-{
-	if (child_pid < 0)
-		ft_child_err("fork", data->cmd[0]);
 }
 
 // int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)

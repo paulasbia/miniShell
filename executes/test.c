@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:14:13 by paula             #+#    #+#             */
-/*   Updated: 2024/02/10 10:15:14 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/10 11:00:32 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,56 +40,86 @@ void	ft_close_pipes(char *cmd, t_child *children, int nbr_pipes)
 	}
 }
 
-int	start_execution(t_dados *data, t_env **my_env)
+void	create_pipes(int nbr_pipes, t_child *children, t_dados *data)
 {
-	t_child	*children;
-	int		nbr_pipes;
-	int		i;
-	int		count;
-	t_dados	*temp;
+	int	i;
 
-	nbr_pipes = data_counter(data) - 1;
-	children = ft_alloc(data);
 	i = 0;
-	temp = data;
 	while (i < nbr_pipes)
 	{
 		if (pipe(children[i].pfd) < 0)
 			ft_child_err("pipe", data->cmd[0]);
 		i++;
 	}
-	count = 0;
+}
+
+void	check_child_pid(int child_pid, t_dados *data)
+{
+	if (child_pid < 0)
+		ft_child_err("fork", data->cmd[0]);
+}
+
+void	create_fork(int nbr_pipes, t_child *children, t_dados *data, int count)
+{
+	if (nbr_pipes > 0 || !ft_cmd_builtin(data))
+		children[count].pid = fork();
+	else
+		children[count].pid = 0;
+	ft_def_signal(children[count].pid);
+	check_child_pid(children->pid, data);
+}
+
+void	do_dup(t_child *children, int count, int nbr_pipes, t_dados *data)
+{
+	if (count != 0)
+		dup2(children[count - 1].pfd[READ_END], STDIN_FILENO);
+	if (count != nbr_pipes)
+		dup2(children[count].pfd[WRITE_END], STDOUT_FILENO);
+	ft_close_pipes(data->cmd[0], children, nbr_pipes);
+}
+
+void	init_ex(t_exec *ex, t_dados *data)
+{
+	ex->count = 0;
+	ex->i = 0;
+	ex->nbr_pipes = data_counter(data) - 1;
+}
+
+int	check_return(t_exec ex, t_dados *temp, t_child *children)
+{
+	if (ex.nbr_pipes > 0 || !ft_cmd_builtin(temp))
+		return (wait_for_children(children, ex.nbr_pipes + 1));
+	else
+	{
+		free(children);
+		return (ex.i);
+	}
+}
+
+int	start_execution(t_dados *data, t_env **my_env)
+{
+	t_child	*children;
+	t_exec	ex;
+	t_dados	*temp;
+
+	init_ex(&ex, data);
+	children = ft_alloc(data);
+	temp = data;
+	create_pipes(ex.nbr_pipes, children, data);
 	while (data)
 	{
-		if (nbr_pipes > 0 || !ft_cmd_builtin(data))
-			children[count].pid = fork();
-		else
+		create_fork(ex.nbr_pipes, children, data, ex.count);
+		if (children[ex.count].pid == 0)
 		{
-			//	printf("vai zerar o pid\n");
-			children[count].pid = 0;
-		}
-		ft_def_signal(children[count].pid);
-		if (children[count].pid < 0)
-			ft_child_err("fork", data->cmd[0]);
-		if (children[count].pid == 0) // filho
-		{
-			//	printf("count eh %d e cmd eh %s\n", count, data->cmd[0]);
-			if (count != 0)
-				dup2(children[count - 1].pfd[READ_END], STDIN_FILENO);
-			if (count != nbr_pipes)
-				dup2(children[count].pfd[WRITE_END], STDOUT_FILENO);
-			ft_close_pipes(data->cmd[0], children, nbr_pipes);
+			do_dup(children, ex.count, ex.nbr_pipes, data);
 			ft_handle_red_pipes(data, *my_env);
-			i = ft_handle_exec(data, *my_env, nbr_pipes);
+			ex.i = ft_handle_exec(data, *my_env, ex.nbr_pipes);
 		}
 		data = data->next;
-		count++;
+		ex.count++;
 	}
-	ft_close_pipes(temp->cmd[0], children, nbr_pipes);
-	if (nbr_pipes > 0 || !ft_cmd_builtin(temp))
-		return (wait_for_children(children, nbr_pipes + 1));
-	else
-		return (i);
+	ft_close_pipes(temp->cmd[0], children, ex.nbr_pipes);
+	return(check_return(ex, temp, children));
 }
 
 // int exec_testes(t_dados *data, t_env **my_env)
