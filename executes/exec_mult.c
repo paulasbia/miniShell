@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/10 11:14:50 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/10 11:30:13 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 	int	i;
 
 	number_red = data->nbr_redirections;
-	//printf("nbr red eh %d\n", number_red);
 	i = 0;
 	while (number_red--)
 	{
 		if (data->redirect[i].redirect_type == 0
 			|| data->redirect[i].redirect_type == 3)
 		{
-		//	printf("output\n");
 			if (!redirect_output(&data->redirect[i]))
 				exit_child(data, my_env);
 		}
@@ -35,7 +33,6 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 			if (!redirect_input(&data->redirect[i]))
 				exit_child(data, my_env);
 		}
-	//	printf("somando i\n");
 		i++;
 	}
 }
@@ -58,7 +55,6 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 
 int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes)
 {
-//	printf("entrou no exec\n");
 	int	exit_status;
 
 	exit_status = 0;
@@ -79,11 +75,32 @@ int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes)
 	return (exit_status);
 }
 
+// int	data_counter(t_dados *temp)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (temp)
+// 	{
+// 		i++;
+// 		temp = temp->next;
+// 	}
+// 	return (i);
+// }
+
 void	init_ex(t_exec *ex, t_dados *data)
 {
+	int	j;
+
+	j = 0;
+	while (data)
+	{
+		j++;
+		data = data->next;
+	}
 	ex->count = 0;
 	ex->i = 0;
-	ex->nbr_pipes = data_counter(data) - 1;
+	ex->nbr_pipes = j - 1;
 }
 
 int	check_return(t_exec ex, t_dados *temp, t_child *children)
@@ -120,7 +137,7 @@ int	start_execution(t_dados *data, t_env **my_env)
 		ex.count++;
 	}
 	ft_close_pipes(temp->cmd[0], children, ex.nbr_pipes);
-	return(check_return(ex, temp, children));
+	return (check_return(ex, temp, children));
 }
 
 // int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)

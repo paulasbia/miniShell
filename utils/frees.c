@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:24:42 by paula             #+#    #+#             */
-/*   Updated: 2024/01/26 09:06:13 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/10 11:22:30 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,12 @@ void	ft_clean(char **to_clean)
 	while (to_clean[++i])
 		free(to_clean[i]);
 	free(to_clean);
+}
+
+void	exit_child(t_dados *data, t_env *my_env)
+{
+	rl_clear_history();
+	ft_free_env(&my_env);
+	free_list(&data);
+	exit(EXIT_FAILURE);
 }
