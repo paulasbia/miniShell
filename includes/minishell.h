@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/10 10:39:01 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/10 11:07:34 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ typedef struct s_exec
 	int	count;
 	int	nbr_pipes;
 }					t_exec;
+
+int	data_counter(t_dados *temp);
+void	create_pipes(int nbr_pipes, t_child *children, t_dados *data);
+void	check_child_pid(int child_pid, t_dados *data);
+void	create_fork(int nbr_pipes, t_child *children, t_dados *data, int count);
+void	do_dup(t_child *children, int count, int nbr_pipes, t_dados *data);
+void	ft_close_pipes(char *cmd, t_child *children, int nbr_pipes);
+
 
 int					exec_testes(t_dados *data, t_env **my_env);
 void				ft_handle_red_pipes(t_dados *data, t_env *my_env);

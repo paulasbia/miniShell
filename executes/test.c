@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:14:13 by paula             #+#    #+#             */
-/*   Updated: 2024/02/10 11:00:32 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/10 11:05:45 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@ int	data_counter(t_dados *temp)
 		temp = temp->next;
 	}
 	return (i);
-}
-
-void	ft_close_pipes(char *cmd, t_child *children, int nbr_pipes)
-{
-	int	i;
-
-	i = 0;
-	while (i < nbr_pipes)
-	{
-		if (close(children[i].pfd[READ_END]) == -1)
-			ft_child_err(cmd, "close READ_END");
-		if (close(children[i].pfd[WRITE_END]) == -1)
-			ft_child_err(cmd, "close WRITE_END");
-		i++;
-	}
 }
 
 void	create_pipes(int nbr_pipes, t_child *children, t_dados *data)
@@ -78,49 +63,7 @@ void	do_dup(t_child *children, int count, int nbr_pipes, t_dados *data)
 	ft_close_pipes(data->cmd[0], children, nbr_pipes);
 }
 
-void	init_ex(t_exec *ex, t_dados *data)
-{
-	ex->count = 0;
-	ex->i = 0;
-	ex->nbr_pipes = data_counter(data) - 1;
-}
 
-int	check_return(t_exec ex, t_dados *temp, t_child *children)
-{
-	if (ex.nbr_pipes > 0 || !ft_cmd_builtin(temp))
-		return (wait_for_children(children, ex.nbr_pipes + 1));
-	else
-	{
-		free(children);
-		return (ex.i);
-	}
-}
-
-int	start_execution(t_dados *data, t_env **my_env)
-{
-	t_child	*children;
-	t_exec	ex;
-	t_dados	*temp;
-
-	init_ex(&ex, data);
-	children = ft_alloc(data);
-	temp = data;
-	create_pipes(ex.nbr_pipes, children, data);
-	while (data)
-	{
-		create_fork(ex.nbr_pipes, children, data, ex.count);
-		if (children[ex.count].pid == 0)
-		{
-			do_dup(children, ex.count, ex.nbr_pipes, data);
-			ft_handle_red_pipes(data, *my_env);
-			ex.i = ft_handle_exec(data, *my_env, ex.nbr_pipes);
-		}
-		data = data->next;
-		ex.count++;
-	}
-	ft_close_pipes(temp->cmd[0], children, ex.nbr_pipes);
-	return(check_return(ex, temp, children));
-}
 
 // int exec_testes(t_dados *data, t_env **my_env)
 // {
