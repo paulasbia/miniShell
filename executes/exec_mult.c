@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/10 12:05:30 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/10 12:25:59 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	init_ex(t_exec *ex, t_dados *data)
 
 int	check_return(t_exec ex, t_dados *temp, t_child *children)
 {
+	(void)temp;
 	if (ex.nbr_pipes > 0)
 		return (wait_for_children(children, ex.nbr_pipes + 1));
 	else
@@ -112,6 +113,14 @@ int	check_return(t_exec ex, t_dados *temp, t_child *children)
 		free(children);
 		return (ex.i);
 	}
+}
+
+void	exec_cmd_pipes(t_child *children, t_exec ex, t_dados *data,
+		t_env **my_env)
+{
+	do_dup(children, ex.count, ex.nbr_pipes, data);
+	ft_handle_red_pipes(data, *my_env);
+	ex.i = ft_handle_exec(data, *my_env, ex.nbr_pipes);
 }
 
 int	start_execution(t_dados *data, t_env **my_env)
@@ -124,7 +133,7 @@ int	start_execution(t_dados *data, t_env **my_env)
 	children = ft_alloc(data);
 	temp = data;
 	create_pipes(ex.nbr_pipes, children, data);
-	if(ex.nbr_pipes == 0)
+	if (ex.nbr_pipes == 0)
 		ex.i = ft_one_cmd(data, my_env);
 	else
 	{
@@ -133,9 +142,7 @@ int	start_execution(t_dados *data, t_env **my_env)
 			create_fork(ex.nbr_pipes, children, data, ex.count);
 			if (children[ex.count].pid == 0)
 			{
-				do_dup(children, ex.count, ex.nbr_pipes, data);
-				ft_handle_red_pipes(data, *my_env);
-				ex.i = ft_handle_exec(data, *my_env, ex.nbr_pipes);
+				exec_cmd_pipes(children, ex, data, my_env);
 			}
 			data = data->next;
 			ex.count++;
