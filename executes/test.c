@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/10 10:14:13 by paula             #+#    #+#             */
+/*   Updated: 2024/02/10 10:15:14 by paula            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	data_counter(t_dados *temp)
@@ -5,18 +17,17 @@ int	data_counter(t_dados *temp)
 	int	i;
 
 	i = 0;
-	while (temp) 
+	while (temp)
 	{
 		i++;
 		temp = temp->next;
 	}
-	return(i);
-
+	return (i);
 }
 
 void	ft_close_pipes(char *cmd, t_child *children, int nbr_pipes)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < nbr_pipes)
@@ -29,12 +40,12 @@ void	ft_close_pipes(char *cmd, t_child *children, int nbr_pipes)
 	}
 }
 
-int	exec_testes(t_dados *data, t_env **my_env)
+int	start_execution(t_dados *data, t_env **my_env)
 {
 	t_child	*children;
-	int	nbr_pipes;
-	int	i;
-	int	count;
+	int		nbr_pipes;
+	int		i;
+	int		count;
 	t_dados	*temp;
 
 	nbr_pipes = data_counter(data) - 1;
@@ -54,18 +65,18 @@ int	exec_testes(t_dados *data, t_env **my_env)
 			children[count].pid = fork();
 		else
 		{
-		//	printf("vai zerar o pid\n");
+			//	printf("vai zerar o pid\n");
 			children[count].pid = 0;
 		}
 		ft_def_signal(children[count].pid);
 		if (children[count].pid < 0)
 			ft_child_err("fork", data->cmd[0]);
-		if (children[count].pid == 0) //filho
+		if (children[count].pid == 0) // filho
 		{
-		//	printf("count eh %d e cmd eh %s\n", count, data->cmd[0]);
-			if (count != 0) 
+			//	printf("count eh %d e cmd eh %s\n", count, data->cmd[0]);
+			if (count != 0)
 				dup2(children[count - 1].pfd[READ_END], STDIN_FILENO);
-			if (count != nbr_pipes) 
+			if (count != nbr_pipes)
 				dup2(children[count].pfd[WRITE_END], STDOUT_FILENO);
 			ft_close_pipes(data->cmd[0], children, nbr_pipes);
 			ft_handle_red_pipes(data, *my_env);
@@ -76,14 +87,12 @@ int	exec_testes(t_dados *data, t_env **my_env)
 	}
 	ft_close_pipes(temp->cmd[0], children, nbr_pipes);
 	if (nbr_pipes > 0 || !ft_cmd_builtin(temp))
-		return(wait_for_children(children, nbr_pipes + 1));
+		return (wait_for_children(children, nbr_pipes + 1));
 	else
 		return (i);
 }
 
-
-
-// int exec_testes(t_dados *data, t_env **my_env) 
+// int exec_testes(t_dados *data, t_env **my_env)
 // {
 // 	t_dados *temp;
 // 	int		nbr_pipes;
@@ -95,7 +104,7 @@ int	exec_testes(t_dados *data, t_env **my_env)
 // 	(void)my_env;
 // 	auto int pipes_fd[nbr_pipes][2];
 // 	x = 0;
-// 	while (x < nbr_pipes) 
+// 	while (x < nbr_pipes)
 // 	{
 // 		if (pipe(pipes_fd[x]) == -1)
 // 			ft_child_err("pipe", temp->comando[0]);
@@ -103,7 +112,7 @@ int	exec_testes(t_dados *data, t_env **my_env)
 // 	}
 // 	auto int count = 0;
 // 	auto int j = 0;
-// 	while (temp && count < nbr_pipes) 
+// 	while (temp && count < nbr_pipes)
 // 	{
 // 		child_pid = fork();
 // 		ft_def_signal(child_pid);
@@ -121,7 +130,7 @@ int	exec_testes(t_dados *data, t_env **my_env)
 // 				close(pipes_fd[count][OUT]);
 // 			}
 // 			// Close all pipe file descriptors in the child process
-// 			while (j < nbr_pipes) 
+// 			while (j < nbr_pipes)
 // 			{
 // 				close(pipes_fd[j][IN]);
 // 				close(pipes_fd[j][OUT]);
