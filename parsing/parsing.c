@@ -6,80 +6,13 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/05 20:19:09 by ricardo          ###   ########.fr       */
-=======
-/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
->>>>>>> f667816e2593fb8d061182e1f549c6b5f858f640
+/*   Updated: 2024/02/12 11:01:49 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-<<<<<<< HEAD
-int	redirection(char *red)
-{
-	if (ft_strncmp("<<", red, 2) == 0)
-		return (2);
-	else if (ft_strncmp(">>", red, 2) == 0)
-		return (3);
-	else if (ft_strncmp(">", red, 1) == 0)
-		return (0);
-	else if (ft_strncmp("<", red, 1) == 0)
-		return (1);
-	else
-		return (-1);
-}
-
-void	ms_lstadd_back(t_dados **lst, t_dados *node)
-{
-	t_dados	*temp;
-
-	temp = *lst;
-	if (*lst == NULL)
-		*lst = node;
-	else
-	{
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = node;
-	}
-}
-
-// void	print_list(t_dados *lst)
-// {
-// 	int		i;
-// 	int		j;
-// 	t_dados	*temp;
-
-// 	i = 0;
-// 	j = 0;
-// 	temp = lst;
-// 	while (temp != NULL)
-// 	{
-// 		printf("redireçao:\n");
-// 		i = 0;
-// 		while (i < temp->nbr_redirections)
-// 		{
-// 			printf("%s\n", temp->redirect[i].filename);
-// 			printf("%d\n", temp->redirect[i].redirect_type);
-// 			i++;
-// 		}
-// 		j = 0;
-// 		printf("comandos:\n");
-// 		while (temp->comando[j] != NULL)
-// 		{
-// 			printf("%s\n", temp->comando[j]);
-// 			j++;
-// 		}
-// 		temp = temp->next;
-// 	}
-// }
-
-t_dados	*ft_lstnew_p(int n_reds, int n_cmd, char **split_cmd, int x)
-=======
 t_dados	*alloc_nodes(int n_reds, int n_cmd)
->>>>>>> f667816e2593fb8d061182e1f549c6b5f858f640
 {
 	t_dados	*node;
 
