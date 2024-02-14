@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/10 12:25:59 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/14 09:01:39 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,6 @@ int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes)
 // 	}
 // 	return (i);
 // }
-
-void	init_ex(t_exec *ex, t_dados *data)
-{
-	int	j;
-
-	j = 0;
-	while (data)
-	{
-		j++;
-		data = data->next;
-	}
-	ex->count = 0;
-	ex->i = 0;
-	ex->nbr_pipes = j - 1;
-}
 
 int	check_return(t_exec ex, t_dados *temp, t_child *children)
 {

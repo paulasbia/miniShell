@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/10 11:31:04 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/14 09:02:26 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int					ft_one_cmd(t_dados *data, t_env **my_env);
 int					ft_execute_child(t_dados *data, t_env *my_env);
 int					ft_execute_builtin(t_dados *data, t_env **minienv);
 int					ft_exec_child_process(t_dados *data, t_env *my_env);
+void				init_ex(t_exec *ex, t_dados *data);
 int					ft_execute_multiple_cmd(t_dados *data, t_env *my_env);
 
 // wait
