@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 22:51:02 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/16 17:29:58 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/16 18:03:25 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	command_expansion_filename(t_redirect *red, t_env *tmp_l_env,
 				continue ;
 			if (handle_file(&j, red, tmp_l_env) == 1)
 				break ;
+			}
 		}
 		if (red->filename[j] != '\0')
 			j++;
