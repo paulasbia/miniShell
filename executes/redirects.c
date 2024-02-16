@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/02/06 15:46:15 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/10 11:29:40 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ int	redirect_output(t_redirect *red)
 		return (0);
 	}
 	else
-	{
 		dup2(fd, STDOUT_FILENO);
-		close(fd);
-	}
 	return (1);
 }
 
