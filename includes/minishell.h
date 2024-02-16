@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/14 09:02:26 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/16 17:22:32 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,12 +151,13 @@ void				ft_free_args(char **args);
 void				ft_clean(char **to_clean);
 
 // error
-void				print_error_msg(char *command, char *msg);
+int					print_error_msg(char *command, char *msg);
 void				ft_print_error_var(char *command, char *var);
 void				ft_exit_with_error(char *command, char *msg, int error);
 int					ft_cd_err_msg(char *err_msg);
 void				ft_child_err(char *cmd, char *msg);
 void				ft_handle_errors(t_dados *data, char *path, char **envp);
 void				print_error_msg2(char *msg, char command);
+void				ft_handle_errors2(t_dados *data, char *file);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirects.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/02/10 11:29:40 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/16 17:28:59 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,28 +80,29 @@ int	handle_red_output(t_redirect *red, int saved_fd[2])
 // os dados necessarios para out e in - OK
 int	handle_redirects(t_dados *data, int saved_fd[2])
 {
-	int	number_red;
-	int	i;
+	t_int_parsing	n;
 
-	i = 0;
-	number_red = data->nbr_redirections;
+	n.i = 0;
+	n.nbr_reds = data->nbr_redirections;
 	saved_fd[0] = -1;
 	saved_fd[1] = -1;
-	while (number_red--)
+	while (n.nbr_reds--)
 	{
-		if (data->redirect[i].redirect_type == 0
-			|| data->redirect[i].redirect_type == 3)
+		n.x = data->redirect[n.i].redirect_type;
+		if (data->redirect[n.i].ambiguos == 1)
+			return (print_error_msg(data->redirect[n.i].filename,
+					"ambiguous redirect\n"));
+		if (n.x == 0 || n.x == 3)
 		{
-			if (!handle_red_output(&data->redirect[i], saved_fd))
+			if (!handle_red_output(&data->redirect[n.i], saved_fd))
 				return (0);
 		}
-		if (data->redirect[i].redirect_type == 1
-			|| data->redirect[i].redirect_type == 2)
+		if (n.x == 1 || n.x == 2)
 		{
-			if (!handle_red_intput(&data->redirect[i], saved_fd))
+			if (!handle_red_intput(&data->redirect[n.i], saved_fd))
 				return (0);
 		}
-		i++;
+		n.i++;
 	}
 	return (1);
 }

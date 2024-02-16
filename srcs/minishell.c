@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/02/10 11:28:05 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/16 12:51:45 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ char	*get_input(t_env **my_env)
 		add_history(input);
 	return (input);
 }
+
+// char	*get_input(t_env **my_env)
+// {
+// 	char	*input;
+
+// 	input = readline(ft_get_prompt());
+// 	if (!input)
+// 		(ft_exit(NULL, my_env));
+// 	if (input[0])
+// 		add_history(input);
+// 	return (input);
+// }
 
 // antes do exit_status receber qualquer coisa vamos chamar o parsing
 int	minishell(t_env *my_env, int exit_status)
