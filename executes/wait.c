@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 10:57:39 by paula             #+#    #+#             */
-/*   Updated: 2024/01/29 10:57:59 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/09 13:40:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ int	ft_wait_exit_status(int child_pid)
 	return (EXIT_FAILURE);
 }
 
-int	wait_for_children(int *children_pid)
+int	wait_for_children(t_child *children, int size_children)
 {
 	int	i;
 	int	exit_status;
 
 	i = 0;
 	exit_status = 0;
-	while (children_pid[i])
+	while (i < size_children)
 	{
-		exit_status = ft_wait_exit_status(children_pid[i]);
+		exit_status = ft_wait_exit_status(children[i].pid);
 		i++;
 	}
-	free(children_pid);
+	free(children);
 	return (exit_status);
 }
