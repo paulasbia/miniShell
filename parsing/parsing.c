@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:52:28 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/12 11:01:49 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/16 12:31:04 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ t_dados	*ft_lstnew_p(char **split_cmd, t_env *env, int exit, t_dados *node)
 		if (redirection(split_cmd[ip.i]) != -1)
 		{
 			node->redirect[ip.j].redirect_type = redirection(split_cmd[ip.i]);
-			node->redirect[ip.j++].filename = ft_strdup(split_cmd[ip.i + 1]);
+			node->redirect[ip.j].filename = ft_strdup(split_cmd[ip.i + 1]);
+			node->redirect[ip.j++].ambiguos = 0;
 			ip.nbr_reds++;
 			ip.i += 2;
 		}
