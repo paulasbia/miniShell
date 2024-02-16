@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/16 12:47:26 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/16 17:20:26 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 	i = 0;
 	while (number_red--)
 	{
+		if (data->redirect[i].ambiguos == 1)
+			ft_handle_errors2(data, data->redirect[i].filename);
 		if (data->redirect[i].redirect_type == 0
 			|| data->redirect[i].redirect_type == 3)
 		{

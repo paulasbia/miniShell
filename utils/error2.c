@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:48:59 by paula             #+#    #+#             */
-/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/16 17:19:54 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ void	ft_handle_errors(t_dados *data, char *path, char **envp)
 	if (path)
 		free(path);
 	exit(error);
+}
+
+void	ft_handle_errors2(t_dados *data, char *filename)
+{
+	print_error_msg(filename, "ambiguous redirect\n");
+	free_list(&data);
+	exit(EXIT_FAILURE);
 }
 
 void	print_error_msg2(char *msg, char command)

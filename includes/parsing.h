@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:34:54 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/16 12:48:24 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/16 17:56:21 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,7 @@ t_env					*search_env(char **command, t_env *tmp_env,
 							char *env_input);
 
 ////////////////// EXPAN FILENAME ////////////
-int	command_expansion_filename(t_redirect *red, t_env *tmp_l_env,
-		int exit_status);
-
+int						command_expansion_filename(t_redirect *red,
+							t_env *tmp_l_env, int exit_status);
 
 #endif

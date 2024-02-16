@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 22:51:02 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/16 12:49:06 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/16 17:29:58 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	change_wrong_env_filename(t_redirect *red, char *env_input, int j)
 		red->ambiguos = 1;
 	else
 		red->filename = change_exit(red->filename, "", (ft_strlen(env_input)
-				+ 1));
+					+ 1));
 	free(env_input);
 }
 
@@ -61,18 +61,13 @@ int	command_expansion_filename(t_redirect *red, t_env *tmp_l_env,
 		{
 			if (find_exception(red->filename, j) == 1)
 				break ;
-			j++;                            
-			while (red->filename[j] == '$') 
+			j++;
+			while (red->filename[j] == '$')
 				j++;
 			if (handle_exit_status(&red->filename, j, exit_status) == 1)
-				
 				continue ;
 			if (handle_file(&j, red, tmp_l_env) == 1)
-			{
-				if (red->ambiguos == 1)
-					ft_putstr_fd("ambiguos redirect\n", 2);
 				break ;
-			}
 		}
 		if (red->filename[j] != '\0')
 			j++;

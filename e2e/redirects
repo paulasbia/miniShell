@@ -73,3 +73,39 @@ ls >"./e2e/outfiles/outfile with spaces"
 ls >"./e2e/outfiles/outfile01" >./e2e/test_files/invalid_permission >"./e2e/outfiles/outfile02"
 ls >./e2e/test_files/invalid_permission >"./e2e/outfiles/outfile01" >./e2e/test_files/invalid_permission
 cat <"./e2e/test_files/infile" >"./e2e/outfiles/outfile01"
+ls >> "$tata"
+ls >> $tata 
+ls >> '$tata'
+ls > "$tata"
+ls > $tata 
+ls > '$tata'
+ls < "$tata"
+ls < $tata 
+ls < '$tata'
+ls >> "$USER"
+ls >> $USER 
+ls >> '$USER'
+ls > "$USER"
+ls > $USER 
+ls > '$USER'
+ls < "$USER"
+ls < $USER 
+ls < '$USER'
+ls >> "$tata" | sort 
+ls >> $tata  | sort 
+ls >> '$tata' | sort
+ls > "$tata" | sort
+ls > $tata  | sort
+ls > '$tata' | sort
+ls < "$tata" | sort
+ls < $tata  | sort
+ls < '$tata' | sort
+ls >> "$USER" | sort
+ls >> $USER  | sort
+ls >> '$USER' | sort
+ls > "$USER" | sort
+ls > $USER  | sort
+ls > '$USER' | sort
+ls < "$USER" | sort
+ls < $USER  | sort
+ls < '$USER' | sort

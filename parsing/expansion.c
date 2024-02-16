@@ -6,7 +6,7 @@
 /*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:35:21 by ricardo           #+#    #+#             */
-/*   Updated: 2024/02/16 12:49:19 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/16 17:29:21 by ricardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	expansion(t_dados *n, t_env *env, int exit_status)
 	while (i < n->nbr_redirections)
 	{
 		tmp_l_env = env;
-		if(n->redirect[i].redirect_type != 2)
+		if (n->redirect[i].redirect_type != 2)
 			command_expansion_filename(&n->redirect[i], tmp_l_env, exit_status);
 		i++;
 	}
