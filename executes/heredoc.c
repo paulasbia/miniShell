@@ -6,11 +6,20 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/19 10:03:30 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/19 14:45:38 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	g_sig;
+
+static void	handle_sig_hd(int s)
+{
+	(void)s;
+	g_sig = 1;
+	close(STDIN_FILENO);
+}
 
 void	define_heredoc_signals(int child_pid)
 {
@@ -20,7 +29,7 @@ void	define_heredoc_signals(int child_pid)
 	sa_sigint.sa_flags = 0;
 	sigemptyset(&sa_sigint.sa_mask);
 	if (child_pid == 0)
-		sa_sigint.sa_handler = SIG_DFL;
+		sa_sigint.sa_handler = &handle_sig_hd;
 	else
 		sa_sigint.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sa_sigint, NULL);
@@ -53,6 +62,7 @@ void	ft_read_heredoc(t_redirect *redirect)
 	char	*input_hd;
 	int		fd_hd;
 
+	g_sig = 0;
 	fd_hd = open("/tmp/heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	input_hd = readline("> ");
 	while (input_hd && !str_equal(input_hd, redirect->filename))
@@ -62,9 +72,9 @@ void	ft_read_heredoc(t_redirect *redirect)
 		free(input_hd);
 		input_hd = readline("> ");
 	}
-	if (!input_hd)
-		print_error_msg("warning: heredoc delimited by EOF. Wanted",
-			redirect->filename);
+	if (!input_hd && !g_sig)
+			print_error_msg("warning: heredoc delimited by EOF. Wanted",
+				redirect->filename);
 	free(input_hd);
 	close_all();
 	close(fd_hd);
