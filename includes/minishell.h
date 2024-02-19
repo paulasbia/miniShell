@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/19 08:58:52 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/19 09:10:15 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct s_exec
 }					t_exec;
 
 //preciso alocar cada uma em seu lugar devido
-int					data_counter(t_dados *temp);
 void				create_pipes(int nbr_pipes, t_child *children,
 						t_dados *data);
 void				check_child_pid(int child_pid, t_dados *data);
