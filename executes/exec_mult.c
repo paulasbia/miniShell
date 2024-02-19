@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_mult.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/16 17:20:26 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/19 08:59:23 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,13 @@ void	ft_handle_red_pipes(t_dados *data, t_env *my_env)
 	}
 }
 
-// void	ft_handle_pipe(t_dados *aux, t_dados *data, int back_out)
-// {
-// 	static int	pipe_fd[2];
-
-// 	if (aux != data)
-// 		redirect_fd(pipe_fd[READ_END], STDIN_FILENO);
-// 	if (aux->next)
-// 	{
-// 		if (pipe(pipe_fd) < 0)
-// 			ft_child_err("pipe", aux->cmd[0]);
-// 		redirect_fd(pipe_fd[WRITE_END], STDOUT_FILENO);
-// 	}
-// 	else
-// 		redirect_fd(back_out, STDOUT_FILENO);
-// }
-
 int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes)
 {
 	int	exit_status;
 
 	exit_status = 0;
 	if (!ft_cmd_builtin(aux))
-	{
 		ft_exec_child_process(aux, my_env);
-	}
 	else if (!nbr_pipes)
 		exit_status = ft_execute_builtin(aux, &my_env);
 	else
@@ -76,19 +58,6 @@ int	ft_handle_exec(t_dados *aux, t_env *my_env, int nbr_pipes)
 	}
 	return (exit_status);
 }
-
-// int	data_counter(t_dados *temp)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (temp)
-// 	{
-// 		i++;
-// 		temp = temp->next;
-// 	}
-// 	return (i);
-// }
 
 int	check_return(t_exec ex, t_dados *temp, t_child *children)
 {
@@ -128,9 +97,7 @@ int	start_execution(t_dados *data, t_env **my_env)
 		{
 			create_fork(ex.nbr_pipes, children, data, ex.count);
 			if (children[ex.count].pid == 0)
-			{
 				exec_cmd_pipes(children, ex, data, my_env);
-			}
 			data = data->next;
 			ex.count++;
 		}
@@ -138,31 +105,3 @@ int	start_execution(t_dados *data, t_env **my_env)
 	ft_close_pipes(temp->cmd[0], children, ex.nbr_pipes);
 	return (check_return(ex, temp, children));
 }
-
-// int	ft_execute_multiple_cmd(t_dados *data, t_env *my_env)
-// {
-// 	int		saved_fds[2];
-// 	pid_t	*children_pid;
-// 	int		i;
-// 	t_dados	*aux;
-
-// 	ft_save_fds(saved_fds);
-// 	children_pid = ft_alloc(data);
-// 	aux = data;
-// 	i = 0;
-// 	while (aux)
-// 	{
-// 		ft_handle_pipe(aux, data, saved_fds[OUT]);
-// 		children_pid[i] = fork();
-// 		check_child_pid(children_pid[i], aux);
-// 		ft_def_signal(children_pid[i]);
-// 		if (!children_pid[i++])
-// 		{
-// 			ft_handle_red_pipes(aux, my_env);
-// 			ft_handle_exec(aux, my_env);
-// 		}
-// 		aux = aux->next;
-// 	}
-// 	back_saved_fd(saved_fds);
-// 	return (wait_for_children(children_pid));
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/16 17:22:32 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/19 08:58:52 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ int					ft_execute_child(t_dados *data, t_env *my_env);
 int					ft_execute_builtin(t_dados *data, t_env **minienv);
 int					ft_exec_child_process(t_dados *data, t_env *my_env);
 void				init_ex(t_exec *ex, t_dados *data);
-int					ft_execute_multiple_cmd(t_dados *data, t_env *my_env);
 
 // wait
 int					wait_for_children(t_child *children, int size_children);
