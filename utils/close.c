@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:04:55 by paula             #+#    #+#             */
-/*   Updated: 2024/02/19 09:49:09 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/19 10:01:54 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,11 @@ void	close_extra_fds(void)
 		close(last_open_fd);
 		last_open_fd--;
 	}
+}
+
+void	close_all(void)
+{
+	close(STDOUT_FILENO);
+	close(STDIN_FILENO);
+	close(STDERR_FILENO);
 }

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/19 09:24:08 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/19 10:01:15 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ t_child				*ft_alloc(t_dados *data);
 int					ft_get_exit_status(int status);
 void				redirect_fd(int fd_for_red, int fd_local);
 void				ft_save_fds(int saved_fd[2]);
+void				close_all(void);
 void				close_extra_fds(void);
 void				ft_close_pipes(char *cmd, t_child *children, int nbr_pipes);
 
