@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 11:12:48 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 16:26:13 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 17:16:47 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_child_err(char *msg)
 {
 	ft_putstr_fd("minishell", 2);
 	ft_putstr_fd(": ", 2);
+	if (str_equal(msg, ""))
+		ft_putstr_fd(": ", 2);
 	perror(msg);
 }
 
