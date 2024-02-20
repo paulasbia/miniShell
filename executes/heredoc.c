@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 11:46:42 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 13:08:09 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void	define_heredoc_signals(int child_pid)
 	sa_sigint.sa_flags = 0;
 	sigemptyset(&sa_sigint.sa_mask);
 	if (child_pid == 0)
-	{
-		sa_sigint.sa_handler = &handle_sig_hd; // esse esta garantindo que fecha os fds qdo da CRTL + C
-		sa_sigint.sa_handler = SIG_DFL; // esse garante que qdo sai o exit code eh 130....
-	}
+		sa_sigint.sa_handler = &handle_sig_hd;
 	else
 		sa_sigint.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sa_sigint, NULL);
@@ -65,7 +62,6 @@ void	ft_read_heredoc(t_redirect *redirect)
 	char	*input_hd;
 	int		fd_hd;
 
-	g_sig = 0;
 	fd_hd = open("/tmp/heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	input_hd = readline("> ");
 	while (input_hd && !str_equal(input_hd, redirect->filename))
@@ -75,13 +71,16 @@ void	ft_read_heredoc(t_redirect *redirect)
 		free(input_hd);
 		input_hd = readline("> ");
 	}
-	if (!input_hd && !g_sig)
+	if (!input_hd && g_sig != 1)
 		print_error_msg("warning: heredoc delimited by EOF. Wanted",
 			redirect->filename);
 	free(input_hd);
 	close_all();
 	close(fd_hd);
-	exit(EXIT_SUCCESS);
+	if (g_sig == 1)
+		exit (130);
+	else
+		exit(EXIT_SUCCESS);
 }
 
 int	parse_heredoc(t_dados *dados)
@@ -103,7 +102,6 @@ int	parse_heredoc(t_dados *dados)
 		else
 		{
 			exit_code = ft_wait_exit_status(ph.child_pid);
-			printf("exit eh %d\n", exit_code);
 			free((ph.red_temp)->filename);
 			(ph.red_temp)->filename = ft_strdup("/tmp/heredoc");
 			ft_init_signal();

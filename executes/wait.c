@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 10:57:39 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 11:34:56 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 13:03:08 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	is_control_c(int status)
 {
-	//printf("sim\n");
 	return (WTERMSIG(status) == SIGINT);
 }
 
@@ -41,15 +40,9 @@ int	ft_wait_exit_status(int child_pid)
 	if (waitpid(child_pid, &status, 0) < 0)
 		print_error_msg("waitpid", ft_itoa(child_pid));
 	if (WIFSIGNALED(status))
-	{
-				//printf("aqui\n");
 		return (handle_sig_int(status, child_pid));
-	}
 	if (WIFEXITED(status))
-	{
-		//printf("..\n");
 		return (WEXITSTATUS(status));
-	}
 	return (EXIT_FAILURE);
 }
 
