@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 11:08:22 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:42:28 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	define_heredoc_signals(int child_pid)
 	sa_sigint.sa_flags = 0;
 	sigemptyset(&sa_sigint.sa_mask);
 	if (child_pid == 0)
-		sa_sigint.sa_handler = &handle_sig_hd;
+	{
+		sa_sigint.sa_handler = &handle_sig_hd; // esse esta garantindo que fecha os fds qdo da CRTL + C
+		sa_sigint.sa_handler = SIG_DFL; // esse garante que qdo sai o exit code eh 130....
+	}
 	else
 		sa_sigint.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sa_sigint, NULL);
@@ -81,9 +84,10 @@ void	ft_read_heredoc(t_redirect *redirect)
 	exit(EXIT_SUCCESS);
 }
 
-void	parse_heredoc(t_dados *dados)
+int	parse_heredoc(t_dados *dados)
 {
 	struct s_parse_heredoc	ph;
+	int						exit_code;
 
 	ph.i = 0;
 	ph.red_temp = check_heredoc(&dados, &(ph.i));
@@ -98,11 +102,14 @@ void	parse_heredoc(t_dados *dados)
 			ft_read_heredoc(ph.red_temp);
 		else
 		{
-			ft_wait_exit_status(ph.child_pid);
+			exit_code = ft_wait_exit_status(ph.child_pid);
+			printf("exit eh %d\n", exit_code);
 			free((ph.red_temp)->filename);
 			(ph.red_temp)->filename = ft_strdup("/tmp/heredoc");
 			ft_init_signal();
 			ph.red_temp = check_heredoc(&dados, &(ph.i));
 		}
 	}
+//	printf("exit eh %d\n", exit_code);
+	return (exit_code);
 }
