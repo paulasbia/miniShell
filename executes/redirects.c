@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 15:57:51 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 16:28:59 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	handle_redirects(t_dados *data, int saved_fd[2])
 		n.x = data->redirect[n.i].redirect_type;
 		if (data->redirect[n.i].ambiguos == 1)
 			return (print_error_msg(data->redirect[n.i].filename,
-					"ambiguous redirect\n"));
+					"ambiguous redirect"));
 		if (n.x == 0 || n.x == 3)
 		{
 			if (!handle_red_output(&data->redirect[n.i], saved_fd))
@@ -103,7 +103,7 @@ int	handle_redirects(t_dados *data, int saved_fd[2])
 			if (!handle_red_intput(&data->redirect[n.i], saved_fd))
 				return (0);
 		}
-		n.i++;
+		n.i++; 
 	}
 	return (1);
 }

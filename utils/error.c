@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 11:12:48 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 16:00:34 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 16:26:13 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	ft_child_err(char *msg)
 
 int	ft_cd_err_msg(char *err_msg)
 {
-	ft_putstr_fd("minishell: cd: `", 2);
+	ft_putstr_fd("minishell: cd: ", 2);
 	ft_putstr_fd(err_msg, 2);
-	ft_putstr_fd("': No such file or directory\n", 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 	return (1);
 }
 

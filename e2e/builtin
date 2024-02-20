@@ -40,6 +40,7 @@ unset SHELL
 cd $PWD
 cd $PWD hi 
 cd 123123
+cd hi hi hi
 exit 123
 exit 298
 exit +100
