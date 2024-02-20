@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 11:42:28 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:46:42 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,5 @@ int	parse_heredoc(t_dados *dados)
 			ph.red_temp = check_heredoc(&dados, &(ph.i));
 		}
 	}
-//	printf("exit eh %d\n", exit_code);
 	return (exit_code);
 }
