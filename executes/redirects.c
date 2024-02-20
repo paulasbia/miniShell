@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 16:28:59 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 16:48:27 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	handle_redirects(t_dados *data, int saved_fd[2])
 			if (!handle_red_intput(&data->redirect[n.i], saved_fd))
 				return (0);
 		}
-		n.i++; 
+		n.i++;
 	}
 	return (1);
 }
