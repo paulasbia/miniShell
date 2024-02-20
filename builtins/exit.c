@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:23:00 by paula             #+#    #+#             */
-/*   Updated: 2024/02/16 12:46:27 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/19 10:01:39 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	ft_exit(t_dados *data, t_env **my_env)
 	ft_putstr_fd("exit\n", 1);
 	if (!data || (!data->cmd[1] && data))
 	{
+		close_all();
 		free_list(&data);
 		exit(EXIT_SUCCESS);
 	}
@@ -94,5 +95,6 @@ int	ft_exit(t_dados *data, t_env **my_env)
 	else
 		exit_status = ft_strtoull(data->cmd[1]);
 	free_list(&data);
+	close_all();
 	exit(exit_status);
 }

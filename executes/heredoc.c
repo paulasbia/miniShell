@@ -6,11 +6,20 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/03 10:21:58 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 13:08:09 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	g_sig;
+
+static void	handle_sig_hd(int s)
+{
+	(void)s;
+	g_sig = 1;
+	close(STDIN_FILENO);
+}
 
 void	define_heredoc_signals(int child_pid)
 {
@@ -20,7 +29,7 @@ void	define_heredoc_signals(int child_pid)
 	sa_sigint.sa_flags = 0;
 	sigemptyset(&sa_sigint.sa_mask);
 	if (child_pid == 0)
-		sa_sigint.sa_handler = SIG_DFL;
+		sa_sigint.sa_handler = &handle_sig_hd;
 	else
 		sa_sigint.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sa_sigint, NULL);
@@ -62,17 +71,22 @@ void	ft_read_heredoc(t_redirect *redirect)
 		free(input_hd);
 		input_hd = readline("> ");
 	}
-	if (!input_hd)
+	if (!input_hd && g_sig != 1)
 		print_error_msg("warning: heredoc delimited by EOF. Wanted",
 			redirect->filename);
 	free(input_hd);
+	close_all();
 	close(fd_hd);
-	exit(EXIT_SUCCESS);
+	if (g_sig == 1)
+		exit (130);
+	else
+		exit(EXIT_SUCCESS);
 }
 
-void	parse_heredoc(t_dados *dados)
+int	parse_heredoc(t_dados *dados)
 {
 	struct s_parse_heredoc	ph;
+	int						exit_code;
 
 	ph.i = 0;
 	ph.red_temp = check_heredoc(&dados, &(ph.i));
@@ -87,11 +101,12 @@ void	parse_heredoc(t_dados *dados)
 			ft_read_heredoc(ph.red_temp);
 		else
 		{
-			ft_wait_exit_status(ph.child_pid);
+			exit_code = ft_wait_exit_status(ph.child_pid);
 			free((ph.red_temp)->filename);
 			(ph.red_temp)->filename = ft_strdup("/tmp/heredoc");
 			ft_init_signal();
 			ph.red_temp = check_heredoc(&dados, &(ph.i));
 		}
 	}
+	return (exit_code);
 }

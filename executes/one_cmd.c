@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   one_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/02/16 12:47:34 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/19 09:50:10 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	back_saved_fd(int saved_fd[2])
 	}
 }
 
-// verificar o retorno 0 ou 1;
 int	ft_execute_child(t_dados *data, t_env *my_env)
 {
 	pid_t	child_pid;
@@ -40,7 +39,6 @@ int	ft_execute_child(t_dados *data, t_env *my_env)
 	return (ft_wait_exit_status(child_pid));
 }
 
-// mudar a funcao free para o da Tais aqui
 int	ft_one_cmd(t_dados *data, t_env **my_env)
 {
 	int	exit_status;

@@ -8,14 +8,14 @@ MAIN		=		main.c
 ENV			=		checks.c minishell.c mini_env.c
 BUILTINS	=		pwd.c exit.c echo.c env.c utils.c unset.c export.c cd.c
 UTILS		=		init_signal.c prompt.c frees.c error.c env_utils.c env_utils_2.c error2.c exec_utils.c close.c exec_m_utils.c
-EXECUTES	=		one_cmd.c exec_builtin.c exec_child.c redirects.c exec_mult.c wait.c heredoc.c test.c
+EXECUTES	=		one_cmd.c exec_builtin.c exec_child.c redirects.c exec_mult.c wait.c heredoc.c
 UNIT		=		main_teste.c unity.c
 SRCS		=		$(MAIN) $(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(PARSING)
 SRCS_T		=		$(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(UNIT) $(PARSING)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 OBJS_T		=		$(addprefix objs/, $(SRCS_T:.c=.o))
-CFLAGS		=		-g3 -Wall -Wextra -Werror -fsanitize=address
+CFLAGS		=		-g3 -Wall -Wextra -Werror #-fsanitize=address
 RM			=		rm -f
 
 COLOUR_GREEN=\033[32m

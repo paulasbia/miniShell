@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/02/16 12:47:01 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/19 10:03:21 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ void	external_exit(t_dados *data, t_env *minienv, int exit_status)
 	rl_clear_history();
 	ft_free_env(&minienv);
 	free_list(&data);
-	close(STDOUT_FILENO);
-	close(STDIN_FILENO);
-	close(STDERR_FILENO);
+	close_all();
 	exit(exit_status);
 }
 
