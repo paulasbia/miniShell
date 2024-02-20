@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/02/19 09:02:03 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 15:57:51 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	redirect_output(t_redirect *red)
 	fd = open(red->filename, open_flags, 0644);
 	if (fd < 0)
 	{
-		ft_child_err("open", red->filename);
+		ft_child_err(red->filename);
 		return (0);
 	}
 	else
@@ -42,7 +42,7 @@ int	redirect_input(t_redirect *red)
 	fd = open(red->filename, O_RDONLY, 1);
 	if (fd < 0)
 	{
-		ft_child_err("open", red->filename);
+		ft_child_err(red->filename);
 		return (0);
 	}
 	else

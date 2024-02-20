@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:18:04 by paula             #+#    #+#             */
-/*   Updated: 2024/02/19 09:50:10 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 15:57:42 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_execute_child(t_dados *data, t_env *my_env)
 	child_pid = fork();
 	ft_def_signal(child_pid);
 	if (child_pid < 0)
-		ft_child_err("fork", data->cmd[0]);
+		ft_child_err(data->cmd[0]);
 	if (!child_pid)
 		ft_exec_child_process(data, my_env);
 	return (ft_wait_exit_status(child_pid));

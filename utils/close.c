@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:04:55 by paula             #+#    #+#             */
-/*   Updated: 2024/02/19 10:01:54 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 16:00:08 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	ft_close_pipes(char *cmd, t_child *children, int nbr_pipes)
 	while (i < nbr_pipes)
 	{
 		if (close(children[i].pfd[READ_END]) == -1)
-			ft_child_err(cmd, "close READ_END");
+			print_error_msg(cmd, "close READ_END");
 		if (close(children[i].pfd[WRITE_END]) == -1)
-			ft_child_err(cmd, "close WRITE_END");
+			print_error_msg(cmd, "close WRITE_END");
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 13:08:09 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 15:57:36 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	parse_heredoc(t_dados *dados)
 		ph.child_pid = fork();
 		define_heredoc_signals(ph.child_pid);
 		if (ph.child_pid < 0)
-			ft_child_err("fork - heredoc", (ph.red_temp)->filename);
+			ft_child_err((ph.red_temp)->filename);
 		else if (!ph.child_pid)
 			ft_read_heredoc(ph.red_temp);
 		else
