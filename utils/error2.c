@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:48:59 by paula             #+#    #+#             */
-/*   Updated: 2024/02/16 17:19:54 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/02/20 16:13:02 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_handle_errors(t_dados *data, char *path, char **envp)
 
 void	ft_handle_errors2(t_dados *data, char *filename)
 {
-	print_error_msg(filename, "ambiguous redirect\n");
+	print_error_msg(filename, "ambiguous redirect");
 	free_list(&data);
 	exit(EXIT_FAILURE);
 }
@@ -44,4 +44,13 @@ void	print_error_msg2(char *msg, char command)
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putchar_fd(command, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
+}
+
+int	print_error_msg3(char *command, char *msg)
+{
+	ft_putstr_fd(command, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(msg, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	return (0);
 }

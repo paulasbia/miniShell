@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/02/19 10:03:21 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 16:09:41 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ char	*ft_get_path(char *cmd, t_env *my_env)
 void	external_exit(t_dados *data, t_env *minienv, int exit_status)
 {
 	if (exit_status == NOT_EXECUTABLE)
-		print_error_msg(data->cmd[0], NOT_EXECUTABLE_MSG);
+		print_error_msg3(data->cmd[0], NOT_EXECUTABLE_MSG);
 	if (exit_status == CMD_NOT_FOUND)
-		print_error_msg(data->cmd[0], CMD_NOT_FOUND_MSG);
+		print_error_msg3(data->cmd[0], CMD_NOT_FOUND_MSG);
 	rl_clear_history();
 	ft_free_env(&minienv);
 	free_list(&data);

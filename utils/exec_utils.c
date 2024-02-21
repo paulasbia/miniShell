@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 09:06:44 by paula             #+#    #+#             */
-/*   Updated: 2024/02/19 09:40:57 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 15:58:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	create_pipes(int nbr_pipes, t_child *children, t_dados *data)
 	while (i < nbr_pipes)
 	{
 		if (pipe(children[i].pfd) < 0)
-			ft_child_err("pipe", data->cmd[0]);
+			ft_child_err(data->cmd[0]);
 		i++;
 	}
 }
@@ -46,7 +46,7 @@ void	create_pipes(int nbr_pipes, t_child *children, t_dados *data)
 void	check_child_pid(int child_pid, t_dados *data)
 {
 	if (child_pid < 0)
-		ft_child_err("fork", data->cmd[0]);
+		ft_child_err(data->cmd[0]);
 }
 
 void	create_fork(int nbr_pipes, t_child *children, t_dados *data, int count)

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:17:22 by paula             #+#    #+#             */
-/*   Updated: 2024/02/19 09:02:03 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/20 16:49:25 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	redirect_output(t_redirect *red)
 	fd = open(red->filename, open_flags, 0644);
 	if (fd < 0)
 	{
-		ft_child_err("open", red->filename);
+		ft_child_err(red->filename);
 		return (0);
 	}
 	else
@@ -42,7 +42,7 @@ int	redirect_input(t_redirect *red)
 	fd = open(red->filename, O_RDONLY, 1);
 	if (fd < 0)
 	{
-		ft_child_err("open", red->filename);
+		ft_child_err(red->filename);
 		return (0);
 	}
 	else
@@ -92,7 +92,7 @@ int	handle_redirects(t_dados *data, int saved_fd[2])
 		n.x = data->redirect[n.i].redirect_type;
 		if (data->redirect[n.i].ambiguos == 1)
 			return (print_error_msg(data->redirect[n.i].filename,
-					"ambiguous redirect\n"));
+					"ambiguous redirect"));
 		if (n.x == 0 || n.x == 3)
 		{
 			if (!handle_red_output(&data->redirect[n.i], saved_fd))
