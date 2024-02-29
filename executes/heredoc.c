@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/29 16:12:36 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/29 16:16:30 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_read_heredoc(t_redirect *redirect)
 	close_all();
 	close(fd_hd);
 	if (g_sig == 1)
-		exit (130);
+		exit(130);
 	else
 		exit(EXIT_SUCCESS);
 }
@@ -87,7 +87,7 @@ int	parse_heredoc(t_dados *dados)
 {
 	struct s_parse_heredoc	ph;
 	int						exit_code;
-	
+
 	exit_code = 0;
 	ph.i = 0;
 	ph.red_temp = check_heredoc(&dados, &(ph.i));
