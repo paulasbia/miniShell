@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 15:57:36 by paula            ###   ########.fr       */
+/*   Updated: 2024/02/29 16:12:36 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ int	parse_heredoc(t_dados *dados)
 {
 	struct s_parse_heredoc	ph;
 	int						exit_code;
-
+	
+	exit_code = 0;
 	ph.i = 0;
 	ph.red_temp = check_heredoc(&dados, &(ph.i));
 	while ((ph.red_temp))
