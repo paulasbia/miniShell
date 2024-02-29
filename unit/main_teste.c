@@ -117,7 +117,7 @@ static void	tests_ft_input_redirect(void)
 static void tests_return_code_error(void){
 
 	TEST_ASSERT_EQUAL(1, run_cmd((char *[]){"cd", "a", NULL}));
-	TEST_ASSERT_EQUAL(0, run_cmd((char *[]){"bash", "-c", "wc a", NULL}));
+	TEST_ASSERT_EQUAL(1, run_cmd((char *[]){"bash", "-c", "wc a", NULL}));
 
 }
 
