@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:43:52 by paula             #+#    #+#             */
-/*   Updated: 2024/02/19 10:03:41 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 16:52:49 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	start_execution(t_dados *data, t_env **my_env)
 	temp = data;
 	create_pipes(ex.nbr_pipes, children, data);
 	if (ex.nbr_pipes == 0)
-		ex.i = ft_one_cmd(data, my_env);
+		ex.i = ft_cmd_exit(children, data, my_env);
 	else
 	{
 		while (data)

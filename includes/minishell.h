@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/03/01 14:59:05 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 16:53:59 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void				exec_dad_heredoc(int *exit_code, struct s_parse_heredoc *ph,
 						t_dados *dados);
 t_redirect			*check_heredoc(t_dados **data, int *red_out);
 int					start_execution(t_dados *data, t_env **my_env);
+int					ft_cmd_exit(t_child *children, t_dados *data,
+						t_env **my_env);
 int					parse_heredoc(t_dados *dados, t_env *my_env);
 int					ft_one_cmd(t_dados *data, t_env **my_env);
 int					ft_execute_child(t_dados *data, t_env *my_env);
