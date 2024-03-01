@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/03/01 11:40:18 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 11:46:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	parse_heredoc(t_dados *dados)
 	exit_code = 0;
 	ph.i = 0;
 	ph.red_temp = check_heredoc(&dados, &(ph.i));
-	while ((ph.red_temp))
+	while ((ph.red_temp) && exit_code != 130)
 	{
 		ph.i++;
 		ph.child_pid = fork();
