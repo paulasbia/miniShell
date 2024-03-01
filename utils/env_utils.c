@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 17:26:21 by paula             #+#    #+#             */
-/*   Updated: 2024/01/30 09:37:14 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 12:21:27 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ t_env	*ft_seach_node(char *name, t_env *my_env)
 	while (aux)
 	{
 		if (!ft_strncmp(name, aux->key, ft_strlen(name)))
-		{
-			if (aux->key[ft_strlen(name)] == '=')
-				return (aux);
-		}
+			return (aux);
 		aux = aux->next;
 	}
 	return (NULL);

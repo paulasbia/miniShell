@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ricardo <ricardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:20:58 by paula             #+#    #+#             */
-/*   Updated: 2024/02/08 20:29:13 by ricardo          ###   ########.fr       */
+/*   Updated: 2024/03/01 12:16:59 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	ft_env_entry_exist(char *var, t_env *my_env)
 	while (aux)
 	{
 		if (!ft_strncmp(aux->key, var, ft_strlen(var)))
-		{
-			if (aux->key[ft_strlen(var)] == '=')
-				return (1);
-		}
+			return (1);
 		aux = aux->next;
 	}
 	return (0);
