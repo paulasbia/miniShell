@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 16:09:41 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 13:32:55 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,12 @@ int	ft_exec_child_process(t_dados *data, t_env *my_env)
 	char	*path;
 	char	**env_array;
 	char	*value;
+	char	*value_sh;
 
 	path = NULL;
 	ft_check_exit(data, my_env);
 	value = mini_value("PATH", my_env);
+	value_sh = NULL;
 	if (ft_strchr(data->cmd[0], '/') || !value)
 		path = ft_strdup(data->cmd[0]);
 	else if (data->cmd[0][0] != '\0')
@@ -95,6 +97,8 @@ int	ft_exec_child_process(t_dados *data, t_env *my_env)
 	if (path == NULL)
 		external_exit(data, my_env, CMD_NOT_FOUND);
 	rl_clear_history();
+	if (str_equal("./minishell", path))
+		ft_update_shlvl(value_sh, my_env);
 	env_array = myenv_to_array(my_env);
 	ft_free_env(&my_env);
 	if (execve(path, data->cmd, env_array))

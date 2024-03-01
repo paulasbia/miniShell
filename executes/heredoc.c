@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/03/01 11:46:50 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 17:07:13 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	handle_sig_hd(int s)
 	(void)s;
 	g_sig = 1;
 	close(STDIN_FILENO);
-	exit(130);
 }
 
 void	define_heredoc_signals(int child_pid)
@@ -58,13 +57,16 @@ t_redirect	*check_heredoc(t_dados **data, int *red_out)
 	return (NULL);
 }
 
-void	ft_read_heredoc(t_redirect *redirect)
+void	ft_read_heredoc(t_dados *dados, t_env *my_env, t_redirect *redirect,
+		int exit_status)
 {
 	char	*input_hd;
 	int		fd_hd;
 
 	fd_hd = open("/tmp/heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	input_hd = readline("> ");
+	if (input_hd)
+		command_expansion(dados, &input_hd, my_env, exit_status);
 	while (input_hd && !str_equal(input_hd, redirect->filename))
 	{
 		ft_putstr_fd(input_hd, fd_hd);
@@ -84,7 +86,7 @@ void	ft_read_heredoc(t_redirect *redirect)
 		exit(EXIT_SUCCESS);
 }
 
-int	parse_heredoc(t_dados *dados)
+int	parse_heredoc(t_dados *dados, t_env *my_env)
 {
 	struct s_parse_heredoc	ph;
 	int						exit_code;
@@ -103,7 +105,7 @@ int	parse_heredoc(t_dados *dados)
 		{
 			if (exit_code == 130)
 				return (exit_code);
-			ft_read_heredoc(ph.red_temp);
+			ft_read_heredoc(dados, my_env, ph.red_temp, exit_code);
 		}
 		else
 			exec_dad_heredoc(&exit_code, &ph, dados);

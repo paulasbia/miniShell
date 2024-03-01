@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:09:35 by paula             #+#    #+#             */
-/*   Updated: 2024/03/01 11:25:21 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 14:59:23 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	minishell(t_env *my_env, int exit_status)
 			dados = parsing(input, my_env, exit_status);
 			if (dados)
 			{
-				exit_status = parse_heredoc(dados);
+				exit_status = parse_heredoc(dados, my_env);
 				exit_status = ft_start(&exit_status, dados, &my_env);
 				free_list(&dados);
 			}
