@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/03/01 14:59:58 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 15:17:32 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	ft_read_heredoc(t_dados *dados, t_env *my_env, t_redirect *redirect,
 
 	fd_hd = open("/tmp/heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	input_hd = readline("> ");
-	command_expansion(dados, &input_hd, my_env, exit_status);
+	if (input_hd)
+		command_expansion(dados, &input_hd, my_env, exit_status);
 	while (input_hd && !str_equal(input_hd, redirect->filename))
 	{
 		ft_putstr_fd(input_hd, fd_hd);
