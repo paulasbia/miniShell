@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/03/01 11:39:01 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 13:30:59 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void				create_fork(int nbr_pipes, t_child *children, t_dados *data,
 void				do_dup(t_child *children, int count, int nbr_pipes,
 						t_dados *data);
 void				exit_child(t_dados *data, t_env *my_env);
+void				ft_update_shlvl(char *value_sh, t_env *my_env);
 t_child				*ft_alloc(t_dados *data);
 int					ft_get_exit_status(int status);
 void				redirect_fd(int fd_for_red, int fd_local);

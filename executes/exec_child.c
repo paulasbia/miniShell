@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:53:23 by paula             #+#    #+#             */
-/*   Updated: 2024/03/01 13:24:08 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 13:32:55 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	ft_exec_child_process(t_dados *data, t_env *my_env)
 	char	**env_array;
 	char	*value;
 	char	*value_sh;
-	int		new_value;
 
 	path = NULL;
 	ft_check_exit(data, my_env);
@@ -99,15 +98,9 @@ int	ft_exec_child_process(t_dados *data, t_env *my_env)
 		external_exit(data, my_env, CMD_NOT_FOUND);
 	rl_clear_history();
 	if (str_equal("./minishell", path))
-	{
-		value_sh = mini_value("SHLVL", my_env);
-		new_value = ft_atoi(value_sh);
-		new_value++;
-		ft_update_envlist("SHLVL", ft_itoa(new_value), my_env);
-	}
+		ft_update_shlvl(value_sh, my_env);
 	env_array = myenv_to_array(my_env);
 	ft_free_env(&my_env);
-	fprintf(stderr, "path %s data cmd %s/n", path, data->cmd[0]);
 	if (execve(path, data->cmd, env_array))
 		ft_handle_errors(data, path, env_array);
 	exit(EXIT_SUCCESS);
