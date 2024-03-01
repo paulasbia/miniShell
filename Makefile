@@ -15,7 +15,7 @@ SRCS_T		=		$(ENV) $(BUILTINS) $(UTILS) $(EXECUTES) $(UNIT) $(PARSING)
 
 OBJS 		=		$(addprefix objs/, $(SRCS:.c=.o))
 OBJS_T		=		$(addprefix objs/, $(SRCS_T:.c=.o))
-CFLAGS		=		-g3 -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS		=		-g3 -Wall -Wextra -Werror -fsanitize=address
 RM			=		rm -f
 
 COLOUR_GREEN=\033[32m

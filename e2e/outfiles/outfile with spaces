@@ -1,8 +1,5 @@
-$tata
-$USER
 actual2.txt
 actual.txt
-archive.tar.gz
 bash_outfiles
 builtins
 combined_file.txt
@@ -24,7 +21,6 @@ outfile
 outfiles
 output.txt
 parsing
-paula
 README.md
 srcs
 subject_mini_shell.pdf
