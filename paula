@@ -10,7 +10,6 @@ e2e
 executes
 expected2.txt
 expected.txt
-foo
 includes
 libft
 Makefile
@@ -26,7 +25,6 @@ outfiles
 output.txt
 parsing
 paula
-readline.supp
 README.md
 srcs
 subject_mini_shell.pdf

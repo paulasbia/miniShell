@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/03/01 15:17:32 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 17:07:13 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	handle_sig_hd(int s)
 	(void)s;
 	g_sig = 1;
 	close(STDIN_FILENO);
-	exit(130);
 }
 
 void	define_heredoc_signals(int child_pid)
