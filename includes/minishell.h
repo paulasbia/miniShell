@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:26:33 by paula             #+#    #+#             */
-/*   Updated: 2024/02/20 16:08:01 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 11:39:01 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ void				ft_close_pipes(char *cmd, t_child *children, int nbr_pipes);
 
 // EXECUTES
 int					minishell(t_env *my_env, int exit_status);
+void				exec_dad_heredoc(int *exit_code, struct s_parse_heredoc *ph,
+						t_dados *dados);
+t_redirect			*check_heredoc(t_dados **data, int *red_out);
 int					start_execution(t_dados *data, t_env **my_env);
 int					parse_heredoc(t_dados *dados);
 int					ft_one_cmd(t_dados *data, t_env **my_env);
