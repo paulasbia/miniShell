@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/02/29 16:16:30 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 11:46:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	handle_sig_hd(int s)
 	(void)s;
 	g_sig = 1;
 	close(STDIN_FILENO);
+	exit(130);
 }
 
 void	define_heredoc_signals(int child_pid)
@@ -91,7 +92,7 @@ int	parse_heredoc(t_dados *dados)
 	exit_code = 0;
 	ph.i = 0;
 	ph.red_temp = check_heredoc(&dados, &(ph.i));
-	while ((ph.red_temp))
+	while ((ph.red_temp) && exit_code != 130)
 	{
 		ph.i++;
 		ph.child_pid = fork();
@@ -99,15 +100,13 @@ int	parse_heredoc(t_dados *dados)
 		if (ph.child_pid < 0)
 			ft_child_err((ph.red_temp)->filename);
 		else if (!ph.child_pid)
-			ft_read_heredoc(ph.red_temp);
-		else
 		{
-			exit_code = ft_wait_exit_status(ph.child_pid);
-			free((ph.red_temp)->filename);
-			(ph.red_temp)->filename = ft_strdup("/tmp/heredoc");
-			ft_init_signal();
-			ph.red_temp = check_heredoc(&dados, &(ph.i));
+			if (exit_code == 130)
+				return (exit_code);
+			ft_read_heredoc(ph.red_temp);
 		}
+		else
+			exec_dad_heredoc(&exit_code, &ph, dados);
 	}
 	return (exit_code);
 }

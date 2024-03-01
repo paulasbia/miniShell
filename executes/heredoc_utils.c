@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 14:32:18 by paula             #+#    #+#             */
-/*   Updated: 2024/03/01 11:16:27 by paula            ###   ########.fr       */
+/*   Created: 2024/03/01 11:31:44 by paula             #+#    #+#             */
+/*   Updated: 2024/03/01 11:50:06 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_pwd(void)
+void	exec_dad_heredoc(int *exit_code, struct s_parse_heredoc *ph,
+		t_dados *dados)
 {
-	char	cwd[PATH_MAX];
-
-	ft_bzero(cwd, PATH_MAX);
-	getcwd(cwd, PATH_MAX);
-	ft_putstr_fd(cwd, STDOUT_FILENO);
-	ft_putstr_fd("\n", STDOUT_FILENO);
-	return (0);
+	*exit_code = ft_wait_exit_status(ph->child_pid);
+	free((ph->red_temp)->filename);
+	(ph->red_temp)->filename = ft_strdup("/tmp/heredoc");
+	ft_init_signal();
+	ph->red_temp = check_heredoc(&dados, &(ph->i));
 }
