@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:42:53 by paula             #+#    #+#             */
-/*   Updated: 2024/03/01 17:07:13 by paula            ###   ########.fr       */
+/*   Updated: 2024/03/01 18:17:05 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	parse_heredoc(t_dados *dados, t_env *my_env)
 			ft_read_heredoc(dados, my_env, ph.red_temp, exit_code);
 		}
 		else
-			exec_dad_heredoc(&exit_code, &ph, dados);
+			exec_dad_heredoc(&exit_code, &ph, &dados);
 	}
 	return (exit_code);
 }
