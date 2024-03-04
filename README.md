@@ -18,6 +18,70 @@ Refer to the [**subject of this project**](https://github.com/paulasbia/miniShel
 
 Minishell is a 42 school team project to create a basic shell program in C. It implements redirections and pipes, as well as environment variable expansions and the cd, echo, env, exit, export, pwd and unset builtin commands.
 
+## 📑 Index
+
+`@root`
+
+* [**📁 includes:**](includes/) contains the program's headers.
+* [**📁 libft:**](libft/) contains the source code of the `libft` library, which is used in the program.
+* [**📁 srcs:**](srcs/) contains the source code of the program.
+* [**📁 executes:**](executes/) contains the executes code of the program.
+* [**📁 parsing:**](parsing/) contains the parsing code of the program.
+* [**📁 builtins:**](builtins/) contains the builtins code of the program.
+* [**📁 utils:**](utils/) contains the utils code of the program.
+* [**Makefile**](Makefile) - contains instructions for compiling the program and testing it.
+* [**📁 tests e2e:**](e2e/) contains the e2e tests code of the program.
+* [**📁 unit test:**](unit/) contains the unit tests code of the program.
+
+### Requirements
+
+The program is written in C language for **Linux** distributions and thus needs the **`clang` compiler** and some standard **C libraries** to run.
+
+### Instructions
+
+**Compiling the program**
+
+To compile the program, run:
+
+```shell
+$ make
+```
+![image](https://github.com/paulasbia/miniShell/assets/112953928/0a03f3f4-a9e1-45e7-a731-5975869f35d2)
+
+**Executing the program**
+
+Run:
+
+```shell
+$ ./minishell
+```
+### Some commands to try:
+
+As this project is made to mimic bash, you can try any commands you normally would try in bash.
+
+If you really can't think of anything try some of the following.  You do have to enter each line separately as the program doesn't handle new lines.
+```
+ls -la | grep a | tr 'a-z' 'A-Z'
+```
+
+```
+cat << EOF > file
+cat file
+rm file
+```
+
+```
+ls | rev > file
+cat file
+rev file | cat
+rm file
+```
+
+*to exit the program:*
+```
+exit
+```
+
 ## Study references
 [mini bash Medium](https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218)
 [Precedence climbing](https://eli.thegreenplace.net/2012/08/02/parsing-expressions-by-precedence-climbing)
